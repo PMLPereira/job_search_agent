@@ -1,0 +1,37 @@
+name: Daily Job Scan
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run job scanner
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/scan.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "job-bot"
+          git config user.email "job-bot@noreply"
+          git add docs/data.json docs/index.html
+          git diff --staged --quiet || git commit -m "Daily scan $(date +'%Y-%m-%d')"
+          git push
