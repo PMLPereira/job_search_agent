@@ -31,18 +31,18 @@ Available: mid-2027 (relocating from London)
 """
 
 COMPANIES = [
-    {"name":"BTG Pactual",       "tier":1,"sector":"Investment Banking",  "color":"#4ecba0","careers_url":"https://btgpactual.gupy.io/",          "scrape_type":"gupy","gupy_company":"btgpactual",       "why":"Fastest growing IB in Brazil. Hire international profiles aggressively.","interview":"Case study + behavioural. Strong emphasis on delivery metrics and stakeholder management."},
-    {"name":"XP Investimentos",  "tier":1,"sector":"Financial Services",  "color":"#60b4f0","careers_url":"https://xpi.gupy.io/",                  "scrape_type":"gupy","gupy_company":"xpi",              "why":"Tech-forward platform growing institutional markets.","interview":"Technical screen + culture fit. Values autonomy and data-driven decisions."},
+    {"name":"BTG Pactual",       "tier":1,"sector":"Investment Banking",  "color":"#4ecba0","careers_url":"https://carreiras.btgpactual.com/vagas","scrape_type":"btg",                                   "why":"Fastest growing IB in Brazil. Hire international profiles aggressively.","interview":"Case study + behavioural. Strong emphasis on delivery metrics and stakeholder management."},
+    {"name":"XP Investimentos",  "tier":1,"sector":"Financial Services",  "color":"#60b4f0","careers_url":"https://boards.greenhouse.io/xpinc",    "scrape_type":"greenhouse",                             "why":"Tech-forward platform growing institutional markets.","interview":"Technical screen + culture fit. Values autonomy and data-driven decisions."},
     {"name":"Nubank",            "tier":1,"sector":"Fintech",             "color":"#c060f0","careers_url":"https://boards.greenhouse.io/nubank",    "scrape_type":"greenhouse",                             "why":"Building institutional/B2B products. Capital markets background rare here.","interview":"4-stage process: recruiter, hiring manager, case study, exec. Very structured."},
     {"name":"Itaú BBA",          "tier":1,"sector":"Investment Banking",  "color":"#f0a060","careers_url":"https://vemproitau.gupy.io/",            "scrape_type":"gupy","gupy_company":"vemproitau",       "why":"Your BofA regulatory work maps directly to their transformation agenda.","interview":"Competency-based. Focus on regulatory knowledge and large program delivery."},
     {"name":"Pátria Investimentos","tier":1,"sector":"Alternative Assets","color":"#e8a030","careers_url":"https://patriainvestimentos.gupy.io/",   "scrape_type":"gupy","gupy_company":"patriainvestimentos","why":"Growing fast into infrastructure/PE. Technology ops transformation needed.","interview":"Two rounds: technical + partner. Boutique feel, relationship-driven."},
     {"name":"Vinci Partners",    "tier":1,"sector":"Asset Management",    "color":"#a0d0ff","careers_url":"https://vincipartners.gupy.io/",         "scrape_type":"gupy","gupy_company":"vincipartners",    "why":"Nasdaq-listed. Scaling tech as AUM grows. Strong fit for your profile.","interview":"Lean process. Direct access to senior leadership early."},
     {"name":"Kinea Investimentos","tier":2,"sector":"Alternative Assets", "color":"#80c0e0","careers_url":"https://kinea.gupy.io/",                   "scrape_type":"gupy","gupy_company":"kinea",            "why":"Itaú group alt asset manager. Significant tech investment underway.","interview":"Formal. Multi-round. Similar to Itaú process."},
-    {"name":"Bradesco BBI",      "tier":2,"sector":"Investment Banking",  "color":"#f06080","careers_url":"https://boards.greenhouse.io/bradescobbi","scrape_type":"greenhouse",                           "why":"Traditional bank modernising. Capco consulting background fits perfectly.","interview":"HR screen + technical + senior leadership. Traditional bank process."},
-    {"name":"Santander Brasil",  "tier":2,"sector":"Banking",            "color":"#ff8060","careers_url":"https://boards.greenhouse.io/santanderbr","scrape_type":"greenhouse",                            "why":"Large operation, active technology transformation. Regulatory profile fits.","interview":"Structured HR process. Focus on leadership competencies."},
+    {"name":"Bradesco BBI",      "tier":2,"sector":"Investment Banking",  "color":"#f06080","careers_url":"https://banco.bradesco/trabalheconosco/","scrape_type":"apify","apify_org":"BANCO BRADESCO SA","apify_domain":"banco.bradesco",                "why":"Traditional bank modernising. Capco consulting background fits perfectly.","interview":"HR screen + technical + senior leadership. Traditional bank process."},
+    {"name":"Santander Brasil",  "tier":2,"sector":"Banking",            "color":"#ff8060","careers_url":"https://santander.wd3.myworkdayjobs.com/pt-BR/SantanderCareers","scrape_type":"apify","apify_org":"Santander","apify_ats":["workday"],"apify_domain":"santanderbank.com", "why":"Large operation, active technology transformation. Regulatory profile fits.","interview":"Structured HR process. Focus on leadership competencies."},
     {"name":"Stone / StoneCo",   "tier":2,"sector":"Fintech/Payments",   "color":"#60d0a0","careers_url":"https://boards.greenhouse.io/stone",     "scrape_type":"greenhouse",                             "why":"Serious technology scale. International profile welcome.","interview":"Fast-paced. Case study heavy. Values execution speed."},
-    {"name":"Warren Investimentos","tier":2,"sector":"Fintech",          "color":"#d0a060","careers_url":"https://boards.greenhouse.io/warren",     "scrape_type":"greenhouse",                             "why":"Tech-first investment platform scaling rapidly.","interview":"Startup culture. Values builder mindset and ownership."},
-    {"name":"Avenue Securities", "tier":2,"sector":"Brokerage",          "color":"#c0a0ff","careers_url":"https://boards.greenhouse.io/avenuesecurities","scrape_type":"greenhouse",                       "why":"Brazilian-American brokerage. Bilingual + capital markets = perfect fit.","interview":"Relaxed culture. Values bilingual profiles strongly."},
+    {"name":"Warren Investimentos","tier":2,"sector":"Fintech",          "color":"#d0a060","careers_url":"https://warrenbrasil.gupy.io/",          "scrape_type":"gupy","gupy_company":"warrenbrasil",     "why":"Tech-first investment platform scaling rapidly.","interview":"Startup culture. Values builder mindset and ownership."},
+    {"name":"Avenue Securities", "tier":2,"sector":"Brokerage",          "color":"#c0a0ff","careers_url":"https://avenue.gupy.io/",                  "scrape_type":"gupy","gupy_company":"avenue",           "why":"Brazilian-American brokerage. Bilingual + capital markets = perfect fit.","interview":"Relaxed culture. Values bilingual profiles strongly."},
     {"name":"Oliver Wyman SP",   "tier":2,"sector":"Consulting",         "color":"#e0e060","careers_url":"https://boards.greenhouse.io/oliverwyman","scrape_type":"greenhouse",                            "why":"Capco pedigree transfers directly. Financial services practice very active.","interview":"Case study mandatory. McKinsey-style structured interviews."},
 ]
 
@@ -137,6 +137,108 @@ def scrape_greenhouse(company):
         return results
     except Exception as e:
         print(f"  Greenhouse error {company['name']}: {e}"); return []
+
+
+def scrape_apify_batch(companies):
+    """Fantastic Jobs API — covers Workday, CSOD/Cornerstone, and 52 other ATS platforms. Free tier."""
+    api_key = os.environ.get("APIFY_API_KEY", "")
+    if not api_key:
+        print("  APIFY_API_KEY not set — skipping Apify companies (Bradesco, Santander)")
+        return {}
+
+    # Build per-company org/ats params then merge into one request
+    org_names, ats_filters = [], []
+    for c in companies:
+        org_names.append(c.get("apify_org", c["name"]))
+        ats_filters.extend(c.get("apify_ats", []))
+
+    payload = {
+        "timeRange": "7d",
+        "limit": 100,
+        "organizationSearch": org_names,
+        "locationSearch": ["São Paulo, São Paulo, Brazil"],
+        "includeAi": False,
+        "descriptionType": "text",
+    }
+    if ats_filters:
+        payload["ats"] = list(set(ats_filters))
+
+    url = ("https://api.apify.com/v2/acts/fantastic-jobs~career-site-job-listing-api"
+           "/run-sync-get-dataset-items")
+    try:
+        r = requests.post(url, json=payload, params={"token": api_key}, timeout=300)
+        if r.status_code != 200:
+            print(f"  Apify error: HTTP {r.status_code} — {r.text[:200]}")
+            return {}
+        items = r.json()
+        results = {c["name"]: [] for c in companies}
+        for item in items:
+            org    = (item.get("organization") or "").upper()
+            domain = (item.get("domain_derived") or "")
+            title  = item.get("title", "")
+            desc   = item.get("description_text", "") or ""
+            if not is_relevant(title + " " + desc):
+                continue
+            loc = ""
+            derived = item.get("locations_derived", [])
+            if derived:
+                loc = derived[0]
+            for c in companies:
+                apify_org    = c.get("apify_org", c["name"]).upper()
+                apify_domain = c.get("apify_domain", "")
+                if apify_org in org or (apify_domain and apify_domain in domain):
+                    results[c["name"]].append({
+                        "id":          hashlib.md5(f"{c['name']}{title}".encode()).hexdigest()[:12],
+                        "company":     c["name"],
+                        "title":       title,
+                        "location":    loc or "São Paulo",
+                        "url":         item.get("url", c["careers_url"]),
+                        "description": desc[:3000],
+                        "work_type":   "",
+                        "found_at":    datetime.now(timezone.utc).isoformat(),
+                        "is_new":      True,
+                    })
+                    break
+        return results
+    except Exception as e:
+        print(f"  Apify batch error: {e}"); return {}
+
+
+def scrape_btg(company):
+    """BTG Pactual uses a custom Angular portal — try known API patterns."""
+    endpoints = [
+        "https://carreiras.btgpactual.com/api/v1/jobs",
+        "https://carreiras.btgpactual.com/api/jobs",
+        "https://api.btgpactual.com/careers/jobs",
+    ]
+    for ep in endpoints:
+        try:
+            r = requests.get(ep, headers=HEADERS, timeout=10)
+            if r.status_code == 200:
+                data = r.json()
+                jobs = data if isinstance(data, list) else data.get("jobs", data.get("data", []))
+                results = []
+                for j in jobs:
+                    title = j.get("title", "") or j.get("name", "")
+                    if not title or not is_relevant(title):
+                        continue
+                    results.append({
+                        "id":          hashlib.md5(f"BTG{title}".encode()).hexdigest()[:12],
+                        "company":     company["name"],
+                        "title":       title,
+                        "location":    j.get("location", "São Paulo"),
+                        "url":         j.get("url", company["careers_url"]),
+                        "description": str(j.get("description", ""))[:3000],
+                        "work_type":   "",
+                        "found_at":    datetime.now(timezone.utc).isoformat(),
+                        "is_new":      True,
+                    })
+                if results:
+                    return results
+        except Exception:
+            continue
+    print(f"  BTG Pactual: custom portal not API-accessible — 0 roles (check manually at carreiras.btgpactual.com)")
+    return []
 
 
 def is_relevant(text):
@@ -761,9 +863,25 @@ def main():
     existing  = load_existing(data_path)
 
     all_new = []
+
+    # Batch Apify companies into a single API call
+    apify_cos = [c for c in COMPANIES if c.get("scrape_type") == "apify"]
+    if apify_cos:
+        print(f"Apify batch: {[c['name'] for c in apify_cos]}")
+        apify_results = scrape_apify_batch(apify_cos)
+        for c in apify_cos:
+            jobs = apify_results.get(c["name"], [])
+            print(f"  {c['name']}: {len(jobs)} relevant roles")
+            all_new.extend(jobs)
+
+    # Per-company scrapers for all other types
+    SCRAPER_FNS = {"gupy": scrape_gupy, "greenhouse": scrape_greenhouse, "btg": scrape_btg}
     for company in COMPANIES:
+        st = company.get("scrape_type", "greenhouse")
+        if st == "apify":
+            continue
         print(f"Scanning {company['name']}...")
-        fn   = scrape_gupy if company.get("scrape_type")=="gupy" else scrape_greenhouse
+        fn   = SCRAPER_FNS.get(st, scrape_greenhouse)
         jobs = fn(company)
         print(f"  {len(jobs)} relevant roles")
         all_new.extend(jobs)

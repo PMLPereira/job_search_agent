@@ -28,6 +28,7 @@ jobs:
       - name: Run job scanner
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
         run: python scripts/scan.py
 
       - name: Commit updated data
