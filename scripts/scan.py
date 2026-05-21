@@ -34,15 +34,15 @@ COMPANIES = [
     {"name":"BTG Pactual",       "tier":1,"sector":"Investment Banking",  "color":"#4ecba0","careers_url":"https://btgpactual.gupy.io/",          "scrape_type":"gupy","gupy_company":"btgpactual",       "why":"Fastest growing IB in Brazil. Hire international profiles aggressively.","interview":"Case study + behavioural. Strong emphasis on delivery metrics and stakeholder management."},
     {"name":"XP Investimentos",  "tier":1,"sector":"Financial Services",  "color":"#60b4f0","careers_url":"https://xpi.gupy.io/",                  "scrape_type":"gupy","gupy_company":"xpi",              "why":"Tech-forward platform growing institutional markets.","interview":"Technical screen + culture fit. Values autonomy and data-driven decisions."},
     {"name":"Nubank",            "tier":1,"sector":"Fintech",             "color":"#c060f0","careers_url":"https://boards.greenhouse.io/nubank",    "scrape_type":"greenhouse",                             "why":"Building institutional/B2B products. Capital markets background rare here.","interview":"4-stage process: recruiter, hiring manager, case study, exec. Very structured."},
-    {"name":"Itaú BBA",          "tier":1,"sector":"Investment Banking",  "color":"#f0a060","careers_url":"https://vempraItau.gupy.io/",            "scrape_type":"gupy","gupy_company":"vempraItau",       "why":"Your BofA regulatory work maps directly to their transformation agenda.","interview":"Competency-based. Focus on regulatory knowledge and large program delivery."},
+    {"name":"Itaú BBA",          "tier":1,"sector":"Investment Banking",  "color":"#f0a060","careers_url":"https://vemproitau.gupy.io/",            "scrape_type":"gupy","gupy_company":"vemproitau",       "why":"Your BofA regulatory work maps directly to their transformation agenda.","interview":"Competency-based. Focus on regulatory knowledge and large program delivery."},
     {"name":"Pátria Investimentos","tier":1,"sector":"Alternative Assets","color":"#e8a030","careers_url":"https://patriainvestimentos.gupy.io/",   "scrape_type":"gupy","gupy_company":"patriainvestimentos","why":"Growing fast into infrastructure/PE. Technology ops transformation needed.","interview":"Two rounds: technical + partner. Boutique feel, relationship-driven."},
     {"name":"Vinci Partners",    "tier":1,"sector":"Asset Management",    "color":"#a0d0ff","careers_url":"https://vincipartners.gupy.io/",         "scrape_type":"gupy","gupy_company":"vincipartners",    "why":"Nasdaq-listed. Scaling tech as AUM grows. Strong fit for your profile.","interview":"Lean process. Direct access to senior leadership early."},
-    {"name":"Bradesco BBI",      "tier":2,"sector":"Investment Banking",  "color":"#f06080","careers_url":"https://bradescobbi.gupy.io/",           "scrape_type":"gupy","gupy_company":"bradescobbi",     "why":"Traditional bank modernising. Capco consulting background fits perfectly.","interview":"HR screen + technical + senior leadership. Traditional bank process."},
-    {"name":"Santander Brasil",  "tier":2,"sector":"Banking",            "color":"#ff8060","careers_url":"https://santander.gupy.io/",             "scrape_type":"gupy","gupy_company":"santander",        "why":"Large operation, active technology transformation. Regulatory profile fits.","interview":"Structured HR process. Focus on leadership competencies."},
+    {"name":"Kinea Investimentos","tier":2,"sector":"Alternative Assets", "color":"#80c0e0","careers_url":"https://kinea.gupy.io/",                   "scrape_type":"gupy","gupy_company":"kinea",            "why":"Itaú group alt asset manager. Significant tech investment underway.","interview":"Formal. Multi-round. Similar to Itaú process."},
+    {"name":"Bradesco BBI",      "tier":2,"sector":"Investment Banking",  "color":"#f06080","careers_url":"https://boards.greenhouse.io/bradescobbi","scrape_type":"greenhouse",                           "why":"Traditional bank modernising. Capco consulting background fits perfectly.","interview":"HR screen + technical + senior leadership. Traditional bank process."},
+    {"name":"Santander Brasil",  "tier":2,"sector":"Banking",            "color":"#ff8060","careers_url":"https://boards.greenhouse.io/santanderbr","scrape_type":"greenhouse",                            "why":"Large operation, active technology transformation. Regulatory profile fits.","interview":"Structured HR process. Focus on leadership competencies."},
     {"name":"Stone / StoneCo",   "tier":2,"sector":"Fintech/Payments",   "color":"#60d0a0","careers_url":"https://boards.greenhouse.io/stone",     "scrape_type":"greenhouse",                             "why":"Serious technology scale. International profile welcome.","interview":"Fast-paced. Case study heavy. Values execution speed."},
-    {"name":"Warren Investimentos","tier":2,"sector":"Fintech",          "color":"#d0a060","careers_url":"https://warren.gupy.io/",                "scrape_type":"gupy","gupy_company":"warren",           "why":"Tech-first investment platform scaling rapidly.","interview":"Startup culture. Values builder mindset and ownership."},
-    {"name":"Kinea Investimentos","tier":2,"sector":"Alternative Assets", "color":"#80c0e0","careers_url":"https://kineainvestimentos.gupy.io/",   "scrape_type":"gupy","gupy_company":"kineainvestimentos","why":"Itaú group alt asset manager. Significant tech investment underway.","interview":"Formal. Multi-round. Similar to Itaú process."},
-    {"name":"Avenue Securities", "tier":2,"sector":"Brokerage",          "color":"#c0a0ff","careers_url":"https://avenuesecurities.gupy.io/",      "scrape_type":"gupy","gupy_company":"avenuesecurities", "why":"Brazilian-American brokerage. Bilingual + capital markets = perfect fit.","interview":"Relaxed culture. Values bilingual profiles strongly."},
+    {"name":"Warren Investimentos","tier":2,"sector":"Fintech",          "color":"#d0a060","careers_url":"https://boards.greenhouse.io/warren",     "scrape_type":"greenhouse",                             "why":"Tech-first investment platform scaling rapidly.","interview":"Startup culture. Values builder mindset and ownership."},
+    {"name":"Avenue Securities", "tier":2,"sector":"Brokerage",          "color":"#c0a0ff","careers_url":"https://boards.greenhouse.io/avenuesecurities","scrape_type":"greenhouse",                       "why":"Brazilian-American brokerage. Bilingual + capital markets = perfect fit.","interview":"Relaxed culture. Values bilingual profiles strongly."},
     {"name":"Oliver Wyman SP",   "tier":2,"sector":"Consulting",         "color":"#e0e060","careers_url":"https://boards.greenhouse.io/oliverwyman","scrape_type":"greenhouse",                            "why":"Capco pedigree transfers directly. Financial services practice very active.","interview":"Case study mandatory. McKinsey-style structured interviews."},
 ]
 
@@ -64,30 +64,45 @@ SALARY_BENCHMARKS = {
     "Default":            {"min":18000,"max":30000,"bonus":"10-15%"},
 }
 
-HEADERS = {"User-Agent":"Mozilla/5.0 (compatible; JobScanner/1.0)","Accept":"text/html,application/json"}
+HEADERS = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36","Accept":"text/html,application/json"}
 
 
 def scrape_gupy(company):
+    """Gupy migrated to SSR — jobs are now embedded as JSON in the page HTML."""
     slug = company.get("gupy_company","")
-    url  = f"https://portal.api.gupy.io/api/v1/jobs?companySlug={slug}&limit=50&offset=0"
+    url  = f"https://{slug}.gupy.io/"
     try:
         r = requests.get(url, headers=HEADERS, timeout=15)
-        if r.status_code != 200: return []
-        jobs, results = r.json().get("data",[]), []
+        if r.status_code != 200:
+            print(f"  Gupy {company['name']}: HTTP {r.status_code} for {url}")
+            return []
+        soup = BeautifulSoup(r.text, "lxml")
+        nd_tag = soup.find("script", {"id": "__NEXT_DATA__"})
+        if not nd_tag:
+            return []
+        nd    = json.loads(nd_tag.string)
+        jobs  = nd.get("props",{}).get("pageProps",{}).get("jobs",[])
+        subdomain = nd.get("props",{}).get("pageProps",{}).get("subdomain", slug)
+        results = []
         for j in jobs:
-            title = j.get("name","")
-            desc  = (j.get("description","") or "") + " " + (j.get("responsibilities","") or "")
-            if not is_relevant(title+" "+desc): continue
+            title    = j.get("title","") or j.get("name","")
+            wp       = j.get("workplace") or {}
+            location = wp.get("city","") or wp.get("state","") or "São Paulo"
+            job_id   = j.get("id","")
+            job_url  = f"https://{subdomain}.gupy.io/jobs/{job_id}" if job_id else company["careers_url"]
+            desc     = j.get("description","") or j.get("responsibilities","") or ""
+            if not is_relevant(title + " " + desc):
+                continue
             results.append({
-                "id":       hashlib.md5(f"{company['name']}{title}".encode()).hexdigest()[:12],
-                "company":  company["name"],
-                "title":    title,
-                "location": j.get("city","") or j.get("state","") or "São Paulo",
-                "url":      j.get("jobUrl", company["careers_url"]),
+                "id":        hashlib.md5(f"{company['name']}{title}".encode()).hexdigest()[:12],
+                "company":   company["name"],
+                "title":     title,
+                "location":  location,
+                "url":       job_url,
                 "description": desc[:3000],
-                "work_type":j.get("workplaceType",""),
-                "found_at": datetime.now(timezone.utc).isoformat(),
-                "is_new":   True,
+                "work_type": j.get("type","") or j.get("workplaceType",""),
+                "found_at":  datetime.now(timezone.utc).isoformat(),
+                "is_new":    True,
             })
         return results
     except Exception as e:
