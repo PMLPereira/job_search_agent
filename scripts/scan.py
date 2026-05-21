@@ -68,7 +68,7 @@ HEADERS = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
 
 
 def scrape_gupy(company):
-    """Gupy migrated to SSR — jobs are now embedded as JSON in the page HTML."""
+    """Gupy migrated to SSR — jobs embedded in __NEXT_DATA__. Try multiple known path patterns."""
     slug = company.get("gupy_company","")
     url  = f"https://{slug}.gupy.io/"
     try:
@@ -79,10 +79,26 @@ def scrape_gupy(company):
         soup = BeautifulSoup(r.text, "lxml")
         nd_tag = soup.find("script", {"id": "__NEXT_DATA__"})
         if not nd_tag:
+            print(f"  Gupy {company['name']}: no __NEXT_DATA__ tag found")
             return []
-        nd    = json.loads(nd_tag.string)
-        jobs  = nd.get("props",{}).get("pageProps",{}).get("jobs",[])
-        subdomain = nd.get("props",{}).get("pageProps",{}).get("subdomain", slug)
+        nd         = json.loads(nd_tag.string)
+        page_props = nd.get("props",{}).get("pageProps",{})
+        subdomain  = page_props.get("subdomain", slug)
+
+        # Gupy uses different keys depending on page version
+        jobs = (
+            page_props.get("jobs") or
+            page_props.get("jobOpportunities") or
+            page_props.get("opportunities") or
+            page_props.get("jobList") or
+            []
+        )
+
+        # Some pages nest jobs inside a data wrapper
+        if isinstance(jobs, dict):
+            jobs = jobs.get("data", jobs.get("items", []))
+
+        print(f"  Gupy {company['name']}: {len(jobs)} raw jobs in __NEXT_DATA__")
         results = []
         for j in jobs:
             title    = j.get("title","") or j.get("name","")
