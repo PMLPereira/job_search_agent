@@ -27,7 +27,7 @@ jobs:
 
       - name: Run job scanner
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY_JobSearch }}
           APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
         run: python scripts/scan.py
 
