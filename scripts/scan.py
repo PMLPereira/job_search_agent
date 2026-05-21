@@ -339,9 +339,9 @@ def merge_jobs(existing, new_jobs):
 
 
 def generate_html(data):
-    jobs_json      = json.dumps(data["jobs"],      ensure_ascii=False)
-    companies_json = json.dumps(COMPANIES,          ensure_ascii=False)
-    history_json   = json.dumps(data.get("run_history",[]), ensure_ascii=False)
+    jobs_json      = json.dumps(data["jobs"],      ensure_ascii=False).replace("</", "<\\/")
+    companies_json = json.dumps(COMPANIES,          ensure_ascii=False).replace("</", "<\\/")
+    history_json   = json.dumps(data.get("run_history",[]), ensure_ascii=False).replace("</", "<\\/")
     last_updated   = data.get("last_updated","—")
     total_jobs     = len(data["jobs"])
     new_today      = sum(1 for j in data["jobs"] if j.get("is_new"))
