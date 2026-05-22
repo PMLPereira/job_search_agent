@@ -104,6 +104,9 @@ def scrape_gupy(company):
             title    = j.get("title","") or j.get("name","")
             wp       = j.get("workplace") or {}
             location = wp.get("city","") or wp.get("state","") or "São Paulo"
+            loc_l    = location.lower()
+            if not any(x in loc_l for x in ["são paulo","sao paulo","remote","remoto"]):
+                continue
             job_id   = j.get("id","")
             job_url  = f"https://{subdomain}.gupy.io/jobs/{job_id}" if job_id else company["careers_url"]
             desc     = j.get("description","") or j.get("responsibilities","") or ""
@@ -136,7 +139,7 @@ def scrape_greenhouse(company):
             title    = j.get("title","")
             location = (j.get("location") or {}).get("name","") or ""
             loc_l    = location.lower()
-            if location and not any(x in loc_l for x in ["são paulo","sao paulo","brazil","brasil","remote","remoto"]): continue
+            if location and not any(x in loc_l for x in ["são paulo","sao paulo","remote","remoto"]): continue
             desc = BeautifulSoup(j.get("content",""),"lxml").get_text(" ")[:3000]
             if not is_relevant(title+" "+desc): continue
             results.append({
@@ -444,6 +447,7 @@ body{{background:var(--bg);color:var(--text);font-family:var(--font);min-height:
   <button class="tab" onclick="sw('pipeline',this)">MY PIPELINE</button>
   <button class="tab" onclick="sw('companies',this)">COMPANIES</button>
   <button class="tab" onclick="sw('alerts',this)">SETUP & ALERTS</button>
+  <button class="tab" onclick="sw('remote',this)">REMOTE 🌍</button>
 </div>
 
 <!-- ══ JOBS ══ -->
@@ -543,6 +547,15 @@ body{{background:var(--bg);color:var(--text);font-family:var(--font);min-height:
       <code style="background:#0a1018;padding:1px 6px;border-radius:3px">ANTHROPIC_API_KEY</code> — from console.anthropic.com
     </div>
   </div>
+</div>
+
+<!-- ══ REMOTE ══ -->
+<div id="tab-remote" class="section">
+  <div style="margin-bottom:16px">
+    <div style="font-size:9px;color:var(--gold);letter-spacing:2px;font-family:var(--mono);margin-bottom:6px">REMOTE ROLES · WORKABLE FROM BRAZIL</div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.6">Roles flagged as Remote or Hybrid by AI scoring. Filtered for positions likely open to Brazil-based hires. Target: R$35,000+/month.</div>
+  </div>
+  <div id="remote-list"></div>
 </div>
 
 </div><!-- /wrap -->
@@ -710,7 +723,7 @@ function renderMarket(){{
 
   // Skills heatmap
   const maxCount=TOP_SKILLS.length?TOP_SKILLS[0][1]:1;
-  document.getElementById('skills-heatmap').innerHTML=TOP_SKILLS.map(([sk,cnt])=>{{
+  document.getElementById('skills-heatmap').innerHTML=TOP_SKILLS.filter(([sk])=>sk&&sk.trim()).map(([sk,cnt])=>{{
     const w=Math.round(cnt/maxCount*100);
     const iHave=MY_SKILLS.some(m=>sk.toLowerCase().includes(m)||m.includes(sk.toLowerCase()));
     return `<div style="margin-bottom:8px">
@@ -854,6 +867,50 @@ function renderAlerts(){{
     </div>`).join('');
 }}
 
+// ── Remote ──
+function renderRemote(){{
+  const remoteJobs=JOBS.filter(j=>{{
+    const wt=(j.work_type||'').toLowerCase();
+    const wa=((j.score||{{}}).workArrangement||'').toLowerCase();
+    const desc=(j.description||'').toLowerCase();
+    const title=(j.title||'').toLowerCase();
+    return wt.includes('remot')||wa.includes('remot')||
+           desc.includes('remoto')||desc.includes('home office')||title.includes('remoto');
+  }});
+  if(!remoteJobs.length){{
+    document.getElementById('remote-list').innerHTML=
+      '<div class="card" style="text-align:center;color:var(--dim);padding:40px;font-family:var(--mono);font-size:11px">No remote roles detected in the current scan.<br>Re-run the scanner — remote roles are identified by AI scoring of each job description.</div>';
+    return;
+  }}
+  document.getElementById('remote-list').innerHTML=remoteJobs.map(j=>{{
+    const s=j.score||{{}};
+    const score=s.score;
+    const col=score!=null?sc(score):'var(--dim)';
+    const salary=s.salaryRange||estimateSalary(j.title);
+    return `<div class="card" style="margin-bottom:10px;border-color:${{col}}33">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        ${{ring(score!=null?score:null)}}
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px">
+            ${{j.is_new?badge('NEW','#b07d30'):''}}
+            ${{s.verdict?badge(s.verdict,col):''}}
+            ${{badge(s.workArrangement||'Remote','#3a7cbf')}}
+          </div>
+          <div style="font-size:14px;color:var(--text);font-weight:600;margin-bottom:2px">${{j.title}}</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px">${{j.company}} &nbsp;·&nbsp; ${{j.location}}</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px">
+            <span style="font-size:11px;color:var(--green);font-family:var(--mono)">${{salary}}</span>
+            ${{s.seniorityLevel?`<span style="font-size:10px;color:var(--muted);font-family:var(--mono)">${{s.seniorityLevel}}</span>`:''}}
+            ${{j.url?`<a href="${{j.url}}" target="_blank" style="font-size:10px;color:var(--blue);font-family:var(--mono)">View role →</a>`:''}}
+          </div>
+          ${{(s.topReasons||[]).length?`<div style="font-size:10px;color:var(--muted);line-height:1.7;margin-bottom:6px">${{s.topReasons.map(r=>`· ${{r}}`).join('<br>')}}</div>`:''}}
+          ${{s.outreachTemplate?`<div class="outreach">${{s.outreachTemplate}}</div>`:''}}
+        </div>
+      </div>
+    </div>`;
+  }}).join('');
+}}
+
 // ── Tab switch ──
 function sw(name,btn){{
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -861,6 +918,7 @@ function sw(name,btn){{
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
   if(name==='market')renderMarket();
+  if(name==='remote')renderRemote();
 }}
 
 // ── Init ──
