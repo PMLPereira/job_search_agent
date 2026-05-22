@@ -20,7 +20,7 @@ Strengths:
 - $20M regulatory compliance program (BofA/Capco), $5M+ P&L accountability
 - Cross-functional leadership: Product, Engineering, Risk, Operations, Compliance
 - Regulatory: Fed reporting, BACEN, risk management, data governance
-- AI & automation: Python, SQL, LLMs, prompt engineering, Make, Zapier
+- AI & automation: Python, SQL, LLMs, prompt engineering, Make, Zapierh
 - Languages: Portuguese (native), English (fluent)
 - Education: MSc Management (Robert Gordon UK), MSc (NOVA Portugal)
 - Certs: Google Cloud AI, Data Science, Advanced ML (Cambridge Spark)
@@ -346,7 +346,7 @@ def generate_html(data):
     total_jobs     = len(data["jobs"])
     new_today      = sum(1 for j in data["jobs"] if j.get("is_new"))
     strong_matches = sum(1 for j in data["jobs"] if (j.get("score") or {}).get("score",0) >= 70)
-
+h
     # Aggregate skills across all scored jobs
     all_skills = {}
     for j in data["jobs"]:
@@ -363,11 +363,11 @@ def generate_html(data):
 <title>Pedro · SP Job Intelligence</title>
 <style>
 :root{{
-  --bg:#0c0c0c;--bg2:#111;--bg3:#161616;--bg4:#1a1a1a;
-  --border:#1e1e1e;--border2:#252525;--border3:#2a2a2a;
-  --text:#eee;--muted:#888;--dim:#444;--dimmer:#333;
-  --green:#4ecba0;--gold:#c0a060;--blue:#60b4f0;
-  --red:#ff6b6b;--purple:#c060f0;--orange:#f0a060;
+    --bg:#f5f0e8;--bg2:#ede8df;--bg3:#e6e0d5;--bg4:#dfd9cc;
+      --border:#c9c3b8;--border2:#b8b2a6;--border3:#a8a298;
+        --text:#2c2420;--muted:#7a7068;--dim:#a09890;--dimmer:#b8b0a8;
+          --green:#2d8f6f;--gold:#b07d30;--blue:#3a7cbf;
+            --red:#c0453a;--purple:#7c5cbf;--orange:#c87840;
   --font:'Georgia',serif;--mono:'Courier New',monospace;
 }}
 *{{box-sizing:border-box;margin:0;padding:0}}
