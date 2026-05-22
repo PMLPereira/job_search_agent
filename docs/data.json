@@ -149,7 +149,56 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.186833+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 42,
+        "verdict": "Partial Match",
+        "topReasons": [
+          "Pedro has strong regulatory reporting experience (BACEN, Fed reporting, data governance) directly relevant to Nubank's regulatory compliance obligations",
+          "Python, SQL, AI/automation skills align with Nubank's Finance Data Team mandate to build pipelines and eliminate manual toil",
+          "12+ years in financial services technology provides deep domain credibility for a finance-focused data role"
+        ],
+        "gaps": [
+          "This is an individual contributor Finance Data Analyst role — Pedro is targeting Director/Head-level positions, making this a significant seniority mismatch",
+          "Role requires hands-on data pipeline engineering (likely dbt, Spark, Airflow, BigQuery) with no evidence of these tools in Pedro's profile",
+          "Nubank is a product-led fintech; Pedro's background is capital markets/investment banking delivery, not consumer fintech or digital banking"
+        ],
+        "gapActions": [
+          "If applying, reframe CV to emphasise hands-on Python/SQL data work and de-emphasise management titles — but this role is likely beneath Pedro's seniority and target compensation",
+          "Research Nubank's open Director/Head of Technology or Finance Engineering leadership roles and redirect application effort there instead"
+        ],
+        "talkingPoints": [
+          "Pedro's BACEN regulatory reporting experience is directly portable to Nubank's central bank compliance obligations in Brazil — a rare and valuable credential",
+          "His AI and automation work (LLMs, Make, Zapier, Python) maps to Nubank's stated goal of eliminating manual toil through automation",
+          "Having led a $20M cross-functional regulatory program, Pedro can speak credibly to the challenges Nubank's Finance Data team faces as they scale to 122M customers"
+        ],
+        "suggestedContact": "Head of Finance Engineering or Director of People Technology Recruiting",
+        "keySkillsRequired": [
+          "Data pipeline engineering (dbt, Airflow, Spark or similar)",
+          "Regulatory reporting to Brazilian central bank (BACEN)",
+          "SQL and Python for data transformation",
+          "Process automation in a fintech environment",
+          "Financial data modelling and governance"
+        ],
+        "skillsYouHave": [
+          "Regulatory reporting to Brazilian central bank (BACEN)",
+          "SQL and Python for data transformation",
+          "Financial data modelling and governance"
+        ],
+        "skillsYouLack": [
+          "Data pipeline engineering (dbt, Airflow, Spark or similar)",
+          "Process automation in a fintech environment"
+        ],
+        "salaryRange": "R$12,000–22,000/month estimated (mid-level IC analyst at Nubank)",
+        "seniorityLevel": "Mid",
+        "yearsExpRequired": "3-6 years",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Oi [Name], notei que a Nubank está expandindo o time de Finance Data com foco em automação e compliance regulatório com o BACEN — áreas onde tenho trabalhado em larga escala no Bank of America e na Capco. Gostaria de explorar oportunidades em nível de liderança onde minha experiência em entrega de programas regulatórios de $20M poderia agregar valor ao crescimento da Nubank."
+      }
     },
     {
       "id": "5dead7c48a31",
@@ -1508,7 +1557,56 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 28,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery/program management leader, not a hands-on software engineer — this role is an Individual Contributor (IC) engineering role requiring deep coding expertise",
+          "The role demands senior software architecture and engineering skills (Clojure, distributed systems, platform engineering) which are absent from Pedro's profile",
+          "Pedro's strengths in regulatory delivery, cross-functional leadership, and P&L management are managerial competencies irrelevant to a Senior Staff IC engineering position"
+        ],
+        "gaps": [
+          "No hands-on software engineering or architecture experience — Pedro has no evidence of building, coding, or architecting production systems",
+          "No experience with Clojure, distributed systems, microservices architecture, or backend platform engineering at scale",
+          "No background in debt resolution, collections platforms, or consumer lending technology product engineering",
+          "Senior Staff IC role requires deep technical craft and years of engineering output, not program/delivery management"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — instead search Nubank's careers page for 'Technology Program Manager', 'Delivery Lead', 'Head of Engineering Delivery', or 'Senior Technical Program Manager' which align to Pedro's actual profile",
+          "If Pedro wishes to target Nubank, reframe CV to highlight fintech platform delivery, regulatory compliance programs, and cross-functional product/engineering collaboration — not technical coding skills he does not possess"
+        ],
+        "talkingPoints": [
+          "Pedro could speak to large-scale financial platform delivery in global capital markets environments, which is directionally relevant to Nubank's ambitions",
+          "His BACEN regulatory knowledge and Brazil-market familiarity could be compelling for Nubank's compliance and delivery leadership roles",
+          "AI/automation tooling experience (Python, LLMs, prompt engineering) could be a differentiator if he targets a technology strategy or AI delivery leadership role at Nubank"
+        ],
+        "suggestedContact": "Head of Technical Recruiting or Engineering Talent Acquisition, Nubank",
+        "keySkillsRequired": [
+          "Senior software engineering and hands-on coding (Clojure/JVM preferred)",
+          "Distributed systems architecture and platform design at scale",
+          "Debt resolution or collections domain expertise in fintech",
+          "IC technical leadership and cross-team architectural influence",
+          "Globally scalable backend platform engineering"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Senior software engineering and hands-on coding (Clojure/JVM preferred)",
+          "Distributed systems architecture and platform design at scale",
+          "Debt resolution or collections domain expertise in fintech",
+          "IC technical leadership and cross-team architectural influence",
+          "Globally scalable backend platform engineering"
+        ],
+        "salaryRange": "R$45,000–80,000/month estimated (Senior Staff IC engineering at Nubank is highly compensated)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "12-18 years of software engineering experience",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm Pedro Pereira — a senior technology delivery leader with 12+ years in global capital markets (Bank of America, Capco) relocating to São Paulo in mid-2027. I'm exploring leadership roles at Nubank in technology delivery, program management, or regulatory transformation where my BACEN expertise and fintech background could add real value — would love to connect if you're open to it."
+      }
     },
     {
       "id": "897e19f9f227",
@@ -1882,7 +1980,8 @@
       "description": "<h3 data-path-to-node=\"3\">About U<span class=\"citation-9 citation-end-9\">s<sup class=\"superscript\" data-turn-source-index=\"1\"></sup></span></h3>\n<p id=\"p-rc_d3f53bf9c3fe927d-19\" data-path-to-node=\"4\"><span class=\"citation-8\">Nubank was founded in 2013 to free people from a bureaucratic, slow and inefficient financial system. Since the</span><span class=\"citation-5 citation-6 citation-7 citation-8 citation-end-8\">n, through innovative technology and outstanding customer service, the company has been redefining people's relation<sup class=\"superscript\" data-turn-source-index=\"2\"></sup></span><span class=\"citation-5 citation-6 citation-7 citation-end-7\">ships with money across Latin America. With operations in Brazil, Mexico, and Colombia, Nubank is today one of the largest digital b<sup class=\"superscript\" data-turn-source-index=\"3\"></sup></span><span class=\"citation-5 citation-6 citation-end-6\">anking platforms and technology-leading companies in <sup class=\"superscript\" data-turn-source-index=\"4\"></sup></span><span class=\"citation-5 citation-end-5\">the worl<sup class=\"superscript\" data-turn-source-index=\"5\"></sup></span>d. Nubank was listed on the NYSE in 2021 and was recently named one of Time Magazine's 100 Most Influential Companies. For more information, visit <a class=\"ng-star-inserted\" href=\"https://www.google.com/search?q=https://www.nu.com\" target=\"_blank\">www.nu.com</a>.br.</p>\n<div class=\"source-inline-chip-container ng-star-inserted\"></div>\n<p></p>\n<h3 data-path-to-node=\"5\">About the Role</h3>\n<p data-path-to-node=\"6\">NuPay is a primary pillar in Nubank’s mission to revolutionize BNPL (Buy Now, Pay Later) solutions, creating a seamless bridge between customers and merchants. By stripping away the friction of traditional e-commerce checkouts, we are building an ecosystem where secure, instant payments are accessible across all channels—from online carts to physical stores via digital wallets.</p>\n<p data-path-to-node=\"7\">You will join the NuPay team as a technical anchor, driving the evolution of a payments stack that balances massive scale with ironclad reliability. This role is about more than just moving bits; it’s about architecting the financial infrastructure that millions of people and businesses rely on to grow, ensuring every transaction is a bridge of trust between Nubank and our partners.</p>\n<p data-path-to-node=\"8\">As a senior technical leader, you will oversee the technical direction of our payment features, navigating the complexities of authorization and settlement while mentoring the next generation of engineers. You will sit at the intersection of product innovation and platform stability, ensuring our checkout experience remains the gold standard for Latin American fintech.</p>\n<h3 data-path-to-node=\"9\">Responsibilities</h3>\n<ul data-path-to-node=\"10\">\n<li>\n<p data-path-to-node=\"10,0,0\"><strong data-path-to-node=\"10,0,0\" data-index-in-node=\"0\">Architect scalable systems</strong> for the NuPay domain, ensuring seamless",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {}
     },
     {
       "id": "48b16538d819",
@@ -1893,7 +1992,58 @@
       "description": "<h2><strong>Staff Software Engineer - PJ Brazil (Business Accounts)</strong></h2>\n<p><strong>About Us</strong></p>\n<p>Nubank was founded in 2013 to free people from a bureaucratic, slow and inefficient financial system. Since then, through innovative technology and outstanding customer service, the company has been redefining people's relationships with money across Latin America.</p>\n<p>With operations in Brazil, Mexico, and Colombia, Nubank is today one of the largest digital banking platforms and technology-leading companies in the world. Nubank was listed on the NYSE in 2021 and was recently named one of Time Magazine's 100 Most Influential Companies.</p>\n<p>For more information, visit<a href=\"https://www.nu.com.br\"> www.nu.com.br</a>.</p>\n<p><strong>About the Role</strong></p>\n<p>The <strong>PJ (Business Account)</strong> team is a rapidly scaling unit within Nubank. We are looking for a Staff Software Engineer to join this high-impact team, strategically helping the growth in Brazil and beyond.</p>\n<p>In this role, you will sit at the intersection of <strong>Product and Platform</strong>. While we are a business-focused team dedicated to moving core metrics, you will also navigate global platform challenges.&nbsp;</p>\n<p>We are looking for a resourceful engineer. Someone who is excited by broad, complex problems and has the eagerness to expand our market share in a fast-moving environment.</p>\n<p><strong>Responsibilities</strong></p>\n<ul>\n<li><strong>Lead the technical design and implementation</strong> of scalable systems that power the PJ app experience for millions of business customers.</li>\n<li><strong>Partner with Global Platform teams</strong> to integrate core services while maintaining a product-driven focus.</li>\n<li><strong>Drive business outcomes</strong> by translating entrepreneur-specific challenges into robust, high-performance software solutions.</li>\n<li><strong>Maintain technical excellence</strong> within the team through architectural discussions, code reviews, and mentorship.</li>\n<li><strong>Collaborate cross-functionally</strong> across different Business Units to ensure seamless integration and a unified customer experience.</li>\n</ul>\n<p>&nbsp;</p>\n<p><strong>Required qualifications</strong></p>\n<ul>\n<li>Ideally, has experience in Flutter and mobile architecture, and is equally comfortable navigating Clojure/BDC backend systems, from authentication flows and token management to BDC expressions and backend providers</li>\n<li>Wants to own the architectural vision for how PJ customers access, navigate, and experience their business finances, shaping decisions that will define how PJ scales across products, segments, and countries</li>\n<li>Can hold the platform and product tension simultaneously, thinking in systems while staying close to the customer experience, because the foundations you design directly determine what AXP can build and how fast they can ship</li>\n<li>Has a track record of driving alignment on hard a",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.228679+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 22,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery/program manager, not a hands-on software engineer — the role requires deep individual contributor coding skills (Clojure, Kotlin, distributed systems)",
+          "Nubank's Staff Engineer role demands production-grade software architecture and implementation at scale, not the delivery leadership and stakeholder management Pedro specialises in",
+          "Pedro's target roles (Director/Head of Technology Delivery) are structurally different from an IC Staff Engineer track — misaligned career trajectory"
+        ],
+        "gaps": [
+          "No evidence of hands-on software engineering in production systems (Clojure, Kotlin, Java, microservices, distributed systems at scale)",
+          "No experience as an individual contributor engineer building consumer/business fintech products — background is consulting and program management",
+          "Availability in mid-2027 is a significant practical barrier for an active hiring need",
+          "PJ (Business Accounts) product domain requires fintech product engineering experience, not capital markets regulatory delivery"
+        ],
+        "gapActions": [
+          "Do not apply to this role — instead search Nubank's careers page for 'Delivery Manager', 'Engineering Program Manager', 'Head of Delivery' or 'Technical Program Manager' which match Pedro's actual profile",
+          "If Pedro wants to target Nubank specifically, reframe CV to highlight product delivery metrics (e.g. velocity improvements, platform migrations) to appeal to their TPM or Director-level openings"
+        ],
+        "talkingPoints": [
+          "Pedro has deep fintech domain expertise across capital markets, regulatory compliance and digital banking that is highly relevant to Nubank's institutional expansion",
+          "His BACEN regulatory knowledge and Portuguese native fluency position him well for a senior delivery or program leadership role in Brazil's financial services market",
+          "12 years of cross-functional leadership across Product, Engineering and Risk at tier-1 institutions (BofA, Capco) aligns with Nubank's scale and complexity — just not this specific IC engineering role"
+        ],
+        "suggestedContact": "Head of Engineering Programs or Technical Recruiting Manager",
+        "keySkillsRequired": [
+          "Production software engineering (Clojure/Kotlin/Java)",
+          "Distributed systems architecture at scale",
+          "Microservices and cloud-native platform design",
+          "Staff-level IC technical leadership and code review",
+          "Fintech product engineering (consumer or SMB accounts)"
+        ],
+        "skillsYouHave": [
+          "Fintech domain knowledge"
+        ],
+        "skillsYouLack": [
+          "Production software engineering (Clojure/Kotlin/Java)",
+          "Distributed systems architecture at scale",
+          "Microservices and cloud-native platform design",
+          "Staff-level IC technical leadership and code review"
+        ],
+        "salaryRange": "R$45,000–70,000/month estimated (PJ Staff Engineer at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "10+ years",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Name], sou Pedro Pereira, Technology Manager no Bank of America em Londres com 12 anos de entrega em mercados de capitais e conhecimento regulatório no Brasil — estarei me relocando para São Paulo em meados de 2027. Gostaria de explorar se há oportunidades de liderança em delivery ou programas tecnológicos no Nubank que possam se alinhar ao meu perfil."
+      }
     },
     {
       "id": "2da5bb16e868",
@@ -1904,7 +2054,54 @@
       "description": "<p><strong>About Us</strong></p>\n<p>Nu is one of the largest digital financial platforms in the world, with more than 127 million customers across Brazil, Mexico, and Colombia. Guided by our mission to fight complexity and empower people, we are redefining financial services in Latin America and this is still just the beginning of the purple future we're building. Listed on the New York Stock Exchange (NYSE: NU), we combine proprietary technology, data intelligence, and an efficient operating model to deliver financial products that are simple, accessible, and human. Our impact has been recognized by global rankings such as Time 100 Companies, Fast Company’s Most Innovative Companies, and Forbes World’s Best Bank. Visit our institutional page<a href=\"https://international.nubank.com.br/careers/\"> &nbsp;https://international.nubank.com.br/careers/</a></p>\n<p><strong>About the role</strong></p>\n<p>At Nu, tax efficiency and compliance are not just obligations—they are pillars that support our ability to scale and innovate. As a Tax Specialist, you will be part of the Global Service Platform and your primary goal will be to ensure the&nbsp;Total Tax Integrity of our operations. You will have a direct impact on the P&amp;L by ensuring that every tax is calculated with pinpoint accuracy, mitigating risks, and ensuring that Nu stays ahead of complex Brazilian regulatory changes. Your role is fundamental to sustaining financial transparency for investors, auditors, and regulatory bodies.</p>\n<p><strong>You'll be responsible for</strong></p>\n<p>Your day-to-day will be defined by the dynamism of a complex financial operation. Your main challenges and activities will include:</p>\n<ul>\n<li>Full compliance cycle: Leading the calculation, accounting, and technical review of direct taxes (IRPJ/CSLL – “Lucro Real” and “Presumido”) and indirect taxes (ISS, PIS, and COFINS under both cumulative and non-cumulative regimes).</li>\n<li>High-precision financial reporting: Preparing and reviewing explanatory notes for the Effective Tax Rate (ETR) reconciliation (Tax Proof), as well as managing the movement and projection of deferred tax assets and liabilities.</li>\n<li>Mastery of ancillary obligations: Guaranteeing the flawless delivery of complex obligations such as DES-IF, DCTFWEB, EFD-REINF, EFD-Contribuições, and ECF, ensuring that data faithfully reflects accounting reality.</li>\n<li>Stakeholder and audit management: Acting as the focal point for tax inspections and audits (internal and external), defending Nu’s tax positions and maintaining the SOX (Sarbanes-Oxley Act) control environment.</li>\n<li>Transfer pricing coordination: Managing Transfer Pricing workflows in partnership with external advisors, ensuring that intercompany operations comply with OECD and RFB (Brazilian Federal Revenue) rules.</li>\n</ul>\n<p><strong>We are looking for a person who has</strong></p>\n<p>To succeed in this role, we are looking for more than just technical knowledge; we need solid ",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.229249+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 8,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a senior Technology Delivery/Program Manager with 12+ years in capital markets — the role is a Tax Specialist position requiring deep Brazilian tax technical expertise (IRPJ, CSLL, ISS, PIS, COFINS)",
+          "Pedro's background is entirely in technology, delivery, and program management — not in tax accounting, fiscal compliance, or Brazilian tax law",
+          "The only partial overlap is regulatory awareness and P&L accountability, which are insufficient qualifications for a specialist tax role"
+        ],
+        "gaps": [
+          "No Brazilian tax technical knowledge: IRPJ/CSLL Lucro Real/Presumido, ISS, PIS, COFINS — these are non-negotiable for the role",
+          "No accounting, tax reporting, or fiscal compliance background — the role requires leading full tax compliance cycles and preparing high-precision financial reports for auditors and regulators"
+        ],
+        "gapActions": [
+          "Do not apply to this role — no CV tweak can bridge the fundamental skills mismatch between technology delivery and specialist tax compliance",
+          "Focus CV outreach at Nubank on technology delivery, platform engineering leadership, or digital transformation roles in their Global Service Platform or product engineering org instead"
+        ],
+        "talkingPoints": [
+          "Pedro's experience at BofA Global Markets and Capco demonstrates deep familiarity with complex financial regulatory environments — relevant for a future technology leadership role at Nubank, not this tax role",
+          "His BACEN and Fed regulatory reporting exposure shows he understands the compliance landscape in Brazilian financial services, which could be a bridge to a Nubank tech leadership conversation",
+          "His AI, automation, and data governance skills are highly relevant to Nubank's technology-first culture — but need to be directed at the right open role"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or Senior Technical Recruiter at Nubank",
+        "keySkillsRequired": [
+          "Brazilian direct tax compliance (IRPJ/CSLL)",
+          "Brazilian indirect tax compliance (ISS, PIS, COFINS)",
+          "Tax accounting and financial reporting",
+          "Lucro Real and Lucro Presumido regimes",
+          "Regulatory and audit liaison for tax matters"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Brazilian direct tax compliance (IRPJ/CSLL)",
+          "Brazilian indirect tax compliance (ISS, PIS, COFINS)",
+          "Tax accounting and financial reporting",
+          "Lucro Real and Lucro Presumido regimes",
+          "Regulatory and audit liaison for tax matters"
+        ],
+        "salaryRange": "R$15,000–28,000/month estimated (Tax Specialist mid-senior, not Director level)",
+        "seniorityLevel": "Mid",
+        "yearsExpRequired": "4-7 years",
+        "languagesRequired": [
+          "Portuguese"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Name], I'm a Technology Delivery Director with 12+ years in global capital markets (BofA, Capco) relocating to São Paulo mid-2027 and very excited by Nubank's engineering culture. I'd love to connect to learn about technology leadership or senior program delivery opportunities within your platform teams."
+      }
     },
     {
       "id": "02b17f877a8f",
@@ -1915,7 +2112,57 @@
       "description": "<h3><strong>About Us</strong></h3>\n<p>Nu is one of the largest digital financial platforms in the world, with more than 122 million customers across Brazil, Mexico, and Colombia. Guided by our mission to fight complexity and empower people, we are redefining financial services in Latin America and this is still just the beginning of the purple future we're building.</p>\n<p>Listed on the New York Stock Exchange (NYSE: NU), we combine proprietary technology, data intelligence, and an efficient operating model to deliver financial products that are simple, accessible, and human.</p>\n<p>Our impact has been recognized by global rankings such as Time 100 Companies, Fast Company’s Most Innovative Companies, and Forbes World’s Best Bank. Visit our institutional page&nbsp;<a href=\"https://international.nubank.com.br/careers/\">https://international.nubank.com.br/careers/</a>&nbsp;</p>\n<p><strong>At Nu, we're reimagining how crypto can be better.</strong></p>\n<p>Crypto has a complexity problem. For most people, it's still intimidating, opaque, and far from the effortless experience it could be. At Nu, we believe that's a design problem—and we're looking for someone to help us solve it.<br><br>We're hiring a Lead Product Designer to join our growing crypto team. You'll be helping shape experiences that make crypto genuinely accessible.</p>\n<p><strong>Once here, you will:</strong></p>\n<ul>\n<li>Be a technical reference for the team, seeking to adapt and replicate the best practices in the market, increasing the team’s bar;</li>\n<li>Build links with other business areas at all levels of the organization, influencing business decisions advocating for user-centered design;&nbsp;</li>\n<li>Inspire fellow product designers, by creating a high bar of quality design work;</li>\n<li>Establish and promote a healthy team culture that works hand in hand with cross-functional partners and design teams in other Nubank offices;</li>\n<li>Push the boundaries of your team’s UX/UI/visual execution and help Nubank challenge the status quo.&nbsp;</li>\n</ul>\n<p><strong>Requirements</strong></p>\n<ul>\n<li>Solid expertise in Product Design (UI, UX, and Research);</li>\n<li>Experience in digital products;</li>\n<li>Excellent English: verbal and written communication skills;</li>\n<li>Ability to work well in a highly collaborative and cross-functional team;</li>\n<li>Ability to thrive in a fast-paced, dynamic startup environment;</li>\n<li>Ability to influence prioritization in an agile environment. Adapt to shifting priorities and evolving stakeholder’s needs with openness and agility.&nbsp;&nbsp;</li>\n</ul>\n<p><strong>Benefits</strong>&nbsp;</p>\n<ul>\n<li>Chance of earning equity at Nubank</li>\n<li>Food/ Meal Card (Vale-Refeição and/or Vale Alimentação)</li>\n<li>Public Transportation Commuting Benefit (Vale-Transporte)</li>\n<li>NuCare – Psychological, Financial and Legal Assistance Program</li>\n<li>Life Insurance</li>\n<li>Medical Plan</li>\n<li>Dental Plan</li>\n<li>NuLanguage – Language Cours",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.229249+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 12,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a Technology Delivery/Program Management professional — this role is for a Lead Product Designer focused on UX/UI/visual design for crypto",
+          "Pedro has no stated experience in product design, UX research, UI execution, or design systems",
+          "The role is design-centric (Figma, prototyping, user-centered design advocacy), not technology delivery or engineering management"
+        ],
+        "gaps": [
+          "Zero background in product design, UX/UI, or visual design — the core competency required",
+          "No crypto or digital assets domain experience mentioned",
+          "No design tools experience (Figma, Sketch, Prototyping tools)",
+          "Role is individual contributor design leadership, not program/technology delivery management"
+        ],
+        "gapActions": [
+          "Do not apply — no CV tweak can bridge the fundamental mismatch between technology delivery management and lead product design",
+          "If Pedro wants to pivot toward Nubank, search their careers page for 'Technology Lead', 'Engineering Manager', 'Head of Delivery', or 'Senior Program Manager' roles instead"
+        ],
+        "talkingPoints": [
+          "Pedro could mention his cross-functional leadership experience bridging Product, Engineering, and Operations if exploring other Nubank roles",
+          "His BACEN/regulatory knowledge is relevant to Nubank's Brazil expansion and compliance needs — useful framing for a different role",
+          "His AI/automation skills (Python, LLMs, ML) align with Nubank's data-driven culture but belong in a technology or engineering leadership pitch, not a design pitch"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or Engineering Talent Acquisition Partner at Nubank",
+        "keySkillsRequired": [
+          "Senior UX/UI Product Design",
+          "Design Systems and Visual Execution",
+          "Crypto/Web3 Domain Knowledge",
+          "User Research and User-Centered Design Advocacy",
+          "Cross-functional Design Leadership and Mentorship"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Senior UX/UI Product Design",
+          "Design Systems and Visual Execution",
+          "Crypto/Web3 Domain Knowledge",
+          "User Research and User-Centered Design Advocacy",
+          "Cross-functional Design Leadership and Mentorship"
+        ],
+        "salaryRange": "R$30,000–50,000/month estimated for Lead Designer level at Nubank",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "8-12 years in product design",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm a Technology Delivery Director with 12+ years in global capital markets and financial services, relocating to São Paulo mid-2025 — I came across Nubank's careers page and would love to connect about technology leadership or senior program delivery roles that match your engineering or product operations needs. Would you be open to a brief conversation?"
+      }
     },
     {
       "id": "5e8711bdaf26",
@@ -1926,7 +2173,57 @@
       "description": "<h2><img style=\"max-width: 100%;\" src=\"https://mcusercontent.com/7dc7b499a44bba30cadcc7a61/images/e65c5d17-b2ed-ad2d-0063-9c6d1c0878f7.png\" alt=\"\" width=\"758\"></h2>\n<h2><strong>A Stone:</strong></h2>\n<p><span style=\"font-weight: 400;\">Somos muito mais do que uma empresa de maquininhas! A Stone é uma empresa de tecnologia e serviços financeiros focada no(a) cliente.</span></p>\n<p><span style=\"font-weight: 400;\">Nascemos com o propósito de ser protagonistas na transformação da indústria de pagamentos, servindo o(a) empreendedor(a) brasileiro(a) e transformando seus sonhos em resultados.</span></p>\n<p><span style=\"font-weight: 400;\">Somos a maior empresa independente de meios de pagamentos do Brasil, com mais de quinze mil pessoas espalhadas pelas cinco regiões do país,&nbsp; em um cenário repleto de desafios e oportunidades. Valorizamos o trabalho em equipe, a flexibilidade, o desenvolvimento contínuo e os pensamentos disruptivos e incansáveis na busca de soluções para a nossa RAZÃO.</span></p>\n<h2><strong>Nossa Cultura:&nbsp;</strong></h2>\n<p><span style=\"font-weight: 400;\">Por aqui, vivemos nossa cultura no dia a dia, guiados por esses 5 pilares:</span></p>\n<p><span style=\"font-weight: 400;\">&nbsp;</span><span style=\"font-weight: 400;\">⚡Own It: Ter espírito de dono te faz conquistar a liberdade. Valorizamos a autonomia e a proatividade, somos responsáveis pelo o que entregamos e queremos sempre evoluir o nosso negócio.&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">🎢Live the Ride: Faça. Feito é melhor que perfeito. Aprendemos com os erros e encaramos desafios como oportunidades de aprendizado.&nbsp;&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">🎤No Bullshit: Agir com simplicidade. Somos pessoas práticas, sinceras e gostamos de feedbacks. Sabemos que às vezes vamos errar e contamos com essa transparência para evoluirmos.&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">🤝Team Play: Se quer ir rápido, vá sozinho(a). Se quer ir longe, trabalhe em equipe. É sempre possível aprender com as outras pessoas e a colaboração é a chave do sucesso.&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">💚The Reason: O cliente não tem razão, ele é a razão. Queremos gerar impacto para nosso(a) cliente, quando enxergamos a melhoria que causamos na vida dele(a), é que sabemos que fizemos uma boa entrega.&nbsp;</span></p>\n<h2><strong>O time do Comercial Digital (Pagar.me):</strong></h2>\n<p><span style=\"font-weight: 400;\">Construímos o Pagar.me em 2014 para mudar a forma de receber pagamentos pela internet. Nos tornamos uma empresa do grupo Stone Co. e atuamos para ajudar lojistas de todos os tamanhos e modelos de negócio, desde pequenas lojas e startups a grandes e-commerces e marketplaces, a possuir uma estrutura de pagamentos digital poderosa e flexível.&nbsp;</span></p>\n<h2><strong>Como é ser um(a) Account Executive - Hunter (Hibrido/SP):</strong></h2>\n<p>A missão do(a) Hunter é impactar positivamente o resultado e a expansão da empresa, com um grande",
       "work_type": "",
       "found_at": "2026-05-21T10:34:13.903003+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 8,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a senior technology delivery leader with 12+ years in capital markets; this role is a B2B sales hunter position requiring pipeline generation and quota attainment skills he has not demonstrated",
+          "The role targets SME/merchant payment sales in Brazil (Stone's core business); Pedro's background is institutional banking and regulatory technology delivery, entirely different domains",
+          "Pedro is based in London and available only from mid-2027; this is a hybrid São Paulo role presumably requiring immediate or near-term start"
+        ],
+        "gaps": [
+          "No B2B sales or account executive experience — the role requires hunter mentality, cold prospecting, deal closing and quota accountability",
+          "No experience in payments, merchant acquiring, POS/maquininha ecosystem or SME commercial sales in Brazil",
+          "Availability mid-2027 is misaligned with an active open role at Stone",
+          "No demonstrated CRM usage, sales pipeline management or revenue generation metrics on CV"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — it is a sales individual contributor position that does not match Pedro's seniority level, function or background",
+          "If targeting Stone/StoneCo, search instead for Director of Technology Delivery, Head of Program Management, Engineering Manager or Senior Product Manager roles within their technology or financial services infrastructure divisions",
+          "Add a Brazil market availability note to the CV header (e.g. 'Relocating to São Paulo mid-2027, open to advance conversations') to manage recruiter expectations proactively"
+        ],
+        "talkingPoints": [
+          "If Pedro were to network at Stone, he should position his BACEN and Brazilian regulatory knowledge as a differentiator for their compliance and risk technology teams, not their commercial sales org",
+          "Pedro's $20M program delivery experience and cross-functional leadership across Product, Engineering and Risk is highly relevant to Stone's technology scaling ambitions — but at a leadership level, not AE level",
+          "His AI/automation stack (Python, LLMs, Make, Zapier) combined with fintech delivery could appeal to Stone's internal platform or innovation teams seeking senior transformation leaders"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or VP of Engineering Talent Acquisition at StoneCo",
+        "keySkillsRequired": [
+          "B2B hunter sales and prospecting",
+          "Payments and merchant acquiring knowledge",
+          "CRM pipeline management and quota attainment",
+          "SME client relationship development in Brazil",
+          "Commercial negotiation and deal closing"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "B2B hunter sales and prospecting",
+          "Payments and merchant acquiring knowledge",
+          "CRM pipeline management and quota attainment",
+          "SME client relationship development in Brazil",
+          "Commercial negotiation and deal closing"
+        ],
+        "salaryRange": "R$8,000–18,000/month estimated (base + commission for AE level)",
+        "seniorityLevel": "Mid",
+        "yearsExpRequired": "2-5 years",
+        "languagesRequired": [
+          "Portuguese"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Nome], sou Pedro Pereira, gestor de tecnologia no Bank of America em Londres com 12 anos de entrega em capital markets e regulatório — incluindo experiência com BACEN e governança de dados. Estou me relocando para São Paulo em meados de 2027 e adoraria explorar oportunidades de liderança em tecnologia ou transformação digital na Stone."
+      }
     },
     {
       "id": "3d51d66189ab",
@@ -1937,7 +2234,56 @@
       "description": "<h2><img style=\"max-width: 100%;\" alt=\"\"><img style=\"max-width: 100%;\" src=\"https://mcusercontent.com/8d379fb9f1f1491ed361f2809/images/b6da5a18-d358-78b8-f674-ecd9fb5831fe.png\" alt=\"\" width=\"758\"><img style=\"max-width: 100%;\"></h2>\n<h2><strong>A Stone:</strong></h2>\n<p>Somos muito mais do que uma empresa de maquininhas! A Stone é uma empresa de tecnologia e serviços financeiros focada no(a) cliente.</p>\n<p>Nascemos com o propósito de ser protagonistas na transformação da indústria de pagamentos, servindo o(a) empreendedor(a) brasileiro(a) e transformando seus sonhos em resultados.</p>\n<p>Somos a maior empresa independente de meios de pagamentos do Brasil, com mais de quinze mil pessoas espalhadas pelas cinco regiões do país,&nbsp; em um cenário repleto de desafios e oportunidades. Valorizamos o trabalho em equipe, a flexibilidade, o desenvolvimento contínuo e os pensamentos disruptivos e incansáveis na busca de soluções para a nossa RAZÃO.</p>\n<h2><strong>Nossa Cultura:&nbsp;</strong></h2>\n<p>Por aqui, vivemos nossa cultura no dia a dia, guiados por esses 5 pilares:</p>\n<p>&nbsp;⚡Own It: Ter espírito de dono te faz conquistar a liberdade. Valorizamos a autonomia e a proatividade, somos responsáveis pelo o que entregamos e queremos sempre evoluir o nosso negócio.&nbsp;</p>\n<p>🎢Live the Ride: Faça. Feito é melhor que perfeito. Aprendemos com os erros e encaramos desafios como oportunidades de aprendizado.&nbsp;&nbsp;</p>\n<p>🎤No Bullshit: Agir com simplicidade. Somos pessoas práticas, sinceras e gostamos de feedbacks. Sabemos que às vezes vamos errar e contamos com essa transparência para evoluirmos.&nbsp;</p>\n<p>🤝Team Play: Se quer ir rápido, vá sozinho(a). Se quer ir longe, trabalhe em equipe. É sempre possível aprender com as outras pessoas e a colaboração é a chave do sucesso.&nbsp;</p>\n<p>💚The Reason: O cliente não tem razão, ele é a razão. Queremos gerar impacto para nosso(a) cliente, quando enxergamos a melhoria que causamos na vida dele(a), é que sabemos que fizemos uma boa entrega.&nbsp;</p>\n<h2><strong>O time do Comercial Digital (Pagar.me):</strong></h2>\n<p>Construímos o Pagar.me em 2014 para mudar a forma de receber pagamentos pela internet. Nos tornamos uma empresa do grupo Stone Co. e atuamos para ajudar lojistas de todos os tamanhos e modelos de negócio, desde pequenas lojas e startups a grandes e-commerces e marketplaces , a possuir uma estrutura de pagamentos digital poderosa e flexível.&nbsp;</p>\n<p>Quer entender mais sobre o nosso negócio? Conheça tudo sobre a Pagar.me <a href=\"https://pagar.me/sobre\">aqui.</a></p>\n<h2><strong>Como é ser um(a) Account Executive - Upsell:</strong></h2>\n<p>Você será responsável por aumentar a rentabilização das nossas soluções , prospectando ativamente nossa base de clientes, apresentando as soluções e negociando oportunidades de upsell que atendam às necessidades levantadas através do conhecimento detalhado dos nossos produtos e da gestão do seu funil de vendas.</p>\n<h2><strong>Principais responsab",
       "work_type": "",
       "found_at": "2026-05-21T10:34:13.903512+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 12,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a senior technology delivery leader targeting Director/Head-level roles; this is an Account Executive (sales) position — fundamentally different career track",
+          "Pedro has no sales, account management, or upsell experience visible in his profile",
+          "The role targets SMB/merchant payment sales in Brazil; Pedro's background is global capital markets technology delivery at institutional level"
+        ],
+        "gaps": [
+          "No B2B sales or account executive experience",
+          "No payments/acquiring/POS merchant ecosystem experience",
+          "No demonstrated upsell, cross-sell, or commercial quota-carrying background",
+          "Role is junior-to-mid sales; Pedro is a senior technology executive — severe seniority mismatch"
+        ],
+        "gapActions": [
+          "Do not tailor CV for this role — it is the wrong function entirely; redirect search to technology leadership openings at Stone (e.g. Head of Engineering, Director of Product Delivery, Senior Program Manager)",
+          "If Stone is a target company, research their technology and product org and apply directly to senior delivery or transformation roles instead"
+        ],
+        "talkingPoints": [
+          "Pedro's BACEN regulatory knowledge and Brazilian financial market familiarity could be valuable to Stone's compliance and risk technology teams — but in a different role",
+          "His experience leading $20M+ programs in payments-adjacent financial services shows enterprise-grade delivery capability relevant to Stone's growth ambitions",
+          "AI and automation skills (Python, LLMs, Make, Zapier) align with Stone's stated technology-first identity — relevant for a tech leadership pitch, not sales"
+        ],
+        "suggestedContact": "Head of Technology or VP of Engineering at StoneCo",
+        "keySkillsRequired": [
+          "B2B sales / account management",
+          "Upsell and cross-sell execution",
+          "Merchant/SMB relationship management",
+          "Payments and acquiring product knowledge",
+          "CRM pipeline management (e.g. Salesforce)"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "B2B sales / account management",
+          "Upsell and cross-sell execution",
+          "Merchant/SMB relationship management",
+          "Payments and acquiring product knowledge",
+          "CRM pipeline management (e.g. Salesforce)"
+        ],
+        "salaryRange": "R$5,000–12,000/month estimated (base + commission, AE level)",
+        "seniorityLevel": "Mid",
+        "yearsExpRequired": "2-5 years",
+        "languagesRequired": [
+          "Portuguese"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Nome], sou Pedro Pereira, Technology Manager no Bank of America em Londres com 12 anos em entrega de programas em mercados de capitais — estou me relocando para São Paulo em 2027 e a Stone está no topo da minha lista de empresas-alvo. Gostaria de explorar oportunidades de liderança em tecnologia ou transformação digital onde eu possa contribuir com minha experiência em regulatório, dados e IA aplicada a serviços financeiros."
+      }
     },
     {
       "id": "f926722cd7bb",
@@ -1948,7 +2294,56 @@
       "description": "<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<h2><strong><img style=\"max-width: 100%;\" src=\"https://mcusercontent.com/8d379fb9f1f1491ed361f2809/images/b6da5a18-d358-78b8-f674-ecd9fb5831fe.png\" alt=\"\" width=\"758\"></strong></h2>\n<p>&nbsp;</p>\n<h2><strong>A Stone:</strong></h2>\n<p><span style=\"font-weight: 400;\">Somos muito mais do que uma empresa de maquininhas! A Stone é uma empresa de tecnologia e serviços financeiros focada no(a) cliente.</span></p>\n<p><span style=\"font-weight: 400;\">Nascemos com o propósito de ser protagonistas na transformação da indústria de pagamentos, servindo o(a) empreendedor(a) brasileiro(a) e transformando seus sonhos em resultados.</span></p>\n<p><span style=\"font-weight: 400;\">Somos a maior empresa independente de meios de pagamentos do Brasil, com mais de quinze mil pessoas espalhadas pelas cinco regiões do país,&nbsp; em um cenário repleto de desafios e oportunidades. Valorizamos o trabalho em equipe, a flexibilidade, o desenvolvimento contínuo e os pensamentos disruptivos e incansáveis na busca de soluções para a nossa RAZÃO.</span></p>\n<p>&nbsp;</p>\n<h2><strong>Nossa Cultura:&nbsp;</strong></h2>\n<p><span style=\"font-weight: 400;\">Por aqui, vivemos nossa cultura no dia a dia, guiados por esses 5 pilares:</span></p>\n<p><span style=\"font-weight: 400;\">&nbsp;</span><span style=\"font-weight: 400;\">⚡Own It: Ter espírito de dono te faz conquistar a liberdade. Valorizamos a autonomia e a proatividade, somos responsáveis pelo o que entregamos e queremos sempre evoluir o nosso negócio.&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">🎢Live the Ride: Faça. Feito é melhor que perfeito. Aprendemos com os erros e encaramos desafios como oportunidades de aprendizado.&nbsp;&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">🎤No Bullshit: Agir com simplicidade. Somos pessoas práticas, sinceras e gostamos de feedbacks. Sabemos que às vezes vamos errar e contamos com essa transparência para evoluirmos.&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">🤝Team Play: Se quer ir rápido, vá sozinho(a). Se quer ir longe, trabalhe em equipe. É sempre possível aprender com as outras pessoas e a colaboração é a chave do sucesso.&nbsp;</span></p>\n<p><span style=\"font-weight: 400;\">💚The Reason: O cliente não tem razão, ele é a razão. Queremos gerar impacto para nosso(a) cliente, quando enxergamos a melhoria que causamos na vida dele(a), é que sabemos que fizemos uma boa entrega.&nbsp;</span></p>\n<h2>&nbsp;</h2>\n<h2><strong>O time Regulatório:</strong></h2>\n<p><span style=\"font-weight: 400;\">O time Regulatório faz parte do motor que impulsiona a Companhia. Atuamos lado a lado com as áreas de negócios, produtos e tecnologia, para viabilizar soluções financeiras disruptivas, bem como participamos da construção da agenda evolutiva do setor financeiro por meio de atuação institucional propositiva.</span></p>\n<p>&nbsp;</p>\n<h2><strong>Como é ser um(a) Advogado Regulatório JR</strong></h2>\n<p>&nbsp;</p>\n<p><span style=\"font-weight: 400;\">Principais ",
       "work_type": "",
       "found_at": "2026-05-21T10:34:13.904138+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 4,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a senior technology and delivery executive with 12+ years experience; this role is a Junior Regulatory Lawyer (Advogado Regulatório Júnior) — a completely different profession and seniority level",
+          "The job requires a law degree and regulatory legal expertise (OAB registration implied); Pedro has no legal qualifications and is not a lawyer",
+          "Pedro's target seniority is Director/Head of Technology Delivery at R$35,000–50,000/month; this is a junior individual contributor legal role, likely paying R$4,000–8,000/month"
+        ],
+        "gaps": [
+          "No law degree, OAB registration, or any legal professional qualification — the fundamental requirement for this role",
+          "No experience practicing regulatory law, drafting legal opinions, or working as an in-house or external counsel in a regulated financial institution"
+        ],
+        "gapActions": [
+          "Do not apply — no CV tweak can bridge a missing law degree and legal professional licence for a role that legally requires them",
+          "Instead, redirect your search on Stone/StoneCo's careers page to roles such as Head of Technology Delivery, Senior Program Manager, or Director of Engineering/Product — where your profile is genuinely competitive"
+        ],
+        "talkingPoints": [
+          "Pedro should not pursue this specific role, but Stone is a high-growth fintech with significant technology leadership needs where his capital markets and regulatory delivery background would add real value",
+          "His BACEN regulatory knowledge and experience leading compliance programs at a global bank maps well to Stone's regulated payments and credit business",
+          "His AI/automation skills (LLMs, Python, Make, Zapier) align with Stone's technology-first culture and disruptive innovation pillars"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or VP of Engineering Talent Acquisition at StoneCo",
+        "keySkillsRequired": [
+          "Law degree (Direito)",
+          "OAB registration",
+          "Brazilian regulatory law expertise (Banco Central, CVM, payments regulation)",
+          "Legal drafting and opinion writing",
+          "Junior-level institutional or fintech legal experience"
+        ],
+        "skillsYouHave": [
+          "Knowledge of Brazilian financial regulation (BACEN) from a delivery/program perspective"
+        ],
+        "skillsYouLack": [
+          "Law degree (Direito)",
+          "OAB registration",
+          "Regulatory legal practice experience",
+          "Legal drafting and opinion writing",
+          "Junior legal role experience"
+        ],
+        "salaryRange": "R$4,000–8,000/month estimated (Junior lawyer, São Paulo fintech)",
+        "seniorityLevel": "Junior",
+        "yearsExpRequired": "0-2 years",
+        "languagesRequired": [
+          "Português"
+        ],
+        "workArrangement": "On-site",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Nome], sou Pedro Pereira, Technology Manager no Bank of America em Londres com mais de 12 anos liderando programas de tecnologia em mercados de capitais e fintechs reguladas — estou me relocando para São Paulo em 2027 e tenho grande interesse em oportunidades de liderança em tecnologia na Stone. Seria possível trocarmos uma ideia sobre como minha experiência em entrega regulatória e transformação digital pode agregar valor à equipe de vocês?"
+      }
     },
     {
       "id": "6d343ec88f85",
@@ -8889,11 +9284,33 @@
       "description": "<div class=\"content-intro\"><p><strong><span data-contrast=\"none\">Sobre nós</span></strong><span data-contrast=\"none\"> ​</span><span data-ccp-props=\"{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:2,&quot;335559740&quot;:300}\">&nbsp;</span></p>\n<p><span data-contrast=\"auto\">A XP Inc. é uma das maiores instituições financeiras independente do Brasil, dona das marcas XP, Rico, Clear, XP Educação, InfoMoney, entre outras. Com mais de 4,6 milhões de clientes ativos e um valor superior a R$ 1,1 trilhão de ativos sob custódia, há 24 anos vem transformando o mercado financeiro para melhorar a vida das pessoas.</span></p>\n<p><span data-contrast=\"auto\">Com uma cultura marcante guiada por quatro valores - </span><strong><span data-contrast=\"auto\">Sonho Grande, Espírito Empreendedor, Foco no Cliente e Mente Aberta </span></strong><span data-contrast=\"auto\">- a XP Inc. está sempre em busca dos melhores talentos que tem ambição de fazer o impossível.</span></p>\n<hr>\n<p>&nbsp;</p></div><p><img style=\"display: block; margin-left: auto; margin-right: auto; max-width: 100%;\" src=\"https://prod2-sprcdn-assets.sprinklr.com/50752/e1134643-4234-4f76-a0a7-a1a32525743a-1476004450/Header_Inc._Verde.png\" alt=\"\" width=\"600\"></p>\n<p>&nbsp;</p>\n<h2>🚀 Sobre a Oportunidade</h2>\n<p>Escreva aqui um parágrafo impactante sobre o propósito da vaga e sua relevância para a XP. Exemplo: \"Estamos buscando um(a) profissional <em>[<code>nível de senioridade</code>]</em> para integrar nosso time de <em>[<code>área</code>]</em>, atuando diretamente em [<code><em>projeto/desafio estratégico</em></code>]. Esta posição é fundamental para [<code><em>objetivo concreto, ex: escalar soluções financeiras inovadoras, otimizar processos de crédito, etc.</em></code>].\"</p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\"><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">Saiba mais sobre nosso dia a dia n</span><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">o <a href=\"https://bit.ly/xpincinstagram\" target=\"_blank\">Instagram</a> e no <a href=\"https://www.linkedin.com/company/xpinc/life/porquexpinc/\" target=\"_blank\">LinkedIn</a>.</span></p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\">Confira nossas avaliações no <a href=\"https://bit.ly/xpincglassdoor\" target=\"_blank\">Glassdoor</a>.</p>\n<hr>\n<h2>🔍 O Que Procuramos</h2>\n<p><strong>Pré-requisitos Essenciais:</strong></p>\n<ul>\n<li>Formação em ",
       "work_type": "",
       "found_at": "2026-05-22T12:31:15.454951+00:00",
+      "is_new": false
+    },
+    {
+      "id": "4eb0f669bb73",
+      "company": "XP Investimentos",
+      "title": "Investor Offshore Pleno",
+      "location": "São Paulo, SP",
+      "url": "https://job-boards.greenhouse.io/xpinc/jobs/8561991002",
+      "description": "<div class=\"content-intro\"><p><strong><span data-contrast=\"none\">Sobre nós</span></strong><span data-contrast=\"none\"> ​</span><span data-ccp-props=\"{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:2,&quot;335559740&quot;:300}\">&nbsp;</span></p>\n<p><span data-contrast=\"auto\">A XP Inc. é uma das maiores instituições financeiras independente do Brasil, dona das marcas XP, Rico, Clear, XP Educação, InfoMoney, entre outras. Com mais de 4,6 milhões de clientes ativos e um valor superior a R$ 1,1 trilhão de ativos sob custódia, há 24 anos vem transformando o mercado financeiro para melhorar a vida das pessoas.</span></p>\n<p><span data-contrast=\"auto\">Com uma cultura marcante guiada por quatro valores - </span><strong><span data-contrast=\"auto\">Sonho Grande, Espírito Empreendedor, Foco no Cliente e Mente Aberta </span></strong><span data-contrast=\"auto\">- a XP Inc. está sempre em busca dos melhores talentos que tem ambição de fazer o impossível.</span></p>\n<hr>\n<p>&nbsp;</p></div><p>&nbsp;</p>\n<h2>🚀 Sobre a Oportunidade</h2>\n<p>Essa oportunidade é para a área de Investor B2B, que tem a missão de ajudar na dolarização de patrimônio. Esse é um time apaixonado por intensidade, comprometimento e vontade de crescer. Você pode se dar muito bem se gostar de relacionamento com assessor e cliente final, ajudar no desenvolvimento de uma nova área, ser organizado e falar de mercado/cenário.</p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\"><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">Saiba mais sobre nosso dia a dia n</span><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">o <a href=\"https://bit.ly/xpincinstagram\" target=\"_blank\">Instagram</a> e no <a href=\"https://www.linkedin.com/company/xpinc/life/porquexpinc/\" target=\"_blank\">LinkedIn</a>.</span></p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\">Confira nossas avaliações no <a href=\"https://bit.ly/xpincglassdoor\" target=\"_blank\">Glassdoor</a>.</p>\n<hr>\n<h2>O Que Procuramos</h2>\n<p><span data-teams=\"true\"><strong>Pré-requisitos Essenciais:</strong><br></span></p>\n<ul>\n<li>Experiencia como Assessor, ter pelo menos um desses certificados (CPA20 / CEA / CFP / SIE);</li>\n<li>Intensidade comercial;</li>\n<li>Falar em público, pois possíveis palestras serão necessárias;</li>\n<li>Inglês avançado;</li>\n<li>Excel intermediário.</li>\n</ul>\n<p><span data-teams=\"true\"><br><strong>Diferenciais:</strong><br></",
+      "work_type": "",
+      "found_at": "2026-05-22T13:32:50.859094+00:00",
+      "is_new": true
+    },
+    {
+      "id": "62229ec39b2e",
+      "company": "XP Investimentos",
+      "title": "Investor Offshore Sênior",
+      "location": "São Paulo, SP",
+      "url": "https://job-boards.greenhouse.io/xpinc/jobs/8561979002",
+      "description": "<div class=\"content-intro\"><p><strong><span data-contrast=\"none\">Sobre nós</span></strong><span data-contrast=\"none\"> ​</span><span data-ccp-props=\"{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:2,&quot;335559740&quot;:300}\">&nbsp;</span></p>\n<p><span data-contrast=\"auto\">A XP Inc. é uma das maiores instituições financeiras independente do Brasil, dona das marcas XP, Rico, Clear, XP Educação, InfoMoney, entre outras. Com mais de 4,6 milhões de clientes ativos e um valor superior a R$ 1,1 trilhão de ativos sob custódia, há 24 anos vem transformando o mercado financeiro para melhorar a vida das pessoas.</span></p>\n<p><span data-contrast=\"auto\">Com uma cultura marcante guiada por quatro valores - </span><strong><span data-contrast=\"auto\">Sonho Grande, Espírito Empreendedor, Foco no Cliente e Mente Aberta </span></strong><span data-contrast=\"auto\">- a XP Inc. está sempre em busca dos melhores talentos que tem ambição de fazer o impossível.</span></p>\n<hr>\n<p>&nbsp;</p></div><p><img style=\"display: block; margin-left: auto; margin-right: auto; max-width: 100%;\" src=\"https://prod2-sprcdn-assets.sprinklr.com/50752/e1134643-4234-4f76-a0a7-a1a32525743a-1476004450/Header_Inc._Verde.png\" alt=\"\" width=\"600\"></p>\n<h2>🚀 Sobre a Oportunidade</h2>\n<p>Essa oportunidade é para a área de Investor B2B Sênior, que tem a missão de ajudar na dolarização de patrimônio. Esse é um time apaixonado por intensidade, comprometimento e vontade de crescer. Você pode se dar muito bem se gostar de relacionamento com assessor e cliente final, ajudar no desenvolvimento de uma nova área, ser organizado e falar de mercado/cenário.</p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\"><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">Saiba mais sobre nosso dia a dia n</span><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">o <a href=\"https://bit.ly/xpincinstagram\" target=\"_blank\">Instagram</a> e no <a href=\"https://www.linkedin.com/company/xpinc/life/porquexpinc/\" target=\"_blank\">LinkedIn</a>.</span></p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\">Confira nossas avaliações no <a href=\"https://bit.ly/xpincglassdoor\" target=\"_blank\">Glassdoor</a>.</p>\n<hr>\n<h2>O Que Procuramos</h2>\n<p><span data-teams=\"true\"><strong>Pré-requisitos Essenciais:</strong><br><br>• Ótima capacidade de trabalho em equipe e relacionamento interpessoal;<br>• Mínimo de 5 anos de experiência no mercad",
+      "work_type": "",
+      "found_at": "2026-05-22T13:32:50.859700+00:00",
       "is_new": true
     }
   ],
   "pipeline": [],
-  "last_updated": "2026-05-22 12:39 UTC",
+  "last_updated": "2026-05-22 13:41 UTC",
   "run_history": [
     {
       "date": "2026-05-20",
@@ -8926,6 +9343,10 @@
     {
       "date": "2026-05-22",
       "count": 683
+    },
+    {
+      "date": "2026-05-22",
+      "count": 685
     }
   ]
 }
