@@ -530,7 +530,55 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 22,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro's background is in technology delivery and program management, not quantitative model risk validation — the core competency required for this role",
+          "The role demands deep expertise in IRRBB, market risk, liquidity risk, and stress testing model validation, which are not evidenced in Pedro's profile",
+          "This is a senior individual contributor (IC) specialist role requiring strong quantitative/statistical modelling skills; Pedro's strengths are leadership, delivery, and programme governance"
+        ],
+        "gaps": [
+          "No demonstrated experience in model risk validation, IRRBB, market risk models, or stress testing frameworks as a second line of defence",
+          "No evidence of deep quantitative modelling skills (stochastic calculus, econometrics, model validation methodology) required for this specialist role"
+        ],
+        "gapActions": [
+          "Do not apply to this role — CV tweaks cannot bridge a fundamental domain skills gap between technology delivery and quantitative model risk validation",
+          "If targeting Nubank, reposition CV toward Technology Delivery Lead or Senior Engineering Programme Manager roles within their Product & Technology org instead"
+        ],
+        "talkingPoints": [
+          "Pedro's regulatory depth (BACEN, Fed reporting, risk data governance) shows genuine financial risk awareness, but not at the model validation level this role requires",
+          "His AI/ML credentials (Google Cloud AI, Cambridge Spark Advanced ML) could be a minor differentiator in a tech-facing risk role, but are insufficient for a quant model risk specialist",
+          "Pedro's cross-functional experience bridging Risk, Compliance, and Technology at BofA Global Markets would be highly relevant to a technology delivery or transformation role at Nubank"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or Talent Partner, Engineering & Product — Nubank",
+        "keySkillsRequired": [
+          "Model risk validation (IRRBB, market risk, liquidity risk)",
+          "Stress testing model review and challenge",
+          "Quantitative methods (stochastic models, econometrics, statistics)",
+          "Second line of defence risk governance",
+          "Machine learning model validation in financial services"
+        ],
+        "skillsYouHave": [
+          "Machine learning model validation in financial services (partial — AI/ML certs, not in model risk context)"
+        ],
+        "skillsYouLack": [
+          "Model risk validation (IRRBB, market risk, liquidity risk)",
+          "Stress testing model review and challenge",
+          "Quantitative methods (stochastic models, econometrics, statistics)",
+          "Second line of defence risk governance"
+        ],
+        "salaryRange": "R$30,000–45,000/month estimated for this specialist role",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "7-12 years in quantitative model risk",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm Pedro Pereira — a Technology Delivery Lead at Bank of America Global Markets relocating to São Paulo in mid-2027, with 12 years delivering regulatory and risk technology programmes in capital markets. I'd love to connect to explore how my background could fit Technology or Transformation leadership opportunities at Nubank as I plan my move."
+      }
     },
     {
       "id": "f10ec20695f6",
@@ -1060,7 +1108,59 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 28,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro has strong Python and SQL skills which are foundational to analytics engineering, providing a technical base",
+          "His data governance experience at BofA aligns partially with Nubank's emphasis on data modeling and governance",
+          "Financial services domain expertise in a regulated environment is directly relevant to Nubank's context"
+        ],
+        "gaps": [
+          "The role is a hands-on individual contributor analytics engineering position, not a leadership or delivery management role — a fundamental mismatch with Pedro's seniority trajectory",
+          "No evidence of dbt, Spark, Airflow, or modern data stack tooling that Nubank's analytics engineering team would require",
+          "No experience building or owning data pipelines, data warehousing, or BI/analytical modeling at engineering depth",
+          "Pedro is available mid-2027 — Nubank is almost certainly hiring for immediate or near-term start",
+          "Seniority level is misaligned: this is a Senior IC role, not a Director or Head-of function"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — instead search Nubank's careers page for 'Head of Data', 'Director of Technology', 'Engineering Manager' or 'Senior Program Manager' titles",
+          "If pursuing analytics engineering track seriously, add any dbt, BigQuery, Snowflake, or Airflow project experience explicitly to your CV under a 'Data Engineering' section",
+          "Reframe your data governance and regulatory reporting work at BofA to highlight pipeline ownership and data product delivery, not just oversight"
+        ],
+        "talkingPoints": [
+          "I led data governance frameworks and regulatory reporting pipelines at Bank of America scale — I understand what good data infrastructure looks like in a high-compliance financial environment",
+          "My Python and SQL work in AI automation projects shows I can operate technically, not just manage engineers — I'm a hands-on leader",
+          "Nubank's mission to simplify financial services mirrors the complexity-reduction work I drove in capital markets — I bring that mindset to data platform leadership"
+        ],
+        "suggestedContact": "Head of Data Engineering or Director of Technology Recruiting at Nubank",
+        "keySkillsRequired": [
+          "dbt (data build tool)",
+          "SQL at advanced/engineering depth",
+          "Data pipeline and warehouse modeling",
+          "Python for data engineering",
+          "Data governance and documentation practices"
+        ],
+        "skillsYouHave": [
+          "SQL at advanced/engineering depth",
+          "Python for data engineering",
+          "Data governance and documentation practices"
+        ],
+        "skillsYouLack": [
+          "dbt (data build tool)",
+          "Data pipeline and warehouse modeling"
+        ],
+        "salaryRange": "R$18,000–30,000/month estimated (Senior IC Analytics Engineer at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "5-8 years",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm a technology delivery director with 12+ years in global capital markets relocating to São Paulo in mid-2027 — I came across Nubank's data engineering culture and would love to explore leadership roles where I can bring regulated financial data governance at scale. Would you be open to a brief conversation about what director-level opportunities might be emerging on your radar?"
+      }
     },
     {
       "id": "369ed186647a",
@@ -1419,7 +1519,8 @@
       "description": "<h1 data-pm-slice=\"1 1 []\">Senior Staff Engineer, Investments Platforms</h1>\n<h2>The Opportunity:</h2>\n<p class=\"wnfdnte\">This position is for an Senior Staff Software Engineer&nbsp;to join the<strong> </strong>Investments Business Unit.</p>\n<p class=\"wnfdnte\">Investments Platforms is responsible for the core platforms that model Nubank’s investments business: custody, offer, order management, accounts, settlement and related domains. These platforms are the long‑term home for our investments capabilities and the main path to move away from legacy Invest systems that still handle a large portion of critical flows today. Your mandate is to help design, evolve and execute this environment and comply with regulatory requirements.</p>\n<h2>About Nubank's Engineering Culture:</h2>\n<p class=\"wnfdnte\">We believe in small, empowered teams, a process‑light environment and a culture of ownership, learning and collaboration. Our architecture is platform‑oriented: we build extensible, agnostic business platforms (e.g., payments, banking, investments) that can be reused across products, markets and asset classes. You will be expected to think in terms of platforms first, translating complex investment domains into clean boundaries, contracts and abstractions that product teams can safely build on.</p>\n<p class=\"wnfdnte\">Nubank is also on a company‑wide journey to become an<strong> </strong>AI‑first company. We expect our senior engineers to be hands‑on with AI tools in their own work, and to help define how AI is used safely and productively in engineering and in products.</p>\n<h2>What we have to offer:</h2>\n<ul>\n<li>\n<p class=\"wnfdnte\"><strong>Own the technical direction of Investments Platforms</strong> – the systems that implement Nubank’s investments business model in software (custody, offer, orders, account, settlement and more) and power how we scale investments in Brazil and future markets.</p>\n</li>\n<li>\n<p class=\"wnfdnte\"><strong>Lead the migration off legacy Invest systems</strong>: design and execute strategies to move critical flows into modern Nubank platforms, while we continue operating at scale and meeting regulatory commitments.</p>\n</li>\n<li>\n<p class=\"wnfdnte\"><strong>Work on a disruptive investments architecture</strong>&nbsp;– rethinking how investments should be modeled and operated end‑to‑end, rather than just lifting and shifting existing broker or custodian patterns.</p>\n</li>\n<li>\n<p class=\"wnfdnte\"><strong>Drive AI usage in a high‑impact domain</strong>: help define how we use AI in investments – both in the products we ship and in how we design, build and operate platforms.</p>\n</li>\n<li>\n<p class=\"wnfdnte\"><strong>Collaborate across the platform ecosystem</strong> – working closely with other business and technical platforms such as Payments and Banking, and with product squads that consume Investments Platforms.</p>\n</li>\n<li>\n<p class=\"wnfdnte\"><strong>Global scope with hybrid flexibility</strong>: roles are based in Brazil,&nbs",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {}
     },
     {
       "id": "49586c95525c",
@@ -1430,7 +1531,8 @@
       "description": "<p><strong>About Us</strong></p>\n<p>Nu is one of the largest digital financial platforms in the world, with more than 122 million customers across Brazil, Mexico, and Colombia. Guided by our mission to fight complexity and empower people, we are redefining financial services in Latin America and this is still just the beginning of the purple future we're building.</p>\n<p>Listed on the New York Stock Exchange (NYSE: NU), we combine proprietary technology, data intelligence, and an efficient operating model to deliver financial products that are simple, accessible, and human.</p>\n<p>Our impact has been recognized by global rankings such as Time 100 Companies, Fast Company’s Most Innovative Companies, and Forbes World’s Best Bank. Visit our institutional page&nbsp;<a href=\"https://international.nubank.com.br/careers/\">https://international.nubank.com.br/careers/</a>&nbsp;<br><br></p>\n<p><strong>About the team</strong></p>\n<p>Be part of the <strong>SOx Team,</strong> contributing to continuous improvements in the <strong>IT General Controls (ITGC), Automated</strong> and <strong>IT-dependent controls</strong> environment at Nubank. The team ensures compliance with SOx requirements and international frameworks (e.g., COSO, COBIT, PCAOB standards), partnering with <strong>Engineering, Information Security, IAM, Platform, Data, Controllership, Finance, and Product squads</strong> to guarantee that technology processes and components supporting financial reporting are properly designed, operated, and evidenced.</p>\n<p>We act as&nbsp;<strong>2nd Line of Defense</strong> for SOx, challenging and supporting 1LoD teams in the correct and efficient execution of internal controls in line with Nubank’s Internal Controls and SOx IT Methodology.</p>\n<p><strong>About the role</strong></p>\n<p>As a <strong>SOx IT Specialist,</strong> you will be a senior individual contributor and subject-matter expert for IT controls over financial reporting, with strong autonomy and influence across multiple domains and countries.You will:</p>\n<ul>\n<li>\n<p><strong>Own and lead</strong> the assessment of the company’s SOx IT control environment, focusing on Logical access management, Change management, IT operations, automated controls, IT-dependent manual controls, and cybersecurity.</p>\n</li>\n<li>\n<p><strong>Drive scoping and risk assessment</strong> of IT components (third‑party applications, internal services/microservices, automations, infrastructure, datasets, notebooks, etc.) that are relevant to ICFR, applying Nubank’s SOx IT scope methodology.</p>\n</li>\n<li>\n<p>Perform and review <strong>walkthroughs and design assessments</strong> for ITGCs, IT-dependent controls, automatic controls, challenging control design, coverage of risks, and evidence quality.</p>\n</li>\n<li>\n<p>Plan and execute <strong>Tests of Design (ToD) and Tests of Effectiveness (ToE)</strong> for IT controls.</p>\n</li>\n<li>\n<p><strong>Coordinate remediation and action plans</strong> with Engineering, InfoSec",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {}
     },
     {
       "id": "afa8a2b98b51",
@@ -1441,7 +1543,8 @@
       "description": "<h2 class=\"p8i6j01 paragraph\">About Us</h2>\n<p class=\"p8i6j01 paragraph\">Nu is one of the largest digital financial platforms in the world, with more than 127 million customers across Brazil, Mexico, and Colombia. Guided by our mission to fight complexity and empower people, we are redefining financial services in Latin America — and this is still just the beginning of the purple future we're building. Listed on the New York Stock Exchange (NYSE: NU), we combine proprietary technology, data intelligence, and an efficient operating model to deliver financial products that are simple, accessible, and human. Our impact has been recognized by global rankings such as Time 100 Companies, Fast Company’s Most Innovative Companies, and Forbes World’s Best Bank. Learn more at <a class=\"ln4xub1 _1ibi0s36w _1ibi0s3e5 _1ibi0s3cg markdown-link _1ibi0s376\" href=\"https://international.nubank.com.br/careers/\" target=\"_blank\">&nbsp;<span class=\"f8uo5q0\">https://international.nubank.com.br/careers/</span></a>.</p>\n<h2 class=\"p8i6j01 paragraph\">About the Team</h2>\n<p class=\"p8i6j01 paragraph\">The IT team is the operational backbone of Nubank’s internal infrastructure. As the company scales, we’re building the service management foundations that let engineering teams move faster with more confidence — turning IT operations into a strategic advantage, not just a support function.</p>\n<h2 class=\"p8i6j01 paragraph\">About the Role</h2>\n<p class=\"p8i6j01 paragraph\">As a Staff IT Engineer - Service Management, you will own and evolve Nubank’s IT Service Management (ITSM) practice end to end. You’ll design and implement processes, tools, and governance that keep our internal services reliable, auditable, and efficient, enabling engineering teams to focus on high-impact work while maintaining strong operational controls in a regulated environment.</p>\n<h2 class=\"p8i6j01 paragraph\">You’ll Be Responsible For</h2>\n<ul class=\"p8i6j07 p8i6j02\">\n<li class=\"p8i6j0a\">Continuing to build and own Nubank's ITSM practice, defining and implementing core ITIL v4 processes: incident, problem, change, service request, and knowledge management.</li>\n<li class=\"p8i6j0a\">Establishing a service catalog with clearly defined SLAs and OLAs aligned with internal stakeholder expectations.</li>\n<li class=\"p8i6j0a\">Owning the end-to-end ITSM toolchain (Jira Service Management or equivalent): configuration, workflow design, form logic, SLA rules, and integrations with adjacent systems.</li>\n<li class=\"p8i6j0a\">Identifying and closing automation gaps — routing, escalation, notifications, and reporting — partnering with engineering teams to reduce manual toil across operations.</li>\n<li class=\"p8i6j0a\">Defining and tracking operational KPIs (MTTR, SLA compliance, first-contact resolution, change success rate) and building regular reporting cadences for leadership and stakeholders.</li>\n<li class=\"p8i6j0a\">Establishing a Change Advisory Board (CAB) with structured documentation and approval workflows.</li",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {}
     },
     {
       "id": "009cd57b13fc",
@@ -1452,7 +1555,59 @@
       "description": "<p>.</p>\n<h3><strong>About Us</strong></h3>\n<p>Nu is one of the largest digital financial platforms in the world, with more than 122 million customers across Brazil, Mexico, and Colombia. Guided by our mission to fight complexity and empower people, we are redefining financial services in Latin America and this is still just the beginning of the purple future we're building.</p>\n<p>Listed on the New York Stock Exchange (NYSE: NU), we combine proprietary technology, data intelligence, and an efficient operating model to deliver financial products that are simple, accessible, and human.</p>\n<p>Our impact has been recognized by global rankings such as Time 100 Companies, Fast Company’s Most Innovative Companies, and Forbes World’s Best Bank. Visit our institutional page&nbsp;<a href=\"https://international.nubank.com.br/careers/\">https://international.nubank.com.br/careers/</a>&nbsp;</p>\n<p>&nbsp;</p>\n<h3><strong>About the role</strong></h3>\n<p>Our Engineering team helps Nubank to create and use the technology that provides us to build the best financial products. We strive for state-of-the-art software development practices that currently include a variety of technologies. While we value candidates that are familiar with them, we are also confident that software engineers who are interested in joining Nubank will be able to learn from our team. The software engineer is focused on software development with Clojure as the main programming language (We will teach you Clojure). Main responsibilities:</p>\n<ul>\n<li>Horizontally scalable microservices written mostly in Clojure, using Finagle and leveraging upon functional programming techniques and hexagonal architecture</li>\n<li>High throughput jobs and inter-service communication using Kafka</li>\n<li>Continuous Integration and Deployment into AWS</li>\n<li>Storing data in Datomic and DynamoDB</li>\n<li>Monitoring and observability with Prometheus</li>\n<li>Running as much as possible in Kubernetes</li>\n</ul>\n<p>We are a process-light organization that values human interactions. We value working in small, independent teams that feel like small startups within the company, and eschew coupling and centralizing where realistic. We understand that execution is the key to success and optimize processes to remove bottlenecks.</p>\n<h3><strong>You will be responsible for</strong></h3>\n<ul>\n<li>Work with large scale distributed systems, understanding their broad architecture</li>\n<li>Set technical direction for multiple teams, ensuring alignment with Business Areas and architecture strategies</li>\n<li>Drive pragmatic innovation while ensuring resilient and flexible solutions that scale across products and geographies</li>\n<li>Mentor engineers across teams, establishing and maintaining a high technical bar organization-wide</li>\n<li>Write, test, instrument, document, and maintain code. Able to pair and participate in code reviews to contribute to the growth of others in and around the team</li>\n<li>Collaborate closely",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a Technology Manager and Delivery Lead, not a hands-on Software Engineer — the role requires deep individual contributor software development skills",
+          "Pedro's technical stack (Python, SQL, LLMs, AI tooling) does not align with Nubank's core stack: Clojure, Kafka, Datomic, DynamoDB, Kubernetes, Prometheus",
+          "Pedro's seniority and career trajectory are management/program delivery focused, while Staff Software Engineer is an IC (Individual Contributor) track role"
+        ],
+        "gaps": [
+          "No experience with Clojure, Finagle, Datomic, DynamoDB, Kafka, Kubernetes, or Prometheus",
+          "No software engineering IC background — Pedro leads delivery programs, he does not write production-grade microservices",
+          "Staff Engineer role at Nubank is a deep technical IC path, incompatible with Pedro's Director/Head of Delivery ambitions"
+        ],
+        "gapActions": [
+          "Do not apply to this role — instead search Nubank's careers page for 'Engineering Manager', 'Head of Delivery', 'Technical Program Manager', or 'Director of Engineering' which match Pedro's actual profile",
+          "If targeting Nubank specifically, reframe CV to highlight cross-functional delivery leadership, regulatory tech programs, and AI adoption — not IC coding skills"
+        ],
+        "talkingPoints": [
+          "Pedro has led $20M+ technology programs in regulated financial environments, which mirrors Nubank's scale and compliance complexity in Brazil and LatAm",
+          "Experience with BACEN regulatory frameworks and data governance is directly relevant to Nubank's Brazilian regulatory obligations",
+          "AI and automation capabilities (LLMs, Python, prompt engineering) are increasingly strategic at Nubank and could be a differentiator in a leadership context"
+        ],
+        "suggestedContact": "Engineering Manager Recruiting or Technical Recruiting Lead at Nubank",
+        "keySkillsRequired": [
+          "Clojure or functional programming",
+          "Kafka and distributed systems",
+          "Kubernetes and AWS",
+          "Datomic or DynamoDB",
+          "Microservices architecture and CI/CD"
+        ],
+        "skillsYouHave": [
+          "AWS (partial — via AI/cloud certifications)",
+          "Distributed systems awareness (via capital markets delivery)"
+        ],
+        "skillsYouLack": [
+          "Clojure / functional programming",
+          "Kafka",
+          "Kubernetes",
+          "Datomic / DynamoDB",
+          "Prometheus / observability tooling"
+        ],
+        "salaryRange": "R$40,000–70,000/month estimated (Staff Engineer IC at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "8-12 years",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm a Technology Delivery Director with 12+ years in global capital markets (Bank of America, Capco) relocating to São Paulo mid-2027 — I'd love to explore whether Nubank has Engineering Manager or Head of Delivery openings where my regulatory tech and cross-functional leadership background could add value. Would you be open to a brief conversation?"
+      }
     },
     {
       "id": "19277cf7edfe",
@@ -1463,7 +1618,8 @@
       "description": "<p><strong>About Us</strong></p>\n<p>Nubank was founded in 2013 to free people from a bureaucratic, slow and inefficient financial system. Since then, through innovative technology and outstanding customer service, the company has been redefining people's relationships with money across Latin America. With operations in Brazil, Mexico, and Colombia, Nubank is today one of the largest digital banking platforms and technology-leading companies in the world. Nubank was listed on the NYSE in 2021 and was recently named one of Time Magazine's 100 Most Influential Companies. For more information, visit<a href=\"https://www.google.com/search?q=https://www.nu.com\"> </a>www.nu.com.br.</p>\n<p><strong>About the Role</strong></p>\n<p>At Nubank, our Credit Card platform is the core of our global expansion. We are looking for a Staff Engineer to join our platform team as a technical anchor, ensuring our systems remain scalable and flexible as we maintain sustainable growth and innovation in the countries where we currently operate, while also launching into new international markets. You will play a vital role in evolving the architecture of one of our most complex and strategic products.</p>\n<p>You will operate within a high-impact triad alongside Product and Management, focusing on long-term technical strategy and system health. As a hands-on technical leader, you will challenge the status quo, propose innovation and solve deep architectural problems, mentor and become a technical reference for our engineering team. Your work will directly enable millions of customers to access financial products via credit card worldwide.</p>\n<p><strong>Responsibilities</strong></p>\n<ul>\n<li>Define and drive the long-term vision and strategy for the global architecture of the core credit card platform, ensuring exponential scalability and continuous evolution capability.</li>\n<li>Lead the strategic partnership with Product and Business leadership (C-level and VPs) to shape the medium and long-term technical roadmap and define the strategic OKRs and global impact KPIs.</li>\n<li>Act as a technical and cultural reference, defining the highest standards of engineering excellence, mentoring other Architects and Principal/Staff Engineers, and fostering a culture of innovation and accountability.</li>\n<li>Lead and resolve the most ambitious and high-risk technical challenges, intervening in critical performance or resilience bottlenecks and driving technical execution for solutions with multi-system and multi-country impact.</li>\n<li>Design and oversee the execution of complex system transformations (e.g., core banking migrations, replacement of legacy platforms) ensuring regulatory compliance in multiple jurisdictions and fiscal regimes, proactively mitigating risks.</li>\n<li>Communicate and defend the technical strategy eloquently and convincingly to the executive board and non-technical audiences, translating architecture decisions into business value and competitive advantage.</l",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {}
     },
     {
       "id": "19277cf7edfe",
@@ -1474,7 +1630,60 @@
       "description": "<p><strong>About Us</strong></p>\n<p>Nubank was founded in 2013 to free people from a bureaucratic, slow and inefficient financial system. Since then, through innovative technology and outstanding customer service, the company has been redefining people's relationships with money across Latin America. With operations in Brazil, Mexico, and Colombia, Nubank is today one of the largest digital banking platforms and technology-leading companies in the world. Nubank was listed on the NYSE in 2021 and was recently named one of Time Magazine's 100 Most Influential Companies. For more information, visit<a href=\"https://www.google.com/search?q=https://www.nu.com\"> </a>www.nu.com.br.</p>\n<p><strong>About the Role</strong></p>\n<p>At Nubank, our Credit Card platform is the core of our global expansion. We are looking for a Staff Engineer to join our platform team as a technical anchor, ensuring our systems remain scalable and flexible as we maintain sustainable growth and innovation in the countries where we currently operate, while also launching into new international markets. You will play a vital role in evolving the architecture of one of our most complex and strategic products.</p>\n<p>You will operate within a high-impact triad alongside Product and Management, focusing on long-term technical strategy and system health. As a hands-on technical leader, you will challenge the status quo, propose innovation and solve deep architectural problems, mentor and become a technical reference for our engineering team. Your work will directly enable millions of customers to access financial products via credit card worldwide.</p>\n<p><strong>Responsibilities</strong></p>\n<ul>\n<li>Define and drive the long-term vision and strategy for the global architecture of the core credit card platform, ensuring exponential scalability and continuous evolution capability.</li>\n<li>Lead the strategic partnership with Product and Business leadership (C-level and VPs) to shape the medium and long-term technical roadmap and define the strategic OKRs and global impact KPIs.</li>\n<li>Act as a technical and cultural reference, defining the highest standards of engineering excellence, mentoring other Architects and Principal/Staff Engineers, and fostering a culture of innovation and accountability.</li>\n<li>Lead and resolve the most ambitious and high-risk technical challenges, intervening in critical performance or resilience bottlenecks and driving technical execution for solutions with multi-system and multi-country impact.</li>\n<li>Design and oversee the execution of complex system transformations (e.g., core banking migrations, replacement of legacy platforms) ensuring regulatory compliance in multiple jurisdictions and fiscal regimes, proactively mitigating risks.</li>\n<li>Communicate and defend the technical strategy eloquently and convincingly to the executive board and non-technical audiences, translating architecture decisions into business value and competitive advantage.</l",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery/program manager, not a hands-on software engineer — this role requires deep software architecture and coding expertise",
+          "The role demands Staff Engineer-level technical skills (system design, distributed systems, hands-on coding) that Pedro's profile does not demonstrate",
+          "Pedro's strengths are in regulatory program delivery, cross-functional leadership and AI tooling — not in building scalable credit card platforms from an engineering perspective"
+        ],
+        "gaps": [
+          "No evidence of hands-on software engineering, system architecture design or production code ownership at scale",
+          "No demonstrated experience with Clojure, Kotlin, Datomic or the distributed systems stack typical of Nubank's engineering culture",
+          "No background in credit card platform or consumer fintech product engineering",
+          "Staff Engineer roles at Nubank require IC (Individual Contributor) technical depth, not delivery management or consulting credentials"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — instead search Nubank's careers page for 'Engineering Manager', 'Technical Program Manager' or 'Head of Delivery' which better match Pedro's profile",
+          "If determined to target Nubank engineering roles, build and publish a GitHub portfolio with Python/SQL projects demonstrating production-quality code and system design thinking",
+          "Add a 'Technical Architecture' section to the CV listing any architectural decisions made (not just managed) in BofA or Capco engagements to strengthen engineering credibility"
+        ],
+        "talkingPoints": [
+          "Pedro has deep fintech domain knowledge in regulated financial products including capital markets and compliance — transferable context for Nubank's regulated credit business",
+          "Experience managing $20M+ programs with cross-functional engineering, product and risk teams shows he understands how Staff Engineers operate within high-stakes product triads",
+          "AI/ML certifications and Python/LLM experience signal technical curiosity, which could be relevant in a future Engineering Manager or Technical Delivery Director conversation at Nubank"
+        ],
+        "suggestedContact": "Engineering Recruiting Lead or Technical Talent Acquisition Partner",
+        "keySkillsRequired": [
+          "Hands-on software engineering and production code ownership",
+          "Distributed systems and large-scale platform architecture",
+          "Credit card or consumer lending platform domain expertise",
+          "Technical mentorship and IC Staff/Principal Engineer leadership",
+          "Functional programming or JVM-based languages (Clojure, Kotlin, Java)"
+        ],
+        "skillsYouHave": [
+          "Fintech domain expertise"
+        ],
+        "skillsYouLack": [
+          "Hands-on software engineering and production code ownership",
+          "Distributed systems and large-scale platform architecture",
+          "Credit card or consumer lending platform domain expertise",
+          "Technical mentorship and IC Staff/Principal Engineer leadership",
+          "Functional programming or JVM-based languages (Clojure, Kotlin, Java)"
+        ],
+        "salaryRange": "R$45,000–75,000/month estimated (Staff Engineer at Nubank is a senior IC role with equity)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "10+ years as a software engineer",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm a Technology Delivery Director with 12+ years in global fintech relocating to São Paulo in mid-2027 — I'd love to explore whether Nubank has Engineering Manager or Technical Program Director opportunities that align with my background in large-scale regulated financial platforms. Would you be open to a brief conversation?"
+      }
     },
     {
       "id": "3312b2dc93c9",
@@ -1485,7 +1694,59 @@
       "description": "<h3><strong>About Us</strong></h3>\n<p>Nubank was founded in 2013 to free people from a bureaucratic, slow and inefficient financial system. Since then, through innovative technology and outstanding customer service, the company has been redefining people's relationships with money across Latin America. With operations in Brazil, Mexico, and Colombia, Nubank is today one of the largest digital banking platforms and technology-leading companies in the world. Nubank was listed on the NYSE in 2021 and was recently named one of Time Magazine's 100 Most Influential Companies. For more information, visit nu.com.br.</p>\n<h3><strong>About the Role</strong></h3>\n<p>At Nubank, we are entering a new chapter for our Investments business. We are moving away from traditional, siloed financial systems toward a global, scalable platform architecture that empowers millions of customers to grow their wealth. As a Staff Software Engineer, you will be a cornerstone of this transformation, ensuring our engineering culture and technical strategy can support the next decade of growth.</p>\n<p>You will join the Investments Platforms team, where we build the core engines for custody, offers, and orders. Your mission is to \"dehydrate\" legacy systems by designing extensible, agnostic solutions that handle everything from fixed income to equities. This isn't just about writing code; it's about leading a cultural and technical revival, influencing your peers to adopt the best architectural practices while keeping the \"plane flying\" as we migrate critical flows.</p>\n<h3><strong>Responsibilities</strong></h3>\n<ul>\n<li><strong>Architect Scalable Platforms:</strong> Design and evolve core investment platforms (Custody, Orders, Offers) to be asset-agnostic and globally extensible.</li>\n<li><strong>Drive Legacy Migration:</strong> Lead the construction of complex and innovative platforms to manage an Investments business in a scale unseen in the market.</li>\n<li><strong>Technical Stewardship:</strong> Own the end-to-end technical lifecycle of high-impact projects, ensuring alignment with Nubank’s long-term business goals.</li>\n<li><strong>Collaborate Cross-Functionally:</strong> Partner with Product, Design, and Operations to translate complex business requirements into elegant technical solutions.</li>\n</ul>\n<h3><strong>Required Qualifications</strong></h3>\n<ul>\n<li><strong>Platform Engineering Expertise:</strong> Proven track record of building and maintaining highly abstracted, extensible platforms (technical or business-focused) in a high-growth environment.</li>\n<li><strong>Architecture at Scale:</strong> Deep experience designing distributed systems that handle high-concurrency and mission-critical financial flows.</li>\n<li><strong>Resilient Leadership:</strong> Demonstrated ability to lead technical teams through periods of ambiguity, organizational change, or complex system migrations.</li>\n</ul>\n<h3><strong>Nice to Have</strong></h3>\n<ul>\n<li><strong>Investments Domain Know",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery/program manager, not a hands-on software engineer — Nubank requires deep individual contributor coding skills in a Staff Engineer role",
+          "The role demands active software architecture and legacy system migration engineering, not program management or delivery governance",
+          "Pedro's Python/SQL/AI usage is tooling-level (automation, prompt engineering), not production-grade distributed systems engineering at scale"
+        ],
+        "gaps": [
+          "No evidence of hands-on software engineering in production environments (JVM, Clojure, Kotlin, Go or equivalent at scale)",
+          "No experience designing custody, orders or offers platforms or any investment infrastructure at the engineering level",
+          "Staff Engineer roles at Nubank require deep system design, distributed systems expertise and peer code review leadership — none demonstrated",
+          "No experience with cloud-native microservices architecture as a builder/architect (only as a delivery overseer)"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — reframe search toward 'Head of Technology Delivery', 'Engineering Program Manager', or 'Director of Technology' roles at Nubank or similar fintechs",
+          "If targeting Staff/Principal Engineer roles long-term, build a public GitHub portfolio with production-quality Python or backend code solving financial domain problems",
+          "Add any hands-on system design or architecture decisions made at BofA/Capco (e.g. data pipeline design, API integration patterns) to clarify technical depth"
+        ],
+        "talkingPoints": [
+          "Pedro has deep capital markets domain knowledge (custody, orders, regulatory reporting) that is highly relevant to Nubank Investments — but in a leadership, not engineering capacity",
+          "His BACEN and Fed regulatory experience is valuable context for Nubank's Brazil investment compliance needs, useful in a Director or Product Engineering Leadership role",
+          "His AI/automation tooling experience and Google Cloud AI certification signals willingness to upskill technically, which could be leveraged in a conversation about adjacent roles"
+        ],
+        "suggestedContact": "Head of Engineering Recruiting or Talent Acquisition Partner, Nubank",
+        "keySkillsRequired": [
+          "Production software engineering (JVM/Clojure/Kotlin/Go)",
+          "Distributed systems and scalable platform architecture",
+          "Legacy system migration and dehydration patterns",
+          "Investment domain engineering (custody, orders, offers)",
+          "Technical leadership and engineering culture influence"
+        ],
+        "skillsYouHave": [
+          "Investment domain knowledge (custody, orders, regulatory)"
+        ],
+        "skillsYouLack": [
+          "Production software engineering (JVM/Clojure/Kotlin/Go)",
+          "Distributed systems and scalable platform architecture",
+          "Legacy system migration and dehydration patterns",
+          "Technical leadership and engineering culture influence at code level"
+        ],
+        "salaryRange": "R$45,000–70,000/month estimated (Staff Engineer at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "10+ years as software engineer",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I have 12+ years leading technology delivery in global capital markets including investment platforms across custody and regulatory compliance — I believe Nubank's Investments transformation is where that expertise adds real value. I'd love to explore whether there are Director-level delivery or engineering leadership roles where my background could contribute beyond the Staff Engineer track."
+      }
     },
     {
       "id": "a6ce9dc61ce1",
@@ -1496,7 +1757,61 @@
       "description": "<h3><strong>About Us</strong></h3>\n<p>Nubank was founded in 2013 to free people from a bureaucratic, slow and inefficient financial system. Since then, through innovative technology and outstanding customer service, the company has been redefining people's relationships with money across Latin America. With operations in Brazil, Mexico, and Colombia, Nubank is today one of the largest digital banking platforms and technology-leading companies in the world. Nubank was listed on the NYSE in 2021 and was recently named one of Time Magazine's 100 Most Influential Companies. For more information, visit<a href=\"https://www.google.com/search?q=https://www.nu.com\"> www.nu.com</a>.br.</p>\n<h3><strong>About the Role</strong></h3>\n<p>As a Staff Software Engineer (IC7), you will join the Loyalty team to architect and evolve a high-throughput platform that ensures our customers receive the same value they bring to our ecosystem.</p>\n<p>You will operate within a highly collaborative environment, partnering with product, design, and business analysts to navigate complex technical trade-offs. This role is designed for an engineer who thrives on \"hands-on\" technical execution while maintaining a strategic view of how features impact our long-term objectives and massive customer base.</p>\n<h3><strong>Responsibilities</strong></h3>\n<ul>\n<li><strong>Design and implement</strong> high-scale distributed systems capable of handling massive throughput for our loyalty program.</li>\n<li><strong>Drive technical excellence</strong> by writing clean, performant code and participating in daily development activities (\"hands-on\").</li>\n<li><strong>Lead cross-functional alignment</strong> with Product, Design, and Business leads to ensure technical solutions meet multi-pillar OKRs.</li>\n<li><strong>Architect resilient services</strong> that can scale seamlessly to support millions of active customers in the Brazilian market.</li>\n<li><strong>Mentor and grow</strong> the engineering team by establishing best practices for lateral development across different product features.</li>\n</ul>\n<h3><strong>Required Qualifications</strong></h3>\n<ul>\n<li><strong>Experience building and maintaining</strong> high-scale, high-throughput backend services in a production environment.</li>\n<li><strong>Proven track record of technical ownership</strong> over complex features, from initial architecture to long-term maintenance.</li>\n<li><strong>Demonstrated ability to manage stakeholders</strong> and communicate technical trade-offs to both technical and non-technical partners.</li>\n<li><strong>Background in developing</strong> robust systems within large engineering organizations.</li>\n</ul>\n<h3><strong>Nice to Have</strong></h3>\n<ul>\n<li>Prior experience developing loyalty or rewards-based products.</li>\n<li>Experience with financial technology or distributed ledger concepts.</li>\n<li>Background in managing features that span multiple business domains simultaneously.</li>\n</ul>\n<h3><strong>Loca",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery manager and program leader, not a hands-on software engineer — the role explicitly requires daily coding and IC7-level technical execution",
+          "The role demands deep expertise in distributed systems, high-throughput backend architecture, and hands-on software engineering; Pedro's background is in program management, consulting, and delivery leadership",
+          "Pedro's AI/automation skills (Python, SQL, LLMs, Make, Zapier) are lightweight scripting tools, not production-grade software engineering at the scale Nubank requires"
+        ],
+        "gaps": [
+          "No evidence of hands-on software engineering experience building distributed systems or high-throughput backend platforms at scale",
+          "No experience with Clojure, Go, Kotlin or other languages typical in Nubank's engineering stack",
+          "No IC (Individual Contributor) engineering career track — Pedro's trajectory is management and consulting, not senior engineering",
+          "No loyalty/rewards platform domain experience",
+          "Staff Engineer (IC7) level requires architectural depth and code ownership that is not demonstrated in CV"
+        ],
+        "gapActions": [
+          "Do not apply to this role — no CV tweak can bridge the gap between delivery management and Staff Software Engineer IC7",
+          "If targeting Nubank, reposition CV for roles such as 'Engineering Program Manager', 'Head of Technology Delivery', or 'Technical Program Manager' which match Pedro's actual experience",
+          "Highlight BACEN/regulatory knowledge and LatAm financial services context on CV to be relevant to Nubank's Brazil operations in a leadership capacity"
+        ],
+        "talkingPoints": [
+          "Pedro brings 12+ years delivering complex technology programs in global capital markets, which could be valuable to Nubank in a delivery or program leadership role — not this one",
+          "His BACEN regulatory knowledge and Portuguese native fluency are strong assets for Nubank Brazil operations in a governance or compliance-adjacent technology leadership role",
+          "His AI/automation experimentation with LLMs and Python shows technical curiosity that could complement a technology leadership role at a fintech like Nubank"
+        ],
+        "suggestedContact": "Head of Engineering Program Management or Technical Recruiting Lead at Nubank",
+        "keySkillsRequired": [
+          "Hands-on distributed systems engineering",
+          "High-throughput backend platform architecture",
+          "Production-grade software development (daily coding)",
+          "Staff-level IC engineering leadership and mentorship",
+          "Loyalty/rewards platform or high-scale consumer fintech engineering"
+        ],
+        "skillsYouHave": [
+          "Cross-functional alignment with Product and Engineering teams"
+        ],
+        "skillsYouLack": [
+          "Hands-on distributed systems engineering",
+          "High-throughput backend platform architecture",
+          "Production-grade software development (daily coding)",
+          "Staff-level IC engineering leadership and mentorship",
+          "Loyalty/rewards platform or high-scale consumer fintech engineering"
+        ],
+        "salaryRange": "R$45,000–70,000/month estimated (Staff IC7 at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "10+ years as a software engineer",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I have 12+ years leading technology delivery in global capital markets and am relocating to São Paulo in mid-2027 — I'd love to explore whether Nubank has Engineering Program Manager or Technology Delivery leadership roles where I could add value. Would you be open to a brief conversation?"
+      }
     },
     {
       "id": "fdead69e7436",
@@ -1507,7 +1822,56 @@
       "description": "<h3 style=\"text-align: justify;\"><strong>About Us</strong></h3>\n<p style=\"text-align: justify;\">Nu is one of the largest digital financial platforms in the world, with more than 122 million customers across Brazil, Mexico, and Colombia. Guided by our mission to fight complexity and empower people, we are redefining financial services in Latin America and this is still just the beginning of the purple future we're building.</p>\n<p style=\"text-align: justify;\">Listed on the New York Stock Exchange (NYSE: NU), we combine proprietary technology, data intelligence, and an efficient operating model to deliver financial products that are simple, accessible, and human.</p>\n<p>Our impact has been recognized by global rankings such as Time 100 Companies, Fast Company’s Most Innovative Companies, and Forbes World’s Best Bank. Visit our institutional page <a href=\"https://international.nubank.com.br/careers/\">https://international.nubank.com.br/careers/</a>&nbsp;&nbsp;</p>\n<h2 style=\"text-align: justify;\"><strong>About Nubank’s Mobile Platform - Global Experience Design</strong></h2>\n<p style=\"text-align: justify;\"><strong>The Mobile Platform’s mission aligns with Nubank’s commitment to delivering the best experience for our customers by ensuring a high-performing, stable, and seamless app.</strong></p>\n<p style=\"text-align: justify;\">Within Mobile Platform, focuses on providing user-friendly, scalable, high-performing, and cost-efficient app infrastructure components and mobile tools that enable Nubank engineers to <strong>quickly and safely test, deploy, monitor, analyze, and improve</strong> app flows and features.</p>\n<p class=\"wnfdntf _1ibi0s3f3 _1ibi0s3ce _1ibi0s3e8\" style=\"text-align: justify;\" data-pm-slice=\"1 1 []\">Global Experience Design is one of Nubank’s building blocks, bringing together UX, design, and customer experience. The team works on evolving the app experience and the design system, connecting Mobile Platform, App Excellence, Design Systems, and App Core to create simple, consistent, and scalable experiences. We are at the heart of the Nubank app’s foundation, driving <strong>performance</strong>, infrastructure <strong>scalability</strong>, and the removal of legacy dependencies to allow our application <strong>to grow from millions to potentially billions of passionate customers.</strong></p>\n<h2 style=\"text-align: justify;\"><strong>The Opportunity</strong></h2>\n<p style=\"text-align: justify;\">This role will involve working across a variety of technologies, including <strong>Native</strong>, <strong>Flutter</strong>, and <strong>related frameworks</strong>. We are looking for a <strong>Staff Mobile Engineer </strong>with solid experience to join the Mobile Platform team — a cross-impact engineering team responsible for building and maintaining the core infrastructure of the mobile application, optimizing our performance, and enabling product teams to deliver high-quality mobile experiences.</p>\n<h2 style=\"text-align: justify;\"><stron",
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.218739+00:00",
-      "is_new": false
+      "is_new": false,
+      "score": {
+        "score": 12,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery/program manager, not a hands-on software engineer — the role explicitly requires mobile platform engineering (iOS/Android/React Native)",
+          "No evidence of mobile development skills, app infrastructure, or design systems experience in Pedro's profile",
+          "Pedro's strengths are in capital markets, regulatory programs, and AI tooling — entirely different domain from consumer fintech mobile engineering"
+        ],
+        "gaps": [
+          "Zero mobile engineering experience (Swift, Kotlin, React Native, Flutter) — the core technical requirement of the role",
+          "No experience with app infrastructure, CI/CD mobile pipelines, design systems, or mobile performance tooling",
+          "Not a hands-on Staff-level individual contributor engineer — Pedro's career track is management and consulting delivery"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — instead target Nubank's 'Head of Technology Delivery', 'Director of Engineering Programs', or 'Senior Program Manager - Financial Products' postings which match Pedro's actual profile",
+          "If Pedro wants to pursue Nubank, reframe CV to highlight fintech scale, cross-functional delivery, and regulatory complexity relevant to their Brazil operations and BACEN compliance needs"
+        ],
+        "talkingPoints": [
+          "Pedro's BACEN regulatory experience and Brazil market knowledge is directly relevant to Nubank's Brazil operations, but for a leadership/delivery role — not this engineering IC position",
+          "His $20M program delivery at Bank of America Global Markets demonstrates the scale of execution Nubank would value in a Director of Delivery or Head of Program Management capacity",
+          "AI and automation credentials (Google Cloud AI, ML, LLMs) could be relevant to Nubank's data intelligence narrative, but again in a leadership or product-adjacent role"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or Director of Engineering Programs at Nubank",
+        "keySkillsRequired": [
+          "Mobile engineering (iOS/Android/React Native/Flutter)",
+          "App infrastructure and platform tooling",
+          "CI/CD pipelines for mobile",
+          "Design systems and UX infrastructure",
+          "Staff-level individual contributor software engineering"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Mobile engineering (iOS/Android/React Native/Flutter)",
+          "App infrastructure and platform tooling",
+          "CI/CD pipelines for mobile",
+          "Design systems and UX infrastructure",
+          "Staff-level individual contributor software engineering"
+        ],
+        "salaryRange": "R$45,000–70,000/month estimated (Staff Engineer at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "8-12 years",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm a Technology Delivery Director relocating to São Paulo from London in mid-2027, with 12+ years in global capital markets and deep BACEN/regulatory program experience — I'd love to explore whether Nubank has leadership or senior delivery roles where I could contribute. Would you be open to a brief conversation?"
+      }
     },
     {
       "id": "ae0621a44779",
@@ -8515,10 +8879,21 @@
       "work_type": "",
       "found_at": "2026-05-22T08:39:25.322778+00:00",
       "is_new": false
+    },
+    {
+      "id": "b2bd24422aa5",
+      "company": "XP Investimentos",
+      "title": "Data Engineer 3",
+      "location": "São Paulo, SP",
+      "url": "https://job-boards.greenhouse.io/xpinc/jobs/8545951002",
+      "description": "<div class=\"content-intro\"><p><strong><span data-contrast=\"none\">Sobre nós</span></strong><span data-contrast=\"none\"> ​</span><span data-ccp-props=\"{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:2,&quot;335559740&quot;:300}\">&nbsp;</span></p>\n<p><span data-contrast=\"auto\">A XP Inc. é uma das maiores instituições financeiras independente do Brasil, dona das marcas XP, Rico, Clear, XP Educação, InfoMoney, entre outras. Com mais de 4,6 milhões de clientes ativos e um valor superior a R$ 1,1 trilhão de ativos sob custódia, há 24 anos vem transformando o mercado financeiro para melhorar a vida das pessoas.</span></p>\n<p><span data-contrast=\"auto\">Com uma cultura marcante guiada por quatro valores - </span><strong><span data-contrast=\"auto\">Sonho Grande, Espírito Empreendedor, Foco no Cliente e Mente Aberta </span></strong><span data-contrast=\"auto\">- a XP Inc. está sempre em busca dos melhores talentos que tem ambição de fazer o impossível.</span></p>\n<hr>\n<p>&nbsp;</p></div><p><img style=\"display: block; margin-left: auto; margin-right: auto; max-width: 100%;\" src=\"https://prod2-sprcdn-assets.sprinklr.com/50752/e1134643-4234-4f76-a0a7-a1a32525743a-1476004450/Header_Inc._Verde.png\" alt=\"\" width=\"600\"></p>\n<p>&nbsp;</p>\n<h2>🚀 Sobre a Oportunidade</h2>\n<p>Escreva aqui um parágrafo impactante sobre o propósito da vaga e sua relevância para a XP. Exemplo: \"Estamos buscando um(a) profissional <em>[<code>nível de senioridade</code>]</em> para integrar nosso time de <em>[<code>área</code>]</em>, atuando diretamente em [<code><em>projeto/desafio estratégico</em></code>]. Esta posição é fundamental para [<code><em>objetivo concreto, ex: escalar soluções financeiras inovadoras, otimizar processos de crédito, etc.</em></code>].\"</p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\"><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">Saiba mais sobre nosso dia a dia n</span><span data-scheme-color=\"@000000,,\" data-usefontface=\"true\" data-contrast=\"none\">o <a href=\"https://bit.ly/xpincinstagram\" target=\"_blank\">Instagram</a> e no <a href=\"https://www.linkedin.com/company/xpinc/life/porquexpinc/\" target=\"_blank\">LinkedIn</a>.</span></p>\n<p data-ccp-props=\"{&quot;335551550&quot;:1,&quot;335551620&quot;:1,&quot;335559683&quot;:0,&quot;335559685&quot;:0,&quot;335559731&quot;:0,&quot;335559737&quot;:0,&quot;335562764&quot;:4,&quot;335562765&quot;:19.6,&quot;335562766&quot;:4,&quot;335562767&quot;:0,&quot;335562768&quot;:4,&quot;335562769&quot;:0}\">Confira nossas avaliações no <a href=\"https://bit.ly/xpincglassdoor\" target=\"_blank\">Glassdoor</a>.</p>\n<hr>\n<h2>🔍 O Que Procuramos</h2>\n<p><strong>Pré-requisitos Essenciais:</strong></p>\n<ul>\n<li>Formação em ",
+      "work_type": "",
+      "found_at": "2026-05-22T12:31:15.454951+00:00",
+      "is_new": true
     }
   ],
   "pipeline": [],
-  "last_updated": "2026-05-22 10:27 UTC",
+  "last_updated": "2026-05-22 12:39 UTC",
   "run_history": [
     {
       "date": "2026-05-20",
@@ -8547,6 +8922,10 @@
     {
       "date": "2026-05-22",
       "count": 682
+    },
+    {
+      "date": "2026-05-22",
+      "count": 683
     }
   ]
 }
