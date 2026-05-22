@@ -305,7 +305,7 @@ Location: {job['location']}
 Description: {job['description'][:2000]}
 """
     try:
-        msg  = client.messages.create(model="claude-sonnet-4-20250514", max_tokens=900,
+        msg  = client.messages.create(model="claude-sonnet-4-6", max_tokens=900,
                                       messages=[{"role":"user","content":prompt}])
         text = msg.content[0].text.strip().replace("```json","").replace("```","")
         return json.loads(text)
