@@ -715,7 +715,7 @@ function renderMarket(){{
     const iHave=MY_SKILLS.some(m=>sk.toLowerCase().includes(m)||m.includes(sk.toLowerCase()));
     return `<div style="margin-bottom:8px">
       <div style="display:flex;justify-content:space-between;margin-bottom:2px">
-        <span style="font-size:11px;color:${{iHave?'var(--green)':'var(--red)}}'>${{sk}} ${{iHave?'✓':'✗'}}</span>
+        <span style="font-size:11px;color:${{iHave?'var(--green)':'var(--red)'}}'>${{sk}} ${{iHave?'✓':'✗'}}</span>
         <span style="font-size:10px;color:var(--dim);font-family:var(--mono)">${{cnt}} roles</span>
       </div>
       <div class="mbar"><div class="mfill" style="width:${{w}}%;background:${{iHave?'var(--green)':'var(--red)'}}"></div></div>
