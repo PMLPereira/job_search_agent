@@ -10,7 +10,58 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.186833+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 38,
+        "verdict": "Partial Match",
+        "topReasons": [
+          "Pedro has strong data governance and regulatory compliance experience (BACEN, Fed reporting) that is tangentially relevant to a data audit function",
+          "His Python and SQL skills plus AI/ML certifications show technical depth applicable to data audit tooling and automation",
+          "Native Portuguese and São Paulo relocation target align perfectly with role location and language requirements"
+        ],
+        "gaps": [
+          "The role is a specialist-level individual contributor audit position, not the Director/Head of Delivery leadership role Pedro is targeting",
+          "No explicit internal audit, external audit, or data quality assurance methodology experience (e.g. DAMA, ISO 8000, audit frameworks) is evident in the CV",
+          "Fintech/digital bank environment experience is absent — all background is in traditional capital markets and consulting",
+          "Seniority mismatch: Pedro operates at $20M program director level; this is a Senior Specialist IC role likely 2–3 levels below his current scope"
+        ],
+        "gapActions": [
+          "If applying, reframe BACEN and Fed regulatory reporting work explicitly as 'data audit and data quality assurance' with measurable outcomes to match the job language",
+          "Add a bullet under Capco or BofA highlighting any internal audit collaboration, data lineage validation, or control testing activity to signal audit familiarity",
+          "Remove or de-emphasise P&L and program budget figures that signal seniority misalignment for a specialist IC role"
+        ],
+        "talkingPoints": [
+          "My work on BACEN regulatory reporting required end-to-end data integrity validation — effectively acting as an internal data auditor across risk and finance datasets",
+          "At BofA I worked directly with Compliance and Risk functions on data governance frameworks, which maps directly to the controls and audit trail disciplines Nubank would need",
+          "My Python and SQL skills mean I can automate audit sampling and anomaly detection, adding velocity to any data audit team"
+        ],
+        "suggestedContact": "Head of Data Governance or Internal Audit Technology Lead at Nubank",
+        "keySkillsRequired": [
+          "Data audit methodology and frameworks",
+          "Data quality and data governance",
+          "SQL and data querying for audit analysis",
+          "Financial services regulatory compliance",
+          "Stakeholder communication and audit reporting"
+        ],
+        "skillsYouHave": [
+          "SQL and data querying for audit analysis",
+          "Financial services regulatory compliance"
+        ],
+        "skillsYouLack": [
+          "Data audit methodology and frameworks",
+          "Data quality and data governance",
+          "Stakeholder communication and audit reporting"
+        ],
+        "salaryRange": "R$18,000–28,000/month estimated",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "5-8 years",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Name], estou me relocando para São Paulo em meados de 2027 com 12 anos de liderança em tecnologia e regulatório em mercados de capitais globais, incluindo BACEN e governança de dados — e tenho acompanhado de perto a evolução do Nubank. Gostaria de entender se há oportunidades em nível de Diretor ou Head de Tecnologia/Delivery que se alinhem ao meu perfil."
+      }
     },
     {
       "id": "3ed273723a00",
@@ -22,7 +73,59 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.186833+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 12,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro's background is in financial technology delivery and capital markets, not real estate, construction, or workplace design",
+          "The role requires expertise in CAPEX/OPEX analysis for physical real estate projects, contract management with landlords and contractors — none of which appear in Pedro's profile",
+          "Pedro's skills in AI, regulatory programs, and software delivery have no direct application to this Design & Construction Specialist position"
+        ],
+        "gaps": [
+          "Zero experience in real estate project management, construction, or workplace design",
+          "No demonstrated knowledge of CAPEX/OPEX modelling for physical infrastructure, vendor bidding, or landlord negotiations",
+          "No background in architectural or spatial design, brand/UX applied to physical environments"
+        ],
+        "gapActions": [
+          "Do not apply — no CV tweak can bridge the fundamental domain mismatch between financial technology delivery and real estate/construction",
+          "If targeting Nubank specifically, redirect search to roles such as Head of Technology Delivery, Engineering Program Manager, or Chief of Staff in their tech or product divisions"
+        ],
+        "talkingPoints": [
+          "Pedro's $20M program delivery experience demonstrates the project management rigour Nubank values, but in the wrong domain",
+          "His BACEN and regulatory knowledge is highly relevant to Nubank's Brazilian compliance needs — in a technology or risk role",
+          "Nubank is aggressively expanding its tech leadership; Pedro's capital markets and AI background is a strong fit for other open positions"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or VP Engineering Recruiting at Nubank",
+        "keySkillsRequired": [
+          "Real estate project management",
+          "Construction contract negotiation",
+          "CAPEX/OPEX financial modelling",
+          "Workplace design and spatial planning",
+          "Vendor and landlord management"
+        ],
+        "skillsYouHave": [
+          "Project management methodologies",
+          "Stakeholder management",
+          "Financial analysis and budget oversight"
+        ],
+        "skillsYouLack": [
+          "Real estate project management",
+          "Construction contract negotiation",
+          "CAPEX/OPEX modelling for physical assets",
+          "Workplace/spatial design",
+          "Landlord and contractor negotiations"
+        ],
+        "salaryRange": "R$18,000–28,000/month estimated (Specialist-level facilities role)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "6-10 years in real estate/construction",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I noticed Nubank is growing its São Paulo operations and I'm a Technology Delivery Director with 12+ years in global financial services, including regulatory and AI programs at Bank of America. I'd love to connect about technology leadership opportunities that align with Nubank's expansion — would you be open to a brief conversation?"
+      }
     },
     {
       "id": "b1d3f9956ea5",
@@ -58,7 +161,56 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.186833+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery and program management professional; this role is a front-office investment product specialist requiring fund selection and due diligence expertise",
+          "The role demands deep knowledge of investment funds, asset management, and CVM/ANBIMA regulations — not Pedro's core background",
+          "Pedro's strengths in AI, cloud, regulatory technology, and capital markets delivery do not map to the fund distribution and product curation responsibilities listed"
+        ],
+        "gaps": [
+          "No demonstrated experience in investment fund selection, evaluation, or distribution for retail clients",
+          "No visible credentials or experience with Brazilian investment regulations (CVM, ANBIMA) or fund due diligence frameworks",
+          "Role requires a product/investment specialist profile, not a technology delivery or program management profile"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — it is a fundamental profile mismatch, not addressable by CV tweaks",
+          "If targeting Nubank broadly, reposition CV toward technology leadership roles such as Head of Engineering Delivery or Senior Technical Program Manager within Nubank's investment or fintech squads"
+        ],
+        "talkingPoints": [
+          "If engaging Nubank for a different role: highlight delivery of $20M regulatory compliance programs and experience bridging technology and financial products in global capital markets",
+          "Nubank's investment business unit runs product squads — Pedro could position himself as a Technical Delivery Lead or Engineering Manager supporting those squads, not as the product specialist",
+          "Pedro's BACEN regulatory knowledge and Portuguese native fluency are genuine differentiators for Nubank's Brazil-facing technology teams"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or Senior Technical Recruiter, Nubank",
+        "keySkillsRequired": [
+          "Investment fund selection and due diligence",
+          "CVM and ANBIMA regulatory knowledge",
+          "Funds distribution platform development (product side)",
+          "Retail and high-income client investment product expertise",
+          "Collaboration with asset managers and legal/compliance on fund licensing"
+        ],
+        "skillsYouHave": [
+          "Collaboration with legal and compliance teams"
+        ],
+        "skillsYouLack": [
+          "Investment fund selection and due diligence",
+          "CVM and ANBIMA regulatory knowledge",
+          "Funds distribution platform development (product side)",
+          "Retail and high-income client investment product expertise"
+        ],
+        "salaryRange": "R$25,000–38,000/month estimated (investment product specialist, not director-level)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "5-8 years in investment products or asset management",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I noticed Nubank's investment business unit is scaling rapidly and I'm a technology delivery leader with 12+ years in global capital markets relocating to São Paulo in mid-2027. I'd love to explore whether there are senior technology or engineering delivery roles supporting Nubank's investment squads where my background in regulatory programs and fintech delivery could add value."
+      }
     },
     {
       "id": "e757cf518efb",
@@ -82,7 +234,57 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.186833+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 22,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro has strong delivery and program management credentials in financial services, showing business and domain alignment with Nubank",
+          "Native Portuguese and familiarity with Brazilian regulatory environment (BACEN) are relevant for a Brazil-based role",
+          "AI/automation exposure (Python, SQL, LLMs, prompt engineering) shows genuine interest in the AI space"
+        ],
+        "gaps": [
+          "No hands-on ML engineering experience: Pedro has no demonstrated ability to build, train, or deploy production ML models (Transformers, GNNs, Deep Learning architectures)",
+          "No MLOps or model deployment background: the role requires MLOps constraints, latency optimization, and production-grade model pipelines which are absent from Pedro's profile",
+          "No published research or applied AI scientist track record: the role explicitly requires leading complex applied research initiatives independently"
+        ],
+        "gapActions": [
+          "Do NOT apply to this specific role — reframe AI exposure (LLMs, prompt engineering, Python) only in roles targeting AI Program Manager, Head of AI Delivery, or AI Product Director",
+          "If pursuing ML Engineer path long-term, add a section 'AI & Automation Projects' with concrete outputs: models built, datasets used, tools deployed, and business impact achieved"
+        ],
+        "talkingPoints": [
+          "I have led cross-functional delivery of AI-adjacent programs in capital markets, coordinating Data, Engineering, Risk, and Product stakeholders — directly analogous to the collaboration model Nubank describes",
+          "My hands-on experience with Python, LLMs, and prompt engineering gives me practical literacy to manage and accelerate ML engineering teams, even if my primary value is in delivery leadership",
+          "Having worked inside regulated financial institutions including BACEN-reporting environments, I understand the compliance and interpretability constraints that production ML models at a bank must satisfy"
+        ],
+        "suggestedContact": "Head of AI Talent Acquisition or Technical Recruiting Lead — Nubank",
+        "keySkillsRequired": [
+          "Deep Learning & Foundation Models (Transformers, GNNs)",
+          "MLOps and production model deployment",
+          "Applied AI research and experimentation",
+          "Python for ML (PyTorch, TensorFlow, JAX)",
+          "Real-time inference and model optimization"
+        ],
+        "skillsYouHave": [
+          "Python (scripting/automation level)"
+        ],
+        "skillsYouLack": [
+          "Deep Learning & Foundation Models (Transformers, GNNs)",
+          "MLOps and production model deployment",
+          "Applied AI research and experimentation",
+          "Python for ML (PyTorch, TensorFlow, JAX)",
+          "Real-time inference and model optimization"
+        ],
+        "salaryRange": "R$45,000–70,000/month estimated (Lead MLE at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "7-12 years in ML/AI engineering",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm Pedro Pereira — a Technology Delivery Director relocating to São Paulo mid-2027 with 12 years leading AI-adjacent programs in global capital markets at Bank of America and Capco. I'd love to explore how Nubank is building leadership capacity around AI delivery and transformation, as that intersection is exactly where I operate."
+      }
     },
     {
       "id": "975ca355210c",
@@ -94,7 +296,56 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.186833+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a technology delivery/program management professional, not a hands-on mobile software engineer — the role requires deep native and Flutter coding expertise",
+          "Pedro's technical stack (Python, SQL, LLMs, Make, Zapier) does not align with the mobile engineering stack required (native iOS/Android, Flutter, mobile infrastructure)",
+          "The role is an individual contributor engineering position, while Pedro's entire career trajectory is toward Director/Head-level leadership and delivery management"
+        ],
+        "gaps": [
+          "No demonstrable experience in mobile software development (native iOS, Android, Flutter)",
+          "No background in mobile app infrastructure, performance engineering, or mobile platform tooling",
+          "Role is IC Lead Engineer, not a program/delivery manager — misaligned seniority type",
+          "No evidence of shipping mobile products or contributing to mobile codebases"
+        ],
+        "gapActions": [
+          "Do not apply — no CV tweak can bridge a fundamental discipline mismatch between program management and hands-on mobile engineering",
+          "If targeting Nubank, search instead for openings titled Head of Technology Delivery, Senior Program Manager, or Director of Engineering Operations where Pedro's capital markets and delivery background adds value"
+        ],
+        "talkingPoints": [
+          "Pedro could highlight Nubank's scale (122M customers) as an exciting platform context if pivoting to a delivery or transformation role within Nubank",
+          "His BACEN regulatory knowledge is directly relevant to Nubank's Brazilian compliance obligations and could be a differentiator in a non-engineering role",
+          "AI/automation credentials (LLMs, Google Cloud AI, Cambridge Spark ML) are relevant to Nubank's data-driven culture in a product or platform strategy role"
+        ],
+        "suggestedContact": "Head of Engineering Recruiting or Senior Technical Recruiter at Nubank",
+        "keySkillsRequired": [
+          "Flutter mobile development",
+          "Native iOS or Android engineering",
+          "Mobile app infrastructure and performance",
+          "Mobile tooling and deployment pipelines",
+          "Scalable mobile architecture design"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Flutter mobile development",
+          "Native iOS or Android engineering",
+          "Mobile app infrastructure and performance",
+          "Mobile tooling and deployment pipelines",
+          "Scalable mobile architecture design"
+        ],
+        "salaryRange": "R$40,000–65,000/month estimated (Lead Engineer IC at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "7-10 years mobile engineering",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm a senior technology delivery leader with 12+ years in global capital markets and deep knowledge of Brazilian regulatory frameworks including BACEN — I'm relocating to São Paulo in mid-2027 and would love to explore how my background could contribute to Nubank's technology leadership or program delivery functions. Would you be open to a brief conversation about opportunities aligned with that profile?"
+      }
     },
     {
       "id": "82fe7b40cd5e",
@@ -154,7 +405,57 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a Technology Delivery/Program Management executive; this role is a specialist-level Media BI/Analytics position — fundamentally different function",
+          "Pedro's experience is in capital markets, regulatory compliance, and financial technology delivery, not paid media measurement or marketing analytics",
+          "Role requires deep expertise in CAC, CPA, ROI, incrementality testing, and paid media platforms (Meta, Google Ads, etc.) which Pedro has no demonstrated background in"
+        ],
+        "gaps": [
+          "No paid media analytics experience (Meta Ads, Google Ads, DV360, programmatic)",
+          "No marketing measurement methodology experience (MMM, incrementality, attribution modeling)",
+          "No funnel analytics or growth marketing background",
+          "Role is specialist/mid-level, not Director/Head-of-Technology level as Pedro targets",
+          "No evidence of dashboard ownership in marketing or BI tools like Looker, Tableau applied to media data"
+        ],
+        "gapActions": [
+          "Do not apply — CV cannot be tweaked to bridge a fundamental functional mismatch between technology delivery and media BI analytics",
+          "If Pedro wants to target Nubank specifically, identify open roles in Technology Delivery, Engineering Program Management, or Risk & Compliance Technology instead"
+        ],
+        "talkingPoints": [
+          "Pedro's AI and data science credentials (Python, SQL, ML) show analytical depth, but these are not differentiated enough for a media-specialist role",
+          "His BACEN and regulatory experience is highly relevant to Nubank's Brazil compliance needs — but for a different role",
+          "His $20M program delivery experience and cross-functional leadership would be compelling for a Head of Technology Delivery or Senior TPM role at Nubank"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or Senior Technical Recruiter — Nubank",
+        "keySkillsRequired": [
+          "Paid media analytics (Meta, Google, programmatic)",
+          "Incrementality and attribution modeling",
+          "Marketing mix modeling (MMM)",
+          "BI dashboarding (Looker, Tableau)",
+          "CAC/CPA/ROI funnel measurement"
+        ],
+        "skillsYouHave": [
+          "BI dashboarding (partial — Python/SQL data analysis)"
+        ],
+        "skillsYouLack": [
+          "Paid media analytics",
+          "Incrementality and attribution modeling",
+          "Marketing mix modeling (MMM)",
+          "CAC/CPA/ROI funnel measurement"
+        ],
+        "salaryRange": "R$15,000–25,000/month estimated (specialist-level, not Director)",
+        "seniorityLevel": "Mid",
+        "yearsExpRequired": "3-6 years",
+        "languagesRequired": [
+          "Portuguese"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I came across Nubank's open roles and, while the Media BI Specialist isn't the right fit for my background, I'd love to connect about Technology Delivery or Program Management opportunities — I'm a bilingual (PT/EN) capital markets tech executive relocating to São Paulo in mid-2027 with 12+ years leading regulatory and AI-driven programs at BofA and Capco. Would you be open to a brief conversation?"
+      }
     },
     {
       "id": "ef23d4fe6f9d",
@@ -166,7 +467,58 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 32,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro has broad technology delivery and program management experience but lacks the deep quantitative/statistical modelling expertise this role demands",
+          "The role is a senior individual contributor focused on model validation, ECL parameters (PD, EAD, LGD), and ML model review — not technology leadership or delivery management",
+          "Pedro's AI/ML exposure is practitioner-level (Python, LLMs, prompt engineering) rather than the rigorous quantitative risk modelling background required for Model Risk validation at a fintech like Nubank"
+        ],
+        "gaps": [
+          "No demonstrated experience with Expected Credit Loss (ECL) frameworks or credit risk parameters (PD, EAD, LGD)",
+          "No model validation, model risk governance, or independent model review experience",
+          "Role requires deep statistical/quantitative finance expertise (e.g. IFRS 9, Basel, stress testing models) not evidenced in CV",
+          "Individual contributor role — misaligned with Pedro's leadership and delivery management trajectory"
+        ],
+        "gapActions": [
+          "If pursuing this path, add any exposure to credit risk modelling, regulatory capital models, or IFRS 9 provisioning work from BofA or Capco engagements explicitly in the CV",
+          "Highlight any Python/ML work applied to financial risk analytics with measurable outputs to partially bridge the quantitative gap",
+          "Consider obtaining a FRM or CQF certification to credentialise quantitative risk knowledge before applying to model risk roles"
+        ],
+        "talkingPoints": [
+          "Pedro's BACEN regulatory reporting experience and BofA risk/compliance program delivery shows familiarity with the Brazilian regulatory environment relevant to Nubank's model governance framework",
+          "His Google Cloud AI and Advanced ML certifications plus hands-on Python experience signal genuine technical curiosity that complements a model risk team",
+          "Having led $20M regulatory compliance programs in global capital markets demonstrates the governance and risk management mindset that model risk validation requires — even if the technical depth differs"
+        ],
+        "suggestedContact": "Head of Model Risk or Talent Acquisition Partner – Risk & Analytics at Nubank",
+        "keySkillsRequired": [
+          "Expected Credit Loss modelling (PD, EAD, LGD)",
+          "Independent model validation and review",
+          "Machine learning applied to credit risk",
+          "Statistical/quantitative finance (IFRS 9, Basel capital models)",
+          "Model risk governance frameworks"
+        ],
+        "skillsYouHave": [
+          "Machine learning applied to finance (practitioner level)",
+          "Model risk governance frameworks (partial — regulatory program delivery)"
+        ],
+        "skillsYouLack": [
+          "Expected Credit Loss modelling (PD, EAD, LGD)",
+          "Independent model validation and review",
+          "Statistical/quantitative finance (IFRS 9, Basel capital models)"
+        ],
+        "salaryRange": "R$25,000–38,000/month estimated (senior specialist IC band at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "6-10 years in quantitative/model risk",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm Pedro Pereira — a technology and delivery leader in global capital markets currently relocating to São Paulo from London mid-2027. While the Model Risk Specialist role is a strong individual contributor quantitative position that may not be my best fit, I'd love to connect to learn more about Nubank's technology delivery and risk programme leadership opportunities as I plan my move to Brazil."
+      }
     },
     {
       "id": "ccd028b26666",
@@ -214,7 +566,53 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 12,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a Technology Manager and Delivery Lead, not a hands-on Mobile Software Engineer — the role requires active coding in Native/Flutter frameworks",
+          "The job is exclusively for Pessoas com Deficiência (PwD affirmative action), and Pedro does not appear to qualify under this eligibility criterion",
+          "Pedro's availability is mid-2027, while active engineering roles typically require immediate or near-term start"
+        ],
+        "gaps": [
+          "No evidence of hands-on mobile engineering experience (iOS/Android Native, Flutter, Dart, Swift, Kotlin)",
+          "Does not meet the PwD (Pessoa com Deficiência) eligibility requirement which is mandatory for this specific posting"
+        ],
+        "gapActions": [
+          "Do not apply to this role — instead filter Nubank job postings for Director, Head of Engineering Delivery, or Senior Program/Product Manager titles that match his seniority",
+          "If pursuing Nubank specifically, reframe CV to highlight fintech platform delivery, cross-functional engineering leadership, and LATAM regulatory knowledge relevant to Nubank's Brazil/Mexico/Colombia operations"
+        ],
+        "talkingPoints": [
+          "Pedro has 12+ years delivering complex technology programs inside global financial institutions — highly relevant to Nubank's scale and regulated environment",
+          "Experience with BACEN regulatory frameworks and Fed reporting aligns with Nubank's compliance obligations in Brazil",
+          "AI/automation skills (Python, LLMs, prompt engineering) are directly aligned with Nubank's data-driven and technology-first culture"
+        ],
+        "suggestedContact": "Head of Technology Recruiting or Engineering Talent Acquisition Partner at Nubank",
+        "keySkillsRequired": [
+          "Mobile Engineering (Flutter or Native iOS/Android)",
+          "Dart, Swift, or Kotlin programming",
+          "App infrastructure and performance optimization",
+          "CI/CD and mobile deployment pipelines",
+          "PwD eligibility (mandatory affirmative action requirement)"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Mobile Engineering (Flutter or Native iOS/Android)",
+          "Dart, Swift, or Kotlin programming",
+          "App infrastructure and performance optimization",
+          "CI/CD and mobile deployment pipelines",
+          "PwD eligibility (mandatory affirmative action requirement)"
+        ],
+        "salaryRange": "R$25,000–40,000/month estimated (senior IC mobile engineer at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "5-8 years",
+        "languagesRequired": [
+          "Portuguese"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Nome], sou Pedro Pereira, Technology Manager no Bank of America em Londres com 12 anos liderando programas de tecnologia em mercados de capitais globais — estou relocando para São Paulo em meados de 2027 e acompanho de perto o crescimento do Nubank. Gostaria de conectar para explorar oportunidades de liderança em delivery ou gestão de tecnologia que possam estar no pipeline para 2026/2027."
+      }
     },
     {
       "id": "e57cdc689790",
@@ -226,7 +624,53 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 18,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro is a Technology Delivery/Program Management leader — this role is for a hands-on Senior Software Engineer requiring active coding in Clojure, Kafka, Kubernetes and AWS",
+          "Pedro's technical skills are Python/SQL/AI tooling for automation, not the backend engineering stack (Clojure, Datomic, DynamoDB, Kafka) Nubank requires",
+          "The role is an affirmative action posting exclusively for Pessoas com Deficiência (PcD), an eligibility criterion Pedro does not appear to meet"
+        ],
+        "gaps": [
+          "No hands-on software engineering experience in Clojure, Kafka, Kubernetes, Datomic or DynamoDB — Nubank's core stack",
+          "PcD eligibility requirement: this posting is legally restricted to candidates with disabilities, which Pedro does not indicate"
+        ],
+        "gapActions": [
+          "Do not apply to this specific posting — instead target Nubank's Director of Engineering Delivery, Head of Technical Program Management or Senior Engineering Manager roles where Pedro's 12-year delivery leadership translates directly",
+          "If pursuing Nubank generally, add a dedicated 'Technology Stack Exposure' section to the CV listing AWS, cloud-native architectures and data pipeline experience to signal affinity with Nubank's engineering culture"
+        ],
+        "talkingPoints": [
+          "Pedro has led $20M+ technology programs in global capital markets with cross-functional teams across Engineering, Product and Compliance — directly transferable to Nubank's complex fintech delivery environment",
+          "Experience with BACEN regulatory frameworks and Brazilian financial services context positions Pedro as uniquely valuable for Nubank's Brazil-regulated product expansion",
+          "AI/ML credentials (Google Cloud AI, Cambridge Spark Advanced ML) and hands-on Python/LLM automation align with Nubank's data-intelligence-driven operating model, relevant for senior leadership roles"
+        ],
+        "suggestedContact": "Head of Technical Program Management Recruiting or Engineering Leadership Talent Acquisition — Nubank",
+        "keySkillsRequired": [
+          "Clojure (or functional programming language)",
+          "Apache Kafka / event-driven microservices",
+          "Kubernetes and AWS infrastructure",
+          "Datomic / DynamoDB data storage",
+          "Continuous Integration and Deployment (CI/CD)"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Clojure (or functional programming language)",
+          "Apache Kafka / event-driven microservices",
+          "Kubernetes and AWS infrastructure",
+          "Datomic / DynamoDB data storage",
+          "Continuous Integration and Deployment (CI/CD)"
+        ],
+        "salaryRange": "R$25,000–40,000/month estimated (Senior SWE IC level at Nubank)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "5-8 years hands-on software engineering",
+        "languagesRequired": [
+          "Portuguese"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Nome], sou Pedro Pereira — Technology Manager no Bank of America em Londres com 12 anos liderando programas de tecnologia em capital markets, incluindo iniciativas regulatórias com o BACEN. Estou me relocando para São Paulo em 2027 e adoraria explorar oportunidades de liderança em Engineering Delivery ou Technical Program Management no Nubank — posso marcar 20 minutos para conversar?"
+      }
     },
     {
       "id": "a98ab654d325",
@@ -238,7 +682,56 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 8,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro has strong program/technology delivery leadership in capital markets, but this role is a hands-on Principal Engineer IC track requiring deep mobile engineering expertise",
+          "Pedro's language skills (Portuguese native, English fluent) and São Paulo target location align with Nubank's Brazil presence",
+          "Pedro has some AI/automation and Python exposure which shows technical aptitude"
+        ],
+        "gaps": [
+          "No mobile engineering experience: Flutter, Dart, iOS/Android, or Server-Driven UI/BDC architecture",
+          "No hands-on software engineering IC track record: this is a deeply technical individual contributor role, not a delivery or program management role",
+          "No CI/CD platform engineering, app performance, or mobile observability experience",
+          "No experience at product-led fintechs or consumer-facing mobile platforms at scale"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role; instead target Nubank's 'Head of Engineering Delivery', 'Director of Program Management', or 'Senior Technical Program Manager' postings which match Pedro's actual profile",
+          "If Pedro wants to signal fintech-native ambition, add a brief line to the CV summary referencing familiarity with BaaS/neo-bank delivery models and regulatory tech transformation in consumer finance"
+        ],
+        "talkingPoints": [
+          "Pedro has delivered $20M+ regulatory and technology programs in global financial services, directly relevant to Nubank's compliance-heavy regulated markets expansion",
+          "His BACEN and Brazilian regulatory knowledge is rare in London-based executives and directly valuable as Nubank scales its Brazilian operations",
+          "His bilingual Portuguese/English profile and planned São Paulo relocation make him a culturally and operationally strong fit for a senior delivery or transformation leadership role at Nubank, just not this IC engineering position"
+        ],
+        "suggestedContact": "Head of Technical Program Management or Director of Engineering Operations at Nubank",
+        "keySkillsRequired": [
+          "Flutter and Dart mobile development",
+          "Server-Driven UI / Backend Driven Content architecture",
+          "Mobile CI/CD and release engineering",
+          "App performance and observability engineering",
+          "Principal-level IC technical leadership and architecture design"
+        ],
+        "skillsYouHave": [],
+        "skillsYouLack": [
+          "Flutter and Dart mobile development",
+          "Server-Driven UI / Backend Driven Content architecture",
+          "Mobile CI/CD and release engineering",
+          "App performance and observability engineering",
+          "Principal-level IC technical leadership and architecture design"
+        ],
+        "salaryRange": "R$45,000–70,000/month estimated for IC9 Principal Engineer at Nubank",
+        "seniorityLevel": "Director",
+        "yearsExpRequired": "12-15 years hands-on mobile engineering",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Olá [Name], I'm Pedro Pereira, a Technology Delivery Director with 12+ years in global financial services, currently at Bank of America in London and relocating to São Paulo in mid-2027. I'd love to connect about senior program or engineering delivery leadership opportunities at Nubank where my regulatory, capital markets, and cross-functional expertise could add real value."
+      }
     },
     {
       "id": "a5a669f6cffd",
@@ -286,7 +779,57 @@
       "work_type": "",
       "found_at": "2026-05-20T22:53:36.202957+00:00",
       "is_new": false,
-      "score": {}
+      "score": {
+        "score": 22,
+        "verdict": "Weak Match",
+        "topReasons": [
+          "Pedro has strong technology delivery and program management credentials, but this role is a quantitative specialist requiring deep investment research and portfolio construction expertise",
+          "Pedro's Python and data science skills partially overlap, but the role demands quantitative finance skills such as index construction, fixed income modeling, derivatives structuring, and systematic strategy design",
+          "Pedro's BACEN/regulatory and capital markets exposure gives him domain familiarity, but not the buy-side asset management or quant research depth Nu Asset requires"
+        ],
+        "gaps": [
+          "No demonstrated experience in quantitative investment research, index construction, or systematic fund management",
+          "No evident background in multi-asset allocation models, tracking error optimization, factor portfolios, covered calls, or duration barbells",
+          "No asset management or ETF/fundo infrastructure experience on the investment side",
+          "Advanced quant finance mathematics (stochastic calculus, optimization, econometrics) not evidenced in CV"
+        ],
+        "gapActions": [
+          "Do not apply to this specific role — reposition CV exclusively toward Technology Director, Head of Engineering Delivery, or CTO-track roles at Nubank or similar fintechs rather than quant specialist positions",
+          "If targeting Nubank, identify roles such as 'Head of Technology Delivery', 'Senior Engineering Manager', or 'Director of Program Management' within Nu Asset or Nu's broader tech org and tailor CV to those"
+        ],
+        "talkingPoints": [
+          "Pedro's experience delivering $20M regulatory compliance programs in global capital markets shows he understands the stakes and complexity of financial data infrastructure — relevant if pivoting to a tech leadership conversation at Nu Asset",
+          "His AI/automation toolkit (Python, LLMs, Make, Zapier) and Google Cloud AI certification could resonate with Nu Asset's stated priority of treating infrastructure and AI tooling as core to investment research — but in a delivery/enablement capacity, not quant research",
+          "Bilingual Portuguese/English with a planned relocation to São Paulo mid-2027 aligns with Nubank's Brazil-based operations and culture"
+        ],
+        "suggestedContact": "Head of Technology Recruiting, Nubank",
+        "keySkillsRequired": [
+          "Quantitative investment research and index construction",
+          "Multi-asset allocation modeling and portfolio optimization",
+          "Derivatives structuring (covered calls, duration barbells, factor portfolios)",
+          "Advanced Python for systematic strategy backtesting",
+          "Fixed income and equities systematic fund management"
+        ],
+        "skillsYouHave": [
+          "Advanced Python for automation and data analysis"
+        ],
+        "skillsYouLack": [
+          "Quantitative investment research and index construction",
+          "Multi-asset allocation modeling and portfolio optimization",
+          "Derivatives structuring (covered calls, duration barbells, factor portfolios)",
+          "Fixed income and equities systematic fund management"
+        ],
+        "salaryRange": "R$25,000–40,000/month estimated (quant specialist IC track, not director-level)",
+        "seniorityLevel": "Senior",
+        "yearsExpRequired": "5-10 years in quantitative finance",
+        "languagesRequired": [
+          "Portuguese",
+          "English"
+        ],
+        "workArrangement": "Hybrid",
+        "applyRecommendation": "No",
+        "outreachTemplate": "Hi [Name], I'm a Technology Delivery Director with 12+ years in global capital markets (Bank of America, Capco) relocating to São Paulo mid-2027 — I'd love to connect about senior technology leadership opportunities within Nubank's asset management or broader fintech infrastructure teams. Would you be open to a brief conversation?"
+      }
     },
     {
       "id": "65e81b1e5aaf",
@@ -7525,11 +8068,11 @@
       "description": "<h3 id=\"2.-About-Us\" data-local-id=\"93a4927e-02ec-47d6-b856-278514518ec1\" data-renderer-start-pos=\"1335\"><strong data-renderer-mark=\"true\">About Us</strong></h3>\n<p data-renderer-start-pos=\"1491\" data-local-id=\"53f677ae-3f46-49aa-9ff3-4a7175b85ff8\"><span data-highlighted=\"true\" data-vc=\"highlighted-text\">Nu</span> is one of the largest digital financial platforms in the world, with more than 127 million customers across Brazil, Mexico, and Colombia. Guided by our mission to fight complexity and empower people, we are redefining financial services in Latin America and this is still just the beginning of the purple future we're building.</p>\n<p data-renderer-start-pos=\"1825\" data-local-id=\"8fcee9b0-fa7c-4771-b6d3-7d1d8f80e22c\">Listed on the New York Stock Exchange (NYSE: <span data-highlighted=\"true\" data-vc=\"highlighted-text\"><span class=\"_kqswh2mm\"><span class=\"_5pioz8co _189e1dm9 _1il9buyh _19lc184f _d0altlke\" data-testid=\"definition-highlighter\">NU</span></span></span>), we combine proprietary technology, data intelligence, and an efficient operating model to deliver financial products that are simple, accessible, and human.</p>\n<p data-renderer-start-pos=\"2035\" data-local-id=\"425d0a10-150d-42f8-a8f9-d1feebbf8c7b\">Our impact has been recognized by global rankings such as Time 100 Companies, Fast Company’s Most Innovative Companies, and Forbes World’s Best Bank. Visit our institutional page&nbsp;<span class=\"_80om1qgj _1e0c1nu9\" data-testid=\"smart-link-draggable-inline\" data-ssr-placeholder=\"0vDZ-:EfLS5:z8NN7:qz-Pe:OP-5u-0\"><span data-inline-card=\"true\" data-card-url=\"https://international.nubank.com.br/careers/\" data-annotation-inline-node=\"true\" data-renderer-start-pos=\"2214\" data-annotation-mark=\"true\"><span class=\"loader-wrapper\"><span class=\"hover-card-trigger-wrapper\" data-testid=\"hover-card-trigger-wrapper\"><a class=\"_1yt4x7n9 _2rko1ssi _v56415x0 _1e0c1nu9 _16d9qvcn _syaz13af _1rkwglyw _4cvx1w55 _19itia51 _bfhkhp5a _1a3b1r31 _4fprglyw _5goinqa1 _9oik1r31 _1bnxglyw _jf4cnqa1 _1nrm1r31 _c2waglyw _1iohnqa1 _uizt1kdv _nt751r31 _49pcglyw _1hvw1o36 _1372tlke _7ehiw5lj _1j5pglyw _1di615s3\" href=\"https://international.nubank.com.br/careers/\" data-testid=\"inline-card-resolved-view\"><span class=\"_19itglyw _vchhusvi _r06hglyw _o5721jtm _1nmz9jpi _16d9qvcn _ca0qv77o _u5f31b66 _n3tdv77o _19bv1b66\" data-testid=\"inline-card-icon-and-title\"><span class=\"_19itglyw _vchhusvi _r06hglyw\">Careers at Nu - Join our team!</span></span></a></span></span></span></span> &nbsp;&nbsp;</p>\n<h3 id=\"3.-About-the-Role\" data-local-id=\"58857dcc-6029-4f43-bad6-2d4982de2200\" data-renderer-start-pos=\"2226\"><strong data-renderer-mark=\"true\">About the Role</strong></h3>\n<p>The Operational Risk Team is part of the 2nd line of Defense and is responsible for managing and overseeing the operational risk function of our organization by providing independent oversight and challenge to the first line of defense. As a second line of defense, the Operational Risk team helps the business",
       "work_type": "",
       "found_at": "2026-05-22T08:39:25.322778+00:00",
-      "is_new": true
+      "is_new": false
     }
   ],
   "pipeline": [],
-  "last_updated": "2026-05-22 08:39 UTC",
+  "last_updated": "2026-05-22 09:31 UTC",
   "run_history": [
     {
       "date": "2026-05-20",
@@ -7546,6 +8089,10 @@
     {
       "date": "2026-05-21",
       "count": 681
+    },
+    {
+      "date": "2026-05-22",
+      "count": 682
     },
     {
       "date": "2026-05-22",
