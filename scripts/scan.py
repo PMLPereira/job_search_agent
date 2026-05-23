@@ -67,6 +67,18 @@ SALARY_BENCHMARKS = {
 HEADERS = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36","Accept":"text/html,application/json"}
 
 
+def load_cv_text():
+    """Read CV text from .docx in application_docs/. Returns None on failure."""
+    try:
+        from docx import Document as DocxDoc
+        path = "application_docs/CV_Pedro Pereira 2026 v1.0.docx"
+        doc = DocxDoc(path)
+        return "\n".join(p.text for p in doc.paragraphs if p.text.strip())[:5000]
+    except Exception as e:
+        print(f"  CV load failed ({e}), using fallback profile")
+        return None
+
+
 def scrape_gupy(company):
     """Gupy migrated to SSR — jobs embedded in __NEXT_DATA__. Try multiple known path patterns."""
     slug = company.get("gupy_company","")
@@ -273,33 +285,42 @@ def estimate_salary(title):
     return SALARY_BENCHMARKS["Default"]
 
 
-def score_role(client, job):
+def score_role(client, job, cv_text=None):
+    candidate = cv_text or PEDRO_PROFILE
     prompt = f"""You are a senior executive recruiter in financial services technology in Brazil.
 
-Analyse candidate vs job posting. Respond ONLY with JSON, no markdown:
+Analyse candidate vs job posting. Respond ONLY with valid JSON, no markdown:
 
 {{
   "score": <0-100>,
   "verdict": "<Strong Match|Good Match|Partial Match|Weak Match>",
   "topReasons": ["<reason 1>","<reason 2>","<reason 3>"],
   "gaps": ["<gap 1>","<gap 2>"],
-  "gapActions": ["<specific CV tweak 1>","<specific CV tweak 2>"],
+  "gapActions": ["<specific action 1>","<specific action 2>"],
   "talkingPoints": ["<talking point 1>","<talking point 2>","<talking point 3>"],
   "suggestedContact": "<title to find e.g. Head of Technology Recruiting>",
   "keySkillsRequired": ["<skill 1>","<skill 2>","<skill 3>","<skill 4>","<skill 5>"],
-  "skillsYouHave": ["<skill from list above Pedro has>"],
-  "skillsYouLack": ["<skill from list above Pedro lacks>"],
+  "skillsYouHave": ["<skill from keySkillsRequired that candidate has>"],
+  "skillsYouLack": ["<skill from keySkillsRequired that candidate lacks>"],
   "salaryRange": "<e.g. R$35,000–45,000/month estimated>",
   "seniorityLevel": "<Junior|Mid|Senior|Director|C-Level>",
   "yearsExpRequired": "<e.g. 8-12 years>",
   "languagesRequired": ["<Portuguese>","<English if required>"],
   "workArrangement": "<Remote|Hybrid|On-site>",
   "applyRecommendation": "<Yes|Yes with tweaks|No>",
-  "outreachTemplate": "<2-sentence personalised LinkedIn outreach message Pedro can send>"
+  "outreachTemplate": "<2-sentence personalised LinkedIn outreach message Pedro can send>",
+  "coverLetterPoints": ["<specific point 1 tying candidate experience to this role>","<point 2>","<point 3>","<point 4>"],
+  "atsKeywords": {{"match": ["<keyword in CV>","<keyword 2>"], "missing": ["<keyword not in CV>","<keyword 2>"]}},
+  "cvTweaks": ["<specific line/bullet to reword in CV for this application>","<tweak 2>"],
+  "interviewQuestions": [
+    {{"q":"<likely interview question 1>","hint":"<STAR answer hint using candidate experience>"}},
+    {{"q":"<likely interview question 2>","hint":"<STAR answer hint>"}},
+    {{"q":"<likely interview question 3>","hint":"<STAR answer hint>"}}
+  ]
 }}
 
-CANDIDATE:
-{PEDRO_PROFILE}
+CANDIDATE CV:
+{candidate}
 
 JOB:
 Company: {job['company']}
@@ -308,7 +329,7 @@ Location: {job['location']}
 Description: {job['description'][:2000]}
 """
     try:
-        msg  = client.messages.create(model="claude-sonnet-4-6", max_tokens=900,
+        msg  = client.messages.create(model="claude-sonnet-4-6", max_tokens=2000,
                                       messages=[{"role":"user","content":prompt}])
         text = msg.content[0].text.strip().replace("```json","").replace("```","")
         return json.loads(text)
@@ -674,7 +695,38 @@ function renderJobs(){{
     </div>
     ${{s.talkingPoints&&s.talkingPoints.length?`<div style="margin-top:10px"><div style="font-size:9px;color:var(--gold);letter-spacing:2px;font-family:var(--mono);margin-bottom:7px">TALKING POINTS FOR INTERVIEW</div>${{s.talkingPoints.map(t=>`<div style="font-size:11px;color:#c0a06077;margin-bottom:5px;line-height:1.5">→ ${{t}}</div>`).join('')}}</div>`:''}}
     ${{s.outreachTemplate?`<div style="margin-top:10px"><div style="font-size:9px;color:var(--blue);letter-spacing:2px;font-family:var(--mono);margin-bottom:6px">LINKEDIN OUTREACH TEMPLATE</div><div class="outreach">${{s.outreachTemplate}}</div></div>`:''}}
-    ${{s.suggestedContact?`<div style="margin-top:8px;font-size:10px;color:var(--blue);font-family:var(--mono)">🔍 Find: ${{s.suggestedContact}}</div>`:''}}
+    ${{s.suggestedContact?`<div style="margin-top:8px;font-size:10px;color:var(--blue);font-family:var(--mono)">🔍 Find: ${{s.suggestedContact}} &nbsp;·&nbsp; <a href="https://www.linkedin.com/search/results/people/?keywords=${{encodeURIComponent(s.suggestedContact+' '+j.company)}}" target="_blank" style="color:var(--blue)">Search LinkedIn →</a></div>`:''}}
+    ${{(s.atsKeywords&&(s.atsKeywords.match||s.atsKeywords.missing))?`
+    <div style="margin-top:12px">
+      <div style="font-size:9px;color:var(--orange);letter-spacing:2px;font-family:var(--mono);margin-bottom:7px">ATS KEYWORD CHECK</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px">
+        ${{(s.atsKeywords.match||[]).map(k=>`<span style="background:rgba(45,143,111,.15);border:1px solid rgba(45,143,111,.4);color:var(--green);font-size:10px;padding:2px 7px;border-radius:4px;font-family:var(--mono)">✓ ${{k}}</span>`).join('')}}
+        ${{(s.atsKeywords.missing||[]).map(k=>`<span style="background:rgba(192,69,58,.12);border:1px solid rgba(192,69,58,.35);color:var(--red);font-size:10px;padding:2px 7px;border-radius:4px;font-family:var(--mono)">✗ ${{k}}</span>`).join('')}}
+      </div>
+      ${{(s.atsKeywords.missing||[]).length?`<div style="font-size:10px;color:var(--muted);margin-top:4px">Add missing keywords to your CV/LinkedIn before applying.</div>`:''}}
+    </div>`:''}}
+    ${{s.cvTweaks&&s.cvTweaks.length?`
+    <div style="margin-top:12px">
+      <div style="font-size:9px;color:var(--purple);letter-spacing:2px;font-family:var(--mono);margin-bottom:7px">CV TWEAKS FOR THIS ROLE</div>
+      ${{s.cvTweaks.map(t=>`<div style="font-size:11px;color:var(--muted);margin-bottom:5px;line-height:1.5;padding-left:8px;border-left:2px solid var(--purple)">${{t}}</div>`).join('')}}
+    </div>`:''}}
+    ${{s.coverLetterPoints&&s.coverLetterPoints.length?`
+    <div style="margin-top:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+        <div style="font-size:9px;color:var(--gold);letter-spacing:2px;font-family:var(--mono)">COVER LETTER KEY POINTS</div>
+        <button onclick="copyCL('${{j.id}}')" style="background:rgba(176,125,48,.15);border:1px solid rgba(176,125,48,.4);color:var(--gold);padding:2px 10px;border-radius:4px;cursor:pointer;font-size:9px;font-family:var(--mono)">Copy draft ↗</button>
+      </div>
+      ${{s.coverLetterPoints.map((p,i)=>`<div style="font-size:11px;color:var(--muted);margin-bottom:6px;line-height:1.5;padding-left:8px;border-left:2px solid var(--gold)"><b style="color:var(--text)">${{i+1}}.</b> ${{p}}</div>`).join('')}}
+    </div>`:''}}
+    ${{s.interviewQuestions&&s.interviewQuestions.length?`
+    <div style="margin-top:12px">
+      <div style="font-size:9px;color:var(--green);letter-spacing:2px;font-family:var(--mono);margin-bottom:7px">INTERVIEW PREP</div>
+      ${{s.interviewQuestions.map(q=>`
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--text);font-weight:600;margin-bottom:3px">Q: ${{q.q}}</div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;padding-left:8px;border-left:2px solid var(--green)">→ ${{q.hint}}</div>
+        </div>`).join('')}}
+    </div>`:''}}
   </div>
 </div>`;
   }}).join('');
@@ -688,6 +740,14 @@ function estimateSalary(title){{
 }}
 
 function tog(id){{const el=document.getElementById(id);el&&el.classList.toggle('open');}}
+
+function copyCL(jid){{
+  const j=JOBS.find(x=>x.id===jid);if(!j)return;
+  const s=j.score||{{}};
+  const pts=(s.coverLetterPoints||[]).map((p,i)=>`${{i+1}}. ${{p}}`).join('\n\n');
+  const text=`Dear Hiring Team,\n\nI am writing to express my interest in the ${{j.title}} position at ${{j.company}}.\n\n${{pts}}\n\nI would welcome the opportunity to discuss how my background aligns with your needs.\n\nWarm regards,\nPedro Pereira\nmpereira.pedro@gmail.com | linkedin.com/in/pedrolourencopereira`;
+  navigator.clipboard.writeText(text).then(()=>alert('Cover letter draft copied to clipboard ✓'));
+}}
 
 function addPL(jid){{
   const j=JOBS.find(x=>x.id===jid);if(!j)return;
@@ -830,7 +890,10 @@ function renderCompanies(){{
         ${{top?badge(top+'/100 best',sc(top)):''}}
         ${{inPL?badge(inPL+' in pipeline','#60b4f0'):''}}
       </div>
-      <a href="${{c.careers_url}}" target="_blank" style="font-size:10px;color:var(--blue);font-family:var(--mono);display:block;margin-top:8px">Careers page →</a>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <a href="${{c.careers_url}}" target="_blank" style="font-size:10px;color:var(--blue);font-family:var(--mono)">Careers page →</a>
+        <a href="https://www.linkedin.com/search/results/people/?keywords=${{encodeURIComponent('technology director '+c.name)}}&origin=GLOBAL_SEARCH_HEADER" target="_blank" style="font-size:10px;color:var(--purple);font-family:var(--mono)">Find contacts on LinkedIn →</a>
+      </div>
     </div>`;
   }}).join('');
 }}
@@ -932,6 +995,7 @@ def main():
     print(f"SP Job Tracker v2 — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
     api_key = os.environ.get("ANTHROPIC_API_KEY","")
     client  = anthropic.Anthropic(api_key=api_key) if api_key else None
+    cv_text = load_cv_text()
 
     data_path = "docs/data.json"
     existing  = load_existing(data_path)
@@ -968,7 +1032,7 @@ def main():
         print(f"Scoring {len(to_score)} new roles...")
         for job in to_score[:25]:
             print(f"  → {job['title']} @ {job['company']}")
-            job["score"] = score_role(client, job)
+            job["score"] = score_role(client, job, cv_text)
             time.sleep(0.5)
 
     # Update run history
