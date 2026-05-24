@@ -27,6 +27,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY_JobSearch }}
           APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
+          PYTHONUNBUFFERED: "1"
         run: python scripts/scan.py
 
       - name: Commit updated data

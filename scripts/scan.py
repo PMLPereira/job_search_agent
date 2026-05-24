@@ -5,6 +5,7 @@ extracts salary/skills/seniority, and generates an enhanced dashboard.
 """
 
 import os, json, time, hashlib, re, requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 import anthropic
@@ -164,12 +165,7 @@ def scrape_greenhouse(company):
         print(f"  Greenhouse error {company['name']}: {e}"); return []
 
 
-def scrape_apify_batch(companies):
-    """Fantastic Jobs API — covers Workday, CSOD/Cornerstone, and 52 other ATS platforms."""
-    api_key = os.environ.get("APIFY_API_KEY", "")
-    if not api_key:
-        print("  APIFY_API_KEY not set — skipping Apify companies")
-        return {}
+def _apify_payload(companies):
     org_names, ats_filters = [], []
     for c in companies:
         org_names.append(c.get("apify_org", c["name"]))
@@ -182,43 +178,86 @@ def scrape_apify_batch(companies):
     }
     if ats_filters:
         payload["ats"] = list(set(ats_filters))
-    url = "https://api.apify.com/v2/acts/fantastic-jobs~career-site-job-listing-api/run-sync-get-dataset-items"
+    return payload
+
+
+def start_apify_run(api_key, companies):
+    """Fire off an async Apify run; return (run_id, dataset_id) or (None, None)."""
     try:
-        r = requests.post(url, json=payload, params={"token": api_key}, timeout=300)
-        if r.status_code != 200:
-            print(f"  Apify error: HTTP {r.status_code} — {r.text[:200]}")
-            return {}
-        items   = r.json()
-        results = {c["name"]: [] for c in companies}
-        for item in items:
-            org    = (item.get("organization") or "").upper()
-            domain = (item.get("domain_derived") or "")
-            title  = item.get("title", "")
-            desc   = item.get("description_text", "") or ""
-            if not is_relevant(title + " " + desc):
-                continue
-            loc = ""
-            derived = item.get("locations_derived", [])
-            if derived: loc = derived[0]
-            for c in companies:
-                apify_org    = c.get("apify_org", c["name"]).upper()
-                apify_domain = c.get("apify_domain", "")
-                if apify_org in org or (apify_domain and apify_domain in domain):
-                    results[c["name"]].append({
-                        "id":          hashlib.md5(f"{c['name']}{title}".encode()).hexdigest()[:12],
-                        "company":     c["name"],
-                        "title":       title,
-                        "location":    loc or "São Paulo",
-                        "url":         item.get("url", c["careers_url"]),
-                        "description": desc[:4000],
-                        "work_type":   "",
-                        "found_at":    datetime.now(timezone.utc).isoformat(),
-                        "is_new":      True,
-                    })
-                    break
-        return results
+        r = requests.post(
+            "https://api.apify.com/v2/acts/fantastic-jobs~career-site-job-listing-api/runs",
+            json=_apify_payload(companies),
+            params={"token": api_key},
+            timeout=30,
+        )
+        if r.status_code not in (200, 201):
+            print(f"  Apify start error: HTTP {r.status_code} — {r.text[:200]}")
+            return None, None
+        run = r.json().get("data", {})
+        run_id     = run.get("id")
+        dataset_id = run.get("defaultDatasetId")
+        print(f"  Apify run started: {run_id}")
+        return run_id, dataset_id
     except Exception as e:
-        print(f"  Apify batch error: {e}"); return {}
+        print(f"  Apify start error: {e}")
+        return None, None
+
+
+def collect_apify_results(api_key, run_id, dataset_id, companies, timeout=240):
+    """Poll until the Apify run finishes, then fetch and parse the dataset."""
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        try:
+            r      = requests.get(f"https://api.apify.com/v2/runs/{run_id}",
+                                  params={"token": api_key}, timeout=15)
+            status = r.json().get("data", {}).get("status", "")
+            print(f"  Apify status: {status}")
+            if status == "SUCCEEDED":
+                break
+            if status in ("FAILED", "ABORTED", "TIMED-OUT"):
+                print(f"  Apify run ended with status {status}")
+                return {c["name"]: [] for c in companies}
+        except Exception as e:
+            print(f"  Apify poll error: {e}")
+        time.sleep(15)
+    else:
+        print(f"  Apify run did not finish within {timeout}s — skipping")
+        return {c["name"]: [] for c in companies}
+
+    try:
+        r     = requests.get(f"https://api.apify.com/v2/datasets/{dataset_id}/items",
+                             params={"token": api_key}, timeout=30)
+        items = r.json()
+    except Exception as e:
+        print(f"  Apify dataset fetch error: {e}")
+        return {c["name"]: [] for c in companies}
+
+    results = {c["name"]: [] for c in companies}
+    for item in items:
+        org    = (item.get("organization") or "").upper()
+        domain = (item.get("domain_derived") or "")
+        title  = item.get("title", "")
+        desc   = item.get("description_text", "") or ""
+        if not is_relevant(title + " " + desc):
+            continue
+        loc     = (item.get("locations_derived") or [""])[0]
+        for c in companies:
+            apify_org    = c.get("apify_org", c["name"]).upper()
+            apify_domain = c.get("apify_domain", "")
+            if apify_org in org or (apify_domain and apify_domain in domain):
+                results[c["name"]].append({
+                    "id":          hashlib.md5(f"{c['name']}{title}".encode()).hexdigest()[:12],
+                    "company":     c["name"],
+                    "title":       title,
+                    "location":    loc or "São Paulo",
+                    "url":         item.get("url", c["careers_url"]),
+                    "description": desc[:4000],
+                    "work_type":   "",
+                    "found_at":    datetime.now(timezone.utc).isoformat(),
+                    "is_new":      True,
+                })
+                break
+    return results
 
 
 def scrape_btg(company):
@@ -1109,15 +1148,17 @@ def main():
 
     all_new = []
 
-    apify_cos = [c for c in COMPANIES if c.get("scrape_type") == "apify"]
-    if apify_cos:
-        print(f"Apify batch: {[c['name'] for c in apify_cos]}")
-        apify_results = scrape_apify_batch(apify_cos)
-        for c in apify_cos:
-            jobs = apify_results.get(c["name"], [])
-            print(f"  {c['name']}: {len(jobs)} relevant roles")
-            all_new.extend(jobs)
+    # ── Apify: fire async run BEFORE scraping other sites ──────────────────
+    apify_cos  = [c for c in COMPANIES if c.get("scrape_type") == "apify"]
+    apify_run_id = apify_dataset_id = None
+    api_key_apify = os.environ.get("APIFY_API_KEY", "")
+    if apify_cos and api_key_apify:
+        print(f"Apify async start: {[c['name'] for c in apify_cos]}")
+        apify_run_id, apify_dataset_id = start_apify_run(api_key_apify, apify_cos)
+    elif apify_cos:
+        print("  APIFY_API_KEY not set — skipping Apify companies")
 
+    # ── Scrape non-Apify companies while Apify runs in the cloud ───────────
     SCRAPER_FNS = {"gupy": scrape_gupy, "greenhouse": scrape_greenhouse, "btg": scrape_btg}
     for company in COMPANIES:
         st = company.get("scrape_type", "greenhouse")
@@ -1130,15 +1171,33 @@ def main():
         all_new.extend(jobs)
         time.sleep(1)
 
+    # ── Collect Apify results (polls until done or timeout) ─────────────────
+    if apify_run_id and apify_dataset_id:
+        apify_results = collect_apify_results(api_key_apify, apify_run_id, apify_dataset_id, apify_cos)
+        for c in apify_cos:
+            jobs = apify_results.get(c["name"], [])
+            print(f"  {c['name']}: {len(jobs)} relevant roles")
+            all_new.extend(jobs)
+
     merged = merge_jobs(existing.get("jobs",[]), all_new)
 
+    # ── Score unscored jobs in parallel (5 threads) ─────────────────────────
     if client:
         to_score = [j for j in merged if not j.get("score") and j.get("description")]
-        print(f"Scoring {len(to_score)} unscored roles...")
-        for job in to_score[:50]:
-            print(f"  → {job['title']} @ {job['company']}")
-            job["score"] = score_role(client, job, cv_text)
-            time.sleep(0.5)
+        cap      = min(len(to_score), 50)
+        print(f"Scoring {cap} unscored roles (5 threads)...")
+
+        def _score_one(job):
+            result = score_role(client, job, cv_text)
+            time.sleep(0.3)
+            return job, result
+
+        with ThreadPoolExecutor(max_workers=5) as pool:
+            futures = {pool.submit(_score_one, job): job for job in to_score[:cap]}
+            for future in as_completed(futures):
+                job, result = future.result()
+                job["score"] = result
+                print(f"  ✓ {job['title']} @ {job['company']}")
 
     history = existing.get("run_history",[])
     history.append({"date": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "count": len(merged)})
