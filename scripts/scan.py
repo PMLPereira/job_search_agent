@@ -899,7 +899,7 @@ function tog(id){{const el=document.getElementById(id);el&&el.classList.toggle('
 function copyCL(jid){{
   const j=JOBS.find(x=>x.id===jid);if(!j)return;
   const s=j.score||{{}};
-  const pts=(s.coverLetterPoints||[]).map((p,i)=>`${{i+1}}. ${{p}}`).join('\n\n');
+  const pts=(s.coverLetterPoints||[]).map((p,i)=>`${{i+1}}. ${{p}}`).join('\\n\\n');
   const text=`Dear Hiring Team,\n\nI am writing to express my interest in the ${{j.title}} position at ${{j.company}}.\n\n${{pts}}\n\nI would welcome the opportunity to discuss how my background aligns with your needs.\n\nWarm regards,\nPedro Pereira\nmpereira.pedro@gmail.com | linkedin.com/in/pedrolourencopereira`;
   navigator.clipboard.writeText(text).then(()=>alert('Cover letter draft copied to clipboard ✓'));
 }}
