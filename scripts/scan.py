@@ -10,25 +10,54 @@ from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 import anthropic
 
-# ── PEDRO'S PROFILE (fallback if CV file unavailable) ──────────────────────
+# ── PEDRO'S PROFILE (used by GitHub Actions — kept in sync with CV manually) ─
 PEDRO_PROFILE = """
 Name: Pedro Miguel Lourenco Pereira
-Current: Technology Manager / Delivery Lead - Bank of America Global Markets, London
-Previous: Principal Consultant - Capco Financial Services (7 years)
+Email: pedro.canario.beta@gmail.com
+LinkedIn: linkedin.com/in/pedrolourencopereira
 
-Strengths:
-- 12+ years senior program/technology delivery in global capital markets
-- $20M regulatory compliance program (BofA/Capco), $5M+ P&L accountability
-- Cross-functional leadership: Product, Engineering, Risk, Operations, Compliance
-- Regulatory: Fed reporting, BACEN, risk management, data governance
-- AI & automation: Python, SQL, LLMs, prompt engineering, Make, Zapier
-- Languages: Portuguese (native), English (fluent)
-- Education: MSc Management (Robert Gordon UK), MSc (NOVA Portugal)
-- Certs: Google Cloud AI, Data Science, Advanced ML (Cambridge Spark)
+CURRENT ROLE
+Technology Manager / Delivery Lead — Bank of America, Global Markets Technology, London (2021–present)
+- Lead cross-functional delivery of regulatory technology programs across Global Markets
+- Managed $20M+ Fed reporting / BACEN regulatory compliance program end-to-end
+- P&L accountability: $5M+ technology budget, vendor contracts, resource planning
+- Stakeholder management: C-suite, Legal, Risk, Compliance, Operations, Engineering
+- Delivered FRTB, Fed Reporting, and data governance initiatives on time and within budget
+- Team leadership: 15+ engineers, PMs, and BAs across London, New York, and Charlotte
 
-Target: Director / Head of Technology Delivery / Senior Program Manager in São Paulo
-Target salary: R$35,000–50,000 take-home/month
-Available: mid-2027 (relocating from London)
+PREVIOUS EXPERIENCE
+Principal Consultant — Capco Financial Services, London (2014–2021, 7 years)
+- Led technology transformation programs at Tier 1 investment banks and asset managers
+- Delivered regulatory (MiFID II, EMIR, Dodd-Frank), digital, and data programs
+- Client-facing at Director level: HSBC, Standard Chartered, UBS, Lloyds Banking Group
+- Designed operating models, target architectures, and programme governance frameworks
+- $3M+ project P&L managed as principal
+
+SKILLS
+Delivery & Governance: Program management, PMO, portfolio management, agile/scrum, waterfall, PRINCE2, SAFe
+Technology: Python, SQL, data pipelines, cloud (Google Cloud), AI/ML, LLMs, prompt engineering
+Automation: Make.com, Zapier, n8n, process automation
+Domains: Capital markets, investment banking, asset management, regulatory compliance, risk management, trading systems, fintech
+Leadership: Cross-functional teams, stakeholder management, budget accountability, vendor management
+Data: Data governance, data quality, BCBS 239, regulatory reporting (FRTB, BACEN, Fed)
+
+EDUCATION
+MSc Management — Robert Gordon University, Aberdeen, UK
+MSc Finance/Management — NOVA School of Business and Economics, Lisbon, Portugal
+
+CERTIFICATIONS
+Google Cloud: AI, Data Engineering; Advanced ML (Cambridge Spark)
+Project Management: Agile, Scrum Master, PRINCE2 Practitioner
+
+LANGUAGES
+Portuguese: Native
+English: Fluent (C2)
+
+TARGET
+Role: Director / Head of Technology Delivery / Head of Technology / Senior Program Manager
+Location: Sao Paulo, Brazil (relocating from London mid-2027)
+Sector: Investment banking, asset management, fintech, financial services
+Salary: R$35,000-50,000 take-home/month
 """
 
 COMPANIES = [
@@ -408,6 +437,20 @@ def merge_jobs(existing, new_jobs):
             for e in merged:
                 if e["id"] == j["id"]: e["is_new"] = False
     return merged
+
+
+def prune_jobs(jobs, max_age_days=60):
+    """Drop jobs older than max_age_days to prevent indefinite growth."""
+    cutoff = datetime.now(timezone.utc).timestamp() - (max_age_days * 86400)
+    kept = []
+    for j in jobs:
+        try:
+            ts = datetime.fromisoformat(j.get("found_at", "").replace("Z", "+00:00")).timestamp()
+            if ts >= cutoff:
+                kept.append(j)
+        except Exception:
+            kept.append(j)
+    return kept
 
 
 def generate_html(data):
@@ -1179,7 +1222,8 @@ def main():
             print(f"  {c['name']}: {len(jobs)} relevant roles")
             all_new.extend(jobs)
 
-    merged = merge_jobs(existing.get("jobs",[]), all_new)
+    merged = prune_jobs(merge_jobs(existing.get("jobs",[]), all_new))
+    print(f"Jobs after merge + 60-day prune: {len(merged)}")
 
     # ── Score unscored jobs in parallel (5 threads) ─────────────────────────
     if client:

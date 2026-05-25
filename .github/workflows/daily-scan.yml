@@ -36,4 +36,5 @@ jobs:
           git config user.email "job-bot@noreply"
           git add docs/data.json docs/index.html
           git diff --staged --quiet || git commit -m "Daily scan $(date +'%Y-%m-%d')"
+          git pull --rebase origin main
           git push
