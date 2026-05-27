@@ -454,6 +454,10 @@ def prune_jobs(jobs, max_age_days=60):
 
 
 def generate_html(data):
+    data["jobs"] = [
+        j for j in data["jobs"]
+        if (j.get("score") or {}).get("score", 0) >= 30
+    ]
     jobs_json       = json.dumps(data["jobs"],           ensure_ascii=False).replace("</", "<\\/")
     companies_json  = json.dumps(COMPANIES,               ensure_ascii=False).replace("</", "<\\/")
     history_json    = json.dumps(data.get("run_history",[]), ensure_ascii=False).replace("</", "<\\/")
@@ -478,16 +482,27 @@ def generate_html(data):
 <title>Pedro · SP Job Intelligence</title>
 <style>
 :root{{
-  --bg:#f5f0e8;--bg2:#ede8df;--bg3:#e6e0d5;--bg4:#c2edda;
-  --border:#c9c3b8;--border2:#b8b2a6;--border3:#a8a298;
-  --text:#2c2420;--muted:#7a7068;--dim:#a09890;--dimmer:#b8b0a8;
-  --green:#28a848;--gold:#d48000;--blue:#3a7cbf;
-  --red:#c82e00;--purple:#7c5cbf;--orange:#c87840;
-  --tint-green:rgba(104,211,136,.13);--tint-red:rgba(244,58,9,.09);
-  --font:'Georgia',serif;--mono:'Courier New',monospace;
+  --bg:#FAFAF8;--bg2:#FFFFFF;--bg3:#F4F4F1;--bg4:#ECFDF5;
+  --surface:#FFFFFF;--surface2:#F7F7F4;--surface3:#EFEFEB;
+  --border:#E8E8E4;--border2:#D8D8D2;--border3:#C8C8C0;
+  --border-light:#F0F0EC;
+  --text:#0F0F14;--text-primary:#0F0F14;
+  --text-secondary:#3D3D4E;--text-muted:#6B6B80;
+  --muted:#6B6B80;--dim:#9090A0;--dimmer:#AAAAB8;
+  --green:#10B981;--gold:#6366F1;--blue:#6366F1;
+  --accent:#6366F1;--accent-soft:rgba(99,102,241,0.08);
+  --red:#F43F5E;--purple:#8B5CF6;--orange:#F59E0B;
+  --amber:#F59E0B;--amber-soft:rgba(245,158,11,0.10);
+  --tint-green:rgba(16,185,129,0.08);
+  --tint-red:rgba(244,63,94,0.07);
+  --green-soft:rgba(16,185,129,0.10);
+  --red-soft:rgba(244,63,94,0.10);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+  --radius:10px;--radius-sm:6px;
 }}
 *{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;padding:20px 14px 80px}}
+body{{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;padding:20px 14px 80px}}
 .wrap{{max-width:1160px;margin:0 auto}}
 .hdr{{text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}}
 .hdr h1{{font-size:24px;font-weight:400;letter-spacing:-0.5px}}
@@ -531,11 +546,13 @@ body{{background:var(--bg);color:var(--text);font-family:var(--font);min-height:
 .outreach{{background:var(--bg3);border:1px solid var(--border2);border-radius:7px;padding:10px 12px;font-size:11px;color:var(--muted);font-family:var(--mono);line-height:1.6;margin-top:8px}}
 .co-card{{cursor:pointer;transition:box-shadow .2s}}
 .co-card:hover{{box-shadow:0 2px 12px rgba(44,36,32,.08)}}
-.score-bd{{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}}
-.score-bd-item{{text-align:center;min-width:48px}}
-.score-bd-item .v{{font-size:18px;font-weight:700;font-family:var(--mono)}}
-.score-bd-item .l{{font-size:8px;color:var(--dim);font-family:var(--mono)}}
-.score-bd-item .max{{font-size:8px;color:var(--dimmer);font-family:var(--mono)}}
+.score-bd{{margin-top:8px}}
+.score-bar-item{{margin-bottom:6px}}
+.score-bar-label{{display:flex;justify-content:flex-end;margin-bottom:3px}}
+.score-bar-label span:first-child{{display:none}}
+.score-bar-label span:last-child{{font-size:11px;font-weight:500;color:#9090A0;letter-spacing:0;text-transform:none;font-family:var(--mono)}}
+.score-bar-track{{height:5px;border-radius:6px;background:#F0F0EC;overflow:hidden}}
+.score-bar-fill{{height:5px;border-radius:6px}}
 @media(max-width:640px){{.g2,.g3{{grid-template-columns:1fr}}.detail-grid{{grid-template-columns:1fr}}}}
 </style>
 </head>
@@ -704,10 +721,16 @@ let pipeline = JSON.parse(localStorage.getItem('sp_pl3') || 'null') || [
 ];
 function saveP(){{localStorage.setItem('sp_pl3',JSON.stringify(pipeline));}}
 
-function sc(s){{return s>=65?'var(--green)':s>=50?'var(--gold)':'var(--red)';}}
+function sc(s){{
+  if(s>=65)return{{border:'#10B981',bg:'rgba(16,185,129,0.10)',text:'#059669'}};
+  if(s>=50)return{{border:'#6366F1',bg:'rgba(99,102,241,0.10)',text:'#6366F1'}};
+  if(s>=35)return{{border:'#F59E0B',bg:'rgba(245,158,11,0.10)',text:'#B45309'}};
+  return{{border:'#F43F5E',bg:'rgba(244,63,94,0.08)',text:'#BE123C'}};
+}}
 function ring(s){{
-  const c=s!=null?sc(s):'var(--dimmer)', v=s!=null?s:'—';
-  return `<div class="ring" style="border:3px solid ${{c}};background:${{c}}18;color:${{c}}">${{v}}</div>`;
+  if(s==null)return`<div class="ring" style="border:3px solid var(--border2);background:transparent;color:var(--dim)">—</div>`;
+  const c=sc(s);
+  return `<div class="ring" style="border:3px solid ${{c.border}};background:${{c.bg}};color:${{c.text}}">${{s}}</div>`;
 }}
 function badge(t,c){{return `<span class="badge" style="background:${{c}}1a;border:1px solid ${{c}}55;color:${{c}}">${{t}}</span>`;}}
 function pill(t,cls){{return `<span class="skill ${{cls}}">${{t}}</span>`;}}
@@ -789,14 +812,14 @@ function renderJobs(){{
   }}
 
   document.getElementById('jobs-list').innerHTML=filtered.map(j=>{{
-    const s=j.score||{{}}, score=s.score, col=score!=null?sc(score):'var(--dim)';
+    const s=j.score||{{}}, score=s.score, col=score!=null?sc(score).border:'#9090A0';
     const salary=s.salaryRange||estimateSalary(j.title);
     const skills=(s.keySkillsRequired||[]);
     const have=(s.skillsYouHave||[]);
     const lack=(s.skillsYouLack||[]);
     const age=daysAgo(j.found_at);
     const ageUrgent=age&&!['today','1d ago'].includes(age)&&parseInt(age)>5;
-    const applyCol={{'Yes':'var(--green)','Yes with tweaks':'var(--gold)','No':'var(--red)'}}[s.applyRecommendation]||'var(--dim)';
+    const applyCol={{'Yes':'#10B981','Yes with tweaks':'#F59E0B','No':'#F43F5E'}}[s.applyRecommendation]||'#9090A0';
     const belowTarget=isBelowTarget(j);
     const bd=s.scoreBreakdown||{{}};
 
@@ -828,9 +851,9 @@ function renderJobs(){{
         return pill(sk,has?'have':lacks?'lack':'');
       }}).join('')}}</div>`:''}}
       <div style="display:flex;gap:6px;flex-wrap:wrap">
-        ${{j.url?`<a href="${{j.url}}" target="_blank" style="color:var(--blue);font-size:10px;font-family:var(--mono)">View role →</a>`:''}}
+        ${{j.url?`<a href="${{j.url}}" target="_blank" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:#FFFFFF;border:none;border-radius:8px;box-shadow:0 2px 10px rgba(99,102,241,0.30);font-size:10px;font-family:var(--mono);padding:4px 12px;text-decoration:none">View role →</a>`:''}}
         <button onclick="tog('d${{j.id}}')" style="background:none;border:1px solid var(--border2);color:var(--dim);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-family:var(--mono)">Details ▾</button>
-        <button onclick="addPL('${{j.id}}')" style="background:rgba(40,168,72,.08);border:1px solid rgba(40,168,72,.3);color:var(--green);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-family:var(--mono)">+ Pipeline</button>
+        <button onclick="addPL('${{j.id}}')" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.30);color:#10B981;padding:2px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-family:var(--mono)">+ Pipeline</button>
       </div>
     </div>
   </div>
@@ -841,8 +864,9 @@ function renderJobs(){{
       <div class="score-bd">
         ${{[['skills',bd.skills,40],['seniority',bd.seniority,30],['sector',bd.sector,20],['language',bd.language,10]].map(([k,v,m])=>{{
           const vc=v!=null?v:0;
-          const c=vc>=m*.75?'var(--green)':vc>=m*.5?'var(--gold)':'var(--red)';
-          return `<div class="score-bd-item"><div class="v" style="color:${{c}}">${{vc!=null?vc:'—'}}</div><div class="l">${{k.toUpperCase()}}</div><div class="max">/${{m}}</div></div>`;
+          const pct=Math.round(vc/m*100);
+          const fc=pct>=70?'#10B981':pct>=45?'#6366F1':pct>=25?'#F59E0B':'#F43F5E';
+          return `<div class="score-bar-item"><div class="score-bar-label"><span>${{k.toUpperCase()}}</span><span>${{vc}}/${{m}}</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:${{pct}}%;background:${{fc}}"></div></div></div>`;
         }}).join('')}}
       </div>
     </div>`:''}}
