@@ -454,737 +454,514 @@ def prune_jobs(jobs, max_age_days=60):
 
 
 def generate_html(data):
-    data["jobs"] = [
-        j for j in data["jobs"]
+    import json as _json
+
+    # Filter jobs below score 30
+    jobs = [
+        j for j in (data.get("jobs") or [])
         if (j.get("score") or {}).get("score", 0) >= 30
     ]
-    jobs_json       = json.dumps(data["jobs"],           ensure_ascii=False).replace("</", "<\\/")
-    companies_json  = json.dumps(COMPANIES,               ensure_ascii=False).replace("</", "<\\/")
-    history_json    = json.dumps(data.get("run_history",[]), ensure_ascii=False).replace("</", "<\\/")
-    last_updated    = data.get("last_updated","—")
-    total_jobs      = len(data["jobs"])
-    new_today       = sum(1 for j in data["jobs"] if j.get("is_new"))
-    strong_matches  = sum(1 for j in data["jobs"] if (j.get("score") or {}).get("score",0) >= 65)
+    jobs_json = _json.dumps(jobs)
+    scan_date = data.get("scan_date", data.get("last_updated", ""))
+    total = len(jobs)
+    strong = sum(1 for j in jobs if (j.get("score") or {}).get("score", 0) >= 65)
+    good = sum(1 for j in jobs if 50 <= (j.get("score") or {}).get("score", 0) < 65)
+    pipeline = len(data.get("pipeline", []))
 
-    all_skills = {}
-    for j in data["jobs"]:
-        for sk in (j.get("score") or {}).get("keySkillsRequired",[]):
-            if sk and sk.strip():
-                all_skills[sk] = all_skills.get(sk,0) + 1
-    top_skills      = sorted(all_skills.items(), key=lambda x: -x[1])[:15]
-    top_skills_json = json.dumps(top_skills).replace("</", "<\\/")
-
-    return f"""<!DOCTYPE html>
+    html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pedro · SP Job Intelligence</title>
+<title>RoleIQ · Pedro · SP Job Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+*,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
 :root{{
-  --bg:#FAFAF8;--bg2:#FFFFFF;--bg3:#F4F4F1;--bg4:#ECFDF5;
-  --surface:#FFFFFF;--surface2:#F7F7F4;--surface3:#EFEFEB;
-  --border:#E8E8E4;--border2:#D8D8D2;--border3:#C8C8C0;
-  --border-light:#F0F0EC;
-  --text:#0F0F14;--text-primary:#0F0F14;
-  --text-secondary:#3D3D4E;--text-muted:#6B6B80;
-  --muted:#6B6B80;--dim:#9090A0;--dimmer:#AAAAB8;
-  --green:#10B981;--gold:#6366F1;--blue:#6366F1;
-  --accent:#6366F1;--accent-soft:rgba(99,102,241,0.08);
-  --red:#F43F5E;--purple:#8B5CF6;--orange:#F59E0B;
+  --bg:#FAFAF8;--surface:#FFFFFF;--surface2:#F7F7F4;
+  --border:#E8E8E4;--border2:#D8D8D2;
+  --text:#0F0F14;--text-secondary:#3D3D4E;--text-muted:#6B6B80;--muted:#9090A0;
+  --accent:#6366F1;--accent-hover:#4F46E5;--accent-soft:rgba(99,102,241,0.08);
+  --green:#10B981;--green-soft:rgba(16,185,129,0.10);
+  --red:#F43F5E;--red-soft:rgba(244,63,94,0.10);
   --amber:#F59E0B;--amber-soft:rgba(245,158,11,0.10);
-  --tint-green:rgba(16,185,129,0.08);
-  --tint-red:rgba(244,63,94,0.07);
-  --green-soft:rgba(16,185,129,0.10);
-  --red-soft:rgba(244,63,94,0.10);
+  --purple:#8B5CF6;
   --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --mono:'JetBrains Mono','Courier New',monospace;
   --radius:10px;--radius-sm:6px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 4px 16px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.04);
 }}
-*{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;padding:20px 14px 80px}}
-.wrap{{max-width:1160px;margin:0 auto}}
-.hdr{{text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}}
-.hdr h1{{font-size:24px;font-weight:400;letter-spacing:-0.5px}}
-.hdr .sub{{font-size:9px;color:var(--dim);font-family:var(--mono);letter-spacing:4px;margin-bottom:8px}}
-.hdr .upd{{font-size:10px;color:var(--dimmer);font-family:var(--mono)}}
-.stats{{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}}
-.stat{{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:10px 18px;text-align:center;min-width:90px}}
-.stat .v{{font-size:26px;font-family:var(--mono);font-weight:700}}
-.stat .l{{font-size:9px;color:var(--dim);font-family:var(--mono);margin-top:2px}}
-.tabs{{display:flex;gap:5px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}}
-.tab{{padding:6px 15px;background:none;border:1px solid transparent;border-radius:7px;
-      color:var(--dim);cursor:pointer;font-size:10px;font-family:var(--mono);letter-spacing:1px;transition:all .2s}}
-.tab.active{{background:var(--bg2);border-color:var(--border2);color:var(--text)}}
-.section{{display:none}}.section.active{{display:block}}
-.card{{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px;transition:border-color .2s}}
-.card:hover{{border-color:var(--border3)}}
-.badge{{display:inline-block;font-size:9px;letter-spacing:1px;padding:2px 7px;border-radius:20px;font-family:var(--mono);white-space:nowrap}}
-.ring{{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700;flex-shrink:0}}
-.filters{{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}}
-.filters select,.filters input{{background:var(--bg2);border:1px solid var(--border2);border-radius:6px;
-  color:var(--muted);padding:5px 10px;font-size:11px;font-family:var(--mono);cursor:pointer}}
-.filters input{{flex:1;min-width:140px}}
-.skill{{display:inline-block;background:var(--bg3);border:1px solid var(--border2);color:var(--muted);
-  font-size:9px;padding:2px 8px;border-radius:20px;font-family:var(--mono);margin:2px}}
-.skill.have{{background:var(--tint-green);border-color:rgba(40,168,72,.35);color:var(--green)}}
-.skill.lack{{background:var(--tint-red);border-color:rgba(200,46,0,.3);color:var(--red)}}
-.detail{{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-top:10px;display:none}}
-.detail.open{{display:block}}
-.detail-grid{{display:grid;grid-template-columns:1fr 1fr;gap:10px}}
-.dsec{{margin-top:12px}}
-.dsec-title{{font-size:9px;letter-spacing:2px;font-family:var(--mono);margin-bottom:7px}}
-.ptable{{width:100%;border-collapse:collapse}}
-.ptable th{{font-size:9px;color:var(--dim);font-family:var(--mono);letter-spacing:2px;text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}}
-.ptable td{{font-size:12px;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:middle}}
-.psel{{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);padding:2px 5px;font-size:10px;font-family:var(--mono)}}
-.pinput{{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--muted);padding:2px 6px;font-size:10px;font-family:var(--mono);width:100%}}
-.g2{{display:grid;grid-template-columns:1fr 1fr;gap:10px}}
-.g3{{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}
-.mbar{{background:var(--bg4);border-radius:4px;height:8px;margin-top:4px}}
-.mfill{{height:8px;border-radius:4px;transition:width .4s}}
-.outreach{{background:var(--bg3);border:1px solid var(--border2);border-radius:7px;padding:10px 12px;font-size:11px;color:var(--muted);font-family:var(--mono);line-height:1.6;margin-top:8px}}
-.co-card{{cursor:pointer;transition:box-shadow .2s}}
-.co-card:hover{{box-shadow:0 2px 12px rgba(44,36,32,.08)}}
-.score-bd{{margin-top:8px}}
-.score-bar-item{{margin-bottom:6px}}
-.score-bar-label{{display:flex;justify-content:flex-end;margin-bottom:3px}}
-.score-bar-label span:first-child{{display:none}}
-.score-bar-label span:last-child{{font-size:11px;font-weight:500;color:#9090A0;letter-spacing:0;text-transform:none;font-family:var(--mono)}}
-.score-bar-track{{height:5px;border-radius:6px;background:#F0F0EC;overflow:hidden}}
-.score-bar-fill{{height:5px;border-radius:6px}}
-@media(max-width:640px){{.g2,.g3{{grid-template-columns:1fr}}.detail-grid{{grid-template-columns:1fr}}}}
+html,body{{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;height:100%;overflow:hidden}}
+#app{{display:flex;flex-direction:column;height:100vh;overflow:hidden}}
+
+/* TOP BAR */
+#topbar{{background:#1C1C28;border-bottom:1px solid #2A2A3E;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:100}}
+#brand{{display:flex;align-items:center;gap:10px}}
+#logo{{width:32px;height:32px;background:linear-gradient(135deg,#6366F1,#8B5CF6);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;letter-spacing:-0.5px;box-shadow:0 2px 8px rgba(99,102,241,0.35);flex-shrink:0}}
+#brand-name{{font-size:15px;font-weight:700;color:#FFFFFF;letter-spacing:-0.3px}}
+#brand-sub{{font-size:11px;color:#6B6B88;font-weight:400}}
+#kpis{{display:flex;align-items:center;gap:4px}}
+.kpi{{display:flex;flex-direction:column;align-items:center;padding:6px 14px;border-radius:8px;cursor:pointer;transition:background 0.15s;min-width:70px}}
+.kpi:hover{{background:rgba(255,255,255,0.07)}}
+.kpi-val{{font-size:17px;font-weight:700;color:#FFFFFF;line-height:1}}
+.kpi-val.g{{color:#10B981}}.kpi-val.a{{color:#818CF8}}.kpi-val.amber{{color:#F59E0B}}
+.kpi-label{{font-size:10px;color:#6B6B88;font-weight:500;margin-top:2px;text-transform:uppercase;letter-spacing:0.05em}}
+.kpi-div{{width:1px;height:28px;background:#2A2A3E;margin:0 4px}}
+#pipeline-btn{{background:linear-gradient(135deg,#6366F1,#4F46E5);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 10px rgba(99,102,241,0.35);transition:all 0.2s;font-family:var(--font)}}
+#pipeline-btn:hover{{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,0.45)}}
+#scan-info{{font-size:10.5px;color:#4A4A60;padding:6px 24px;background:#16161F;border-bottom:1px solid #2A2A3E;text-align:center}}
+#scan-info a{{color:#6366F1;text-decoration:none}}
+
+/* SUBNAV */
+#subnav{{background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:0;height:44px;flex-shrink:0}}
+.nav-tab{{padding:0 16px;height:44px;display:flex;align-items:center;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;user-select:none}}
+.nav-tab:hover{{color:var(--text-secondary)}}
+.nav-tab.active{{color:var(--accent);font-weight:600;border-bottom-color:var(--accent)}}
+
+/* FILTER BAR */
+#filterbar{{background:var(--surface2);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;gap:8px;align-items:center;flex-shrink:0;flex-wrap:wrap}}
+.f-select{{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;font-size:12.5px;font-family:var(--font);color:var(--text-secondary);cursor:pointer;outline:none;transition:border-color 0.15s;min-width:130px}}
+.f-select:focus{{border-color:var(--accent)}}
+#search{{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 12px 7px 32px;font-size:12.5px;font-family:var(--font);color:var(--text);outline:none;transition:border-color 0.15s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239090A0' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:10px center}}
+#search:focus{{border-color:var(--accent)}}
+#search::placeholder{{color:var(--muted)}}
+#result-count{{font-size:12px;color:var(--muted);white-space:nowrap}}
+
+/* MAIN */
+#main{{display:flex;flex:1;overflow:hidden;min-height:0}}
+
+/* LIST PANEL */
+#list-panel{{width:360px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;background:var(--bg)}}
+#list-panel::-webkit-scrollbar{{width:4px}}
+#list-panel::-webkit-scrollbar-thumb{{background:var(--border2);border-radius:2px}}
+#list-header{{padding:10px 16px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:10}}
+.jc{{padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.12s;display:flex;gap:12px;align-items:flex-start;background:var(--surface)}}
+.jc:hover{{background:#F4F4FF}}
+.jc.sel{{background:var(--accent-soft);border-left:3px solid var(--accent)}}
+.jc.sel .jc-title{{color:var(--accent)}}
+.sr{{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;border:2.5px solid}}
+.sr.s{{border-color:#10B981;background:rgba(16,185,129,0.10);color:#059669}}
+.sr.g{{border-color:#6366F1;background:rgba(99,102,241,0.10);color:#6366F1}}
+.sr.p{{border-color:#F59E0B;background:rgba(245,158,11,0.10);color:#B45309}}
+.sr.l{{border-color:#F43F5E;background:rgba(244,63,94,0.08);color:#BE123C}}
+.jc-info{{flex:1;min-width:0}}
+.jc-co{{font-size:10px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.10em;margin-bottom:2px}}
+.jc-title{{font-size:13px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.jc-meta{{display:flex;gap:6px;align-items:center;flex-wrap:wrap}}
+.jc-sal{{font-size:11px;color:var(--text-secondary);font-weight:500}}
+.vb{{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;letter-spacing:0.02em}}
+.vb.s{{background:rgba(16,185,129,0.12);color:#059669}}
+.vb.g{{background:rgba(99,102,241,0.10);color:#6366F1}}
+.vb.p{{background:rgba(245,158,11,0.10);color:#B45309}}
+.vb.l{{background:rgba(244,63,94,0.08);color:#BE123C}}
+.wt{{font-size:10px;color:var(--muted);background:var(--surface2);padding:2px 6px;border-radius:4px;border:1px solid var(--border)}}
+
+/* DETAIL PANEL */
+#detail{{flex:1;overflow-y:auto;padding:28px 32px;background:var(--bg);min-width:0}}
+#detail::-webkit-scrollbar{{width:4px}}
+#detail::-webkit-scrollbar-thumb{{background:var(--border2);border-radius:2px}}
+#empty{{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--muted);gap:12px;font-size:14px}}
+
+/* DETAIL CONTENT */
+.d-co-row{{display:flex;align-items:center;gap:8px;margin-bottom:6px}}
+.d-co{{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em}}
+.d-snr{{font-size:11px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px;border:1px solid var(--border)}}
+.d-title{{font-size:22px;font-weight:800;color:var(--text);line-height:1.2;letter-spacing:-0.03em;margin-bottom:10px}}
+.d-meta{{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px}}
+.d-meta-i{{font-size:12.5px;color:var(--text-secondary);display:flex;align-items:center;gap:5px}}
+.d-actions{{display:flex;gap:10px;align-items:center;padding-top:12px;border-top:1px solid var(--border);margin-bottom:24px}}
+.btn-p{{background:linear-gradient(135deg,#6366F1,#4F46E5);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 10px rgba(99,102,241,0.30);transition:all 0.2s;font-family:var(--font);text-decoration:none;display:inline-flex;align-items:center;gap:5px}}
+.btn-p:hover{{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,0.40)}}
+.btn-s{{background:var(--surface);color:var(--text-secondary);border:1px solid var(--border);border-radius:8px;padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:var(--font)}}
+.btn-s:hover{{border-color:var(--accent);color:var(--accent)}}
+
+/* SCORE SECTION */
+.sc{{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow-sm)}}
+.sc-lbl{{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.10em;margin-bottom:14px}}
+.sc-hero{{display:flex;align-items:center;gap:20px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}}
+.sc-ring{{width:68px;height:68px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;font-weight:800;flex-shrink:0;border:3px solid;letter-spacing:-1px}}
+.sc-ring.s{{border-color:#10B981;background:rgba(16,185,129,0.08);color:#059669}}
+.sc-ring.g{{border-color:#6366F1;background:rgba(99,102,241,0.08);color:#6366F1}}
+.sc-ring.p{{border-color:#F59E0B;background:rgba(245,158,11,0.08);color:#B45309}}
+.sc-ring.l{{border-color:#F43F5E;background:rgba(244,63,94,0.06);color:#BE123C}}
+.sc-verdict{{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}}
+.sc-apply{{font-size:12px;color:var(--text-muted)}}
+.sc-apply strong{{color:var(--text-secondary)}}
+
+/* SCORE BARS */
+.bars{{display:flex;flex-direction:column;gap:8px}}
+.bar-i{{display:flex;flex-direction:column;gap:3px}}
+.bar-frac{{font-size:11px;font-weight:500;color:var(--muted);text-align:right;line-height:1}}
+.bar-track{{height:5px;border-radius:6px;background:#F0F0EC;overflow:hidden}}
+.bar-fill{{height:5px;border-radius:6px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1)}}
+
+/* TWO COL */
+.two-col{{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}}
+.card{{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}}
+.card.gt{{border-color:rgba(16,185,129,0.20);background:rgba(16,185,129,0.03)}}
+.card.rt{{border-color:rgba(244,63,94,0.15);background:rgba(244,63,94,0.025)}}
+.card-title{{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}}
+.card-title.green{{color:#059669}}.card-title.red{{color:#BE123C}}.card-title.accent{{color:var(--accent)}}.card-title.muted{{color:var(--muted)}}
+.li{{font-size:12.5px;color:var(--text-secondary);line-height:1.5;padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start}}
+.li:last-child{{border-bottom:none}}
+.dot{{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}}
+.dot.g{{background:#10B981}}.dot.r{{background:#F43F5E}}.dot.a{{background:var(--accent)}}
+
+/* CHIPS */
+.chips{{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}}
+.chip{{font-size:11.5px;padding:3px 10px;border-radius:99px;font-weight:500}}
+.chip.h{{background:rgba(16,185,129,0.12);color:#059669;border:1px solid rgba(16,185,129,0.20)}}
+.chip.lk{{background:rgba(244,63,94,0.08);color:#BE123C;border:1px solid rgba(244,63,94,0.15)}}
+
+/* TALKING POINTS */
+.tp{{border-left:3px solid var(--accent);padding:8px 12px;margin-bottom:8px;font-size:12.5px;color:var(--text-secondary);line-height:1.55;background:var(--accent-soft);border-radius:0 6px 6px 0}}
+.tp:last-child{{margin-bottom:0}}
+
+/* OUTREACH */
+.outreach{{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-size:12.5px;color:var(--text-secondary);line-height:1.6;font-style:italic;position:relative}}
+.copy-btn{{position:absolute;top:10px;right:10px;background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--accent);cursor:pointer;font-family:var(--font);transition:all 0.15s}}
+.copy-btn:hover{{background:var(--accent);color:#fff;border-color:var(--accent)}}
+
+/* FULL SECTION */
+.fs{{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm);margin-bottom:14px}}
+.sec-sub{{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px}}
+.sec-sub.g{{color:#059669}}.sec-sub.r{{color:#BE123C}}
+
+/* INTERVIEW */
+.iq{{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px}}
+.iq:last-child{{margin-bottom:0}}
+.iq-q{{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.4}}
+.iq-hint{{font-size:12px;color:var(--text-muted);line-height:1.5}}
+
+/* COVER LETTER */
+.cl-point{{font-size:12.5px;color:var(--text-secondary);line-height:1.55;padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:8px}}
+.cl-point:last-child{{border-bottom:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<div class="hdr">
-  <div class="sub">SP CAREER INTELLIGENCE · PEDRO PEREIRA</div>
-  <h1>🇧🇷 São Paulo Job Tracker</h1>
-  <div class="upd">Last scanned: {last_updated} &nbsp;·&nbsp; Auto-updates daily via GitHub Actions &nbsp;·&nbsp; <a href="https://github.com/PMLPereira/job_search_agent" style="color:var(--blue);font-size:10px">GitHub →</a></div>
-</div>
-
-<div class="stats" id="stats-bar"></div>
-
-<div class="tabs">
-  <button class="tab active" onclick="sw('jobs',this)">JOBS FOUND</button>
-  <button class="tab" onclick="sw('market',this)">MARKET INTEL</button>
-  <button class="tab" onclick="sw('pipeline',this)">MY PIPELINE</button>
-  <button class="tab" onclick="sw('companies',this)">COMPANIES</button>
-  <button class="tab" onclick="sw('remote',this)">REMOTE 🌍</button>
-  <button class="tab" onclick="sw('alerts',this)">SETUP</button>
-</div>
-
-<!-- ══ JOBS ══ -->
-<div id="tab-jobs" class="section active">
-  <div class="filters">
-    <select id="f-company" onchange="renderJobs()"><option value="">All companies</option></select>
-    <select id="f-score" onchange="renderJobs()">
-      <option value="0">All scores</option>
+<div id="app">
+  <div id="topbar">
+    <div id="brand">
+      <div id="logo">RI</div>
+      <div>
+        <div id="brand-name">RoleIQ</div>
+        <div id="brand-sub">Pedro · São Paulo</div>
+      </div>
+    </div>
+    <div id="kpis">
+      <div class="kpi"><div class="kpi-val">{total}</div><div class="kpi-label">Total</div></div>
+      <div class="kpi-div"></div>
+      <div class="kpi"><div class="kpi-val g">{strong}</div><div class="kpi-label">Strong</div></div>
+      <div class="kpi"><div class="kpi-val a">{good}</div><div class="kpi-label">Good</div></div>
+      <div class="kpi-div"></div>
+      <div class="kpi"><div class="kpi-val amber">0</div><div class="kpi-label">New Today</div></div>
+      <div class="kpi-div"></div>
+      <div class="kpi"><div class="kpi-val">{pipeline}</div><div class="kpi-label">Pipeline</div></div>
+    </div>
+    <button id="pipeline-btn">+ Pipeline</button>
+  </div>
+  <div id="scan-info">Last scanned: {scan_date} · Auto-updates daily via GitHub Actions · <a href="https://github.com/PMLPereira/job_search_agent" target="_blank">GitHub →</a></div>
+  <div id="subnav">
+    <div class="nav-tab active" onclick="showTab('jobs')">Jobs Found</div>
+    <div class="nav-tab" onclick="showTab('intel')">Market Intel</div>
+    <div class="nav-tab" onclick="showTab('pipeline')">My Pipeline</div>
+    <div class="nav-tab" onclick="showTab('companies')">Companies</div>
+    <div class="nav-tab" onclick="showTab('remote')">Remote 🌍</div>
+    <div class="nav-tab" onclick="showTab('setup')">Setup</div>
+  </div>
+  <div id="filterbar">
+    <select class="f-select" id="f-score" onchange="renderList()">
+      <option value="0">All Scores</option>
       <option value="65">Strong (65+)</option>
       <option value="50">Good (50+)</option>
+      <option value="30">Partial (30+)</option>
     </select>
-    <select id="f-seniority" onchange="renderJobs()">
-      <option value="">All levels</option>
-      <option value="senior">Director+ only</option>
+    <select class="f-select" id="f-co" onchange="renderList()">
+      <option value="">All Companies</option>
     </select>
-    <select id="f-arrange" onchange="renderJobs()">
-      <option value="">Any arrangement</option>
+    <select class="f-select" id="f-type" onchange="renderList()">
+      <option value="">Any Arrangement</option>
       <option value="Remote">Remote</option>
       <option value="Hybrid">Hybrid</option>
       <option value="On-site">On-site</option>
     </select>
-    <select id="f-new" onchange="renderJobs()">
-      <option value="">All roles</option>
-      <option value="new">New today</option>
-    </select>
-    <select id="f-sort" onchange="renderJobs()">
+    <select class="f-select" id="f-sort" onchange="renderList()">
       <option value="score">Sort: Best Match</option>
-      <option value="new">Sort: Newest</option>
-      <option value="salary">Sort: Salary</option>
+      <option value="newest">Sort: Newest</option>
     </select>
-    <input id="f-search" placeholder="Search title, skill, keyword…" oninput="renderJobs()">
+    <input type="text" id="search" placeholder="Search title, skill, keyword..." oninput="renderList()">
+    <span id="result-count"></span>
   </div>
-  <div id="jobs-list"></div>
-</div>
-
-<!-- ══ MARKET INTEL ══ -->
-<div id="tab-market" class="section">
-  <div class="g2" style="margin-bottom:14px">
-    <div class="card">
-      <div style="font-size:9px;color:var(--gold);letter-spacing:2px;font-family:var(--mono);margin-bottom:14px">SALARY BENCHMARKS · SÃO PAULO 2026</div>
-      <div id="salary-bands"></div>
+  <div id="main">
+    <div id="list-panel">
+      <div id="list-header">0 Roles</div>
+      <div id="cards"></div>
     </div>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:9px;color:var(--blue);letter-spacing:2px;font-family:var(--mono)">TOP SKILLS DEMANDED</div>
-        <div style="font-size:9px;color:var(--dim);font-family:var(--mono)">
-          <span style="color:var(--green)">● you have it</span>&nbsp;&nbsp;<span style="color:var(--red)">● gap</span>
-        </div>
+    <div id="detail">
+      <div id="empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+        <p>Select a role to see the full AI analysis</p>
       </div>
-      <div id="skills-heatmap"></div>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:14px">
-    <div style="font-size:9px;color:var(--green);letter-spacing:2px;font-family:var(--mono);margin-bottom:14px">SKILLS GAP · YOUR PROFILE VS MARKET</div>
-    <div id="skills-gap"></div>
-  </div>
-  <div class="card">
-    <div style="font-size:9px;color:var(--muted);letter-spacing:2px;font-family:var(--mono);margin-bottom:14px">SCAN HISTORY · ROLES FOUND PER DAY</div>
-    <div id="scan-history"></div>
-  </div>
-</div>
-
-<!-- ══ PIPELINE ══ -->
-<div id="tab-pipeline" class="section">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-    <button onclick="addManual()" style="background:rgba(40,168,72,.1);border:1px solid rgba(40,168,72,.3);color:var(--green);padding:6px 16px;border-radius:7px;cursor:pointer;font-size:10px;font-family:var(--mono)">+ ADD MANUALLY</button>
-  </div>
-  <div style="overflow-x:auto">
-    <table class="ptable">
-      <thead><tr>
-        <th>SCORE</th><th>COMPANY</th><th>ROLE</th><th>SALARY</th>
-        <th>STATUS</th><th>NEXT ACTION</th><th>DUE DATE</th><th>CONTACT</th><th>NOTES</th><th></th>
-      </tr></thead>
-      <tbody id="ptbody"></tbody>
-    </table>
-  </div>
-  <div style="margin-top:20px">
-    <div style="font-size:9px;color:var(--dim);letter-spacing:2px;font-family:var(--mono);margin-bottom:12px">PIPELINE FUNNEL</div>
-    <div id="funnel"></div>
-  </div>
-</div>
-
-<!-- ══ COMPANIES ══ -->
-<div id="tab-companies" class="section">
-  <div style="font-size:10px;color:var(--dim);font-family:var(--mono);margin-bottom:12px">Click a company to filter jobs →</div>
-  <div class="g2" id="companies-grid"></div>
-</div>
-
-<!-- ══ REMOTE ══ -->
-<div id="tab-remote" class="section">
-  <div style="margin-bottom:16px">
-    <div style="font-size:9px;color:var(--gold);letter-spacing:2px;font-family:var(--mono);margin-bottom:6px">REMOTE ROLES · WORKABLE FROM BRAZIL</div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.6">Roles flagged as Remote or Hybrid by AI scoring. Target: R$35,000+/month.</div>
-  </div>
-  <div id="remote-list"></div>
-</div>
-
-<!-- ══ SETUP ══ -->
-<div id="tab-alerts" class="section">
-  <div class="g2" style="margin-bottom:14px">
-    <div class="card">
-      <div style="font-size:9px;color:var(--blue);letter-spacing:2px;font-family:var(--mono);margin-bottom:14px">LINKEDIN JOB ALERTS</div>
-      <div id="li-alerts"></div>
-    </div>
-    <div class="card">
-      <div style="font-size:9px;color:var(--orange);letter-spacing:2px;font-family:var(--mono);margin-bottom:14px">GOOGLE ALERTS</div>
-      <div id="g-alerts"></div>
-    </div>
-  </div>
-  <div class="card">
-    <div style="font-size:9px;color:var(--blue);letter-spacing:2px;font-family:var(--mono);margin-bottom:14px">GITHUB SETUP · CLAUDE CODE WORKFLOW</div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.9">
-      <b style="color:var(--text)">Update this tracker with Claude Code:</b><br>
-      1. Install: <code style="background:var(--bg3);padding:1px 6px;border-radius:3px">npm install -g @anthropic/claude-code</code><br>
-      2. Clone: <code style="background:var(--bg3);padding:1px 6px;border-radius:3px">git clone https://github.com/PMLPereira/job_search_agent</code><br>
-      3. Run: <code style="background:var(--bg3);padding:1px 6px;border-radius:3px">cd job_search_agent && claude</code><br><br>
-      <b style="color:var(--text)">Dashboard:</b>
-      <code style="background:var(--bg3);padding:2px 8px;border-radius:4px;color:var(--green)">https://pmlpereira.github.io/job_search_agent/</code>
+      <div id="detail-content" style="display:none"></div>
     </div>
   </div>
 </div>
-
-</div><!-- /wrap -->
 
 <script>
 const JOBS = {jobs_json};
-const COMPANIES = {companies_json};
-const RUN_HISTORY = {history_json};
-const TOP_SKILLS = {top_skills_json};
 
-const STATUS_OPTS = ["Monitoring","Applied","Phone Screen","Interview","Offer","Rejected","On Hold"];
-const STATUS_COL  = {{
-  "Monitoring":"#a09890","Applied":"#3a7cbf","Phone Screen":"#d48000",
-  "Interview":"#7c5cbf","Offer":"#28a848","Rejected":"#c82e00","On Hold":"#b8b0a8"
-}};
-
-const MY_SKILLS = ["program management","delivery","stakeholder management","regulatory","capital markets",
-  "p&l","budget","python","sql","agile","scrum","data governance","risk management",
-  "product management","fintech","technology transformation","ai","automation","portuguese","english"];
-
-let pipeline = JSON.parse(localStorage.getItem('sp_pl3') || 'null') || [
-  {{id:'p1',company:'BTG Pactual',role:'Head of Technology Delivery',status:'Monitoring',next_action:'Send LinkedIn message',due_date:'',contact:'',notes:'Target #1',date:'2026-05-20',score:null,salary:'R$40-55k/mo'}},
-  {{id:'p2',company:'XP Investimentos',role:'Technology Program Director',status:'Monitoring',next_action:'Research hiring manager',due_date:'',contact:'',notes:'AI/tech culture match',date:'2026-05-20',score:null,salary:'R$35-48k/mo'}},
-  {{id:'p3',company:'Pátria Investimentos',role:'Senior Program Manager',status:'Monitoring',next_action:'Check for new postings',due_date:'',contact:'',notes:'PE expansion needs tech ops',date:'2026-05-20',score:null,salary:'R$32-45k/mo'}},
-];
-function saveP(){{localStorage.setItem('sp_pl3',JSON.stringify(pipeline));}}
-
-function sc(s){{
-  if(s>=65)return{{border:'#10B981',bg:'rgba(16,185,129,0.10)',text:'#059669'}};
-  if(s>=50)return{{border:'#6366F1',bg:'rgba(99,102,241,0.10)',text:'#6366F1'}};
-  if(s>=35)return{{border:'#F59E0B',bg:'rgba(245,158,11,0.10)',text:'#B45309'}};
-  return{{border:'#F43F5E',bg:'rgba(244,63,94,0.08)',text:'#BE123C'}};
+function sc(score) {{
+  if (score >= 65) return 's';
+  if (score >= 50) return 'g';
+  if (score >= 35) return 'p';
+  return 'l';
 }}
-function ring(s){{
-  if(s==null)return`<div class="ring" style="border:3px solid var(--border2);background:transparent;color:var(--dim)">—</div>`;
-  const c=sc(s);
-  return `<div class="ring" style="border:3px solid ${{c.border}};background:${{c.bg}};color:${{c.text}}">${{s}}</div>`;
+function vl(score) {{
+  if (score >= 65) return 'Strong Match';
+  if (score >= 50) return 'Good Match';
+  if (score >= 35) return 'Partial Match';
+  return 'Weak Match';
 }}
-function badge(t,c){{return `<span class="badge" style="background:${{c}}1a;border:1px solid ${{c}}55;color:${{c}}">${{t}}</span>`;}}
-function pill(t,cls){{return `<span class="skill ${{cls}}">${{t}}</span>`;}}
-
-function daysAgo(iso){{
-  if(!iso) return null;
-  const d=Math.round((Date.now()-new Date(iso))/86400000);
-  return d===0?'today':d===1?'1d ago':d+'d ago';
+function bc(pct) {{
+  if (pct >= 0.70) return '#10B981';
+  if (pct >= 0.45) return '#6366F1';
+  if (pct >= 0.25) return '#F59E0B';
+  return '#F43F5E';
+}}
+function esc(s) {{
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }}
 
-function isBelowTarget(job){{
-  const sl=((job.score||{{}}).seniorityLevel||'').toLowerCase();
-  if(!sl) return false;
-  return !['director','head','c-level','vp','managing','executive','chief'].some(t=>sl.includes(t));
-}}
+// Populate company filter
+const cos = [...new Set(JOBS.map(j => j.company).filter(Boolean))].sort();
+const coSel = document.getElementById('f-co');
+cos.forEach(c => {{ const o = document.createElement('option'); o.value = c; o.textContent = c; coSel.appendChild(o); }});
 
-function filterByCompany(name){{
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelector('.tab').classList.add('active');
-  document.getElementById('tab-jobs').classList.add('active');
-  document.getElementById('f-company').value=name;
-  renderJobs();
-}}
+let selectedIdx = -1;
 
-// ── Stats ──
-function renderStats(){{
-  const total=JOBS.length,
-        strong=JOBS.filter(j=>(j.score||{{}}).score>=65).length,
-        good=JOBS.filter(j=>{{const s=(j.score||{{}}).score;return s>=50&&s<65;}}).length,
-        isNew=JOBS.filter(j=>j.is_new).length;
-  document.getElementById('stats-bar').innerHTML=[
-    ['Total Roles',total,'var(--muted)'],['Strong Match',strong,'var(--green)'],
-    ['Good Match',good,'var(--gold)'],['New Today',isNew,'var(--gold)'],['Pipeline',pipeline.length,'var(--blue)'],
-  ].map(([l,v,c])=>`<div class="stat"><div class="v" style="color:${{c}}">${{v}}</div><div class="l">${{l}}</div></div>`).join('');
-}}
+function renderList() {{
+  const minScore = parseInt(document.getElementById('f-score').value) || 0;
+  const filterCo = document.getElementById('f-co').value;
+  const filterType = document.getElementById('f-type').value.toLowerCase();
+  const sortBy = document.getElementById('f-sort').value;
+  const search = document.getElementById('search').value.toLowerCase();
 
-// ── Jobs ──
-function renderJobs(){{
-  const fc=document.getElementById('f-company').value,
-        fs=parseInt(document.getElementById('f-score').value)||0,
-        fa=document.getElementById('f-arrange').value,
-        fn=document.getElementById('f-new').value,
-        fsen=document.getElementById('f-seniority').value,
-        fsort=document.getElementById('f-sort').value,
-        fq=document.getElementById('f-search').value.toLowerCase();
-
-  const sel=document.getElementById('f-company');
-  if(sel.options.length===1){{
-    [...new Set(JOBS.map(j=>j.company))].sort().forEach(c=>{{
-      const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);
-    }});
-  }}
-
-  let filtered=JOBS.filter(j=>{{
-    const sc2=(j.score||{{}});
-    if(fc&&j.company!==fc)return false;
-    if(fs&&(sc2.score||0)<fs)return false;
-    if(fa&&sc2.workArrangement!==fa)return false;
-    if(fn==='new'&&!j.is_new)return false;
-    if(fsen==='senior'&&isBelowTarget(j))return false;
-    if(fq&&!j.title.toLowerCase().includes(fq)&&!j.company.toLowerCase().includes(fq)&&
-       !(sc2.keySkillsRequired||[]).join(' ').toLowerCase().includes(fq)&&
-       !(sc2.skillsYouHave||[]).join(' ').toLowerCase().includes(fq))return false;
+  let filtered = JOBS.filter((j, i) => {{
+    const s = (j.score||{{}}).score || 0;
+    if (s < minScore) return false;
+    if (filterCo && j.company !== filterCo) return false;
+    const wt = (j.work_type || (j.score||{{}}).workArrangement || '').toLowerCase();
+    if (filterType && !wt.includes(filterType)) return false;
+    if (search) {{
+      const hay = ((j.title||'') + ' ' + (j.company||'') + ' ' + ((j.score||{{}}).keySkillsRequired||[]).join(' ')).toLowerCase();
+      if (!hay.includes(search)) return false;
+    }}
     return true;
   }});
 
-  if(fsort==='new')      filtered.sort((a,b)=>new Date(b.found_at||0)-new Date(a.found_at||0));
-  else if(fsort==='salary') filtered.sort((a,b)=>{{
-    const pa=parseInt(((a.score||{{}}).salaryRange||'0').replace(/[^\d]/g,'').slice(0,6)||0);
-    const pb=parseInt(((b.score||{{}}).salaryRange||'0').replace(/[^\d]/g,'').slice(0,6)||0);
-    return pb-pa;
-  }});
-  else filtered.sort((a,b)=>((b.score||{{}}).score||0)-((a.score||{{}}).score||0));
+  if (sortBy === 'score') filtered.sort((a,b) => ((b.score||{{}}).score||0) - ((a.score||{{}}).score||0));
+  else if (sortBy === 'newest') filtered.sort((a,b) => new Date(b.found_at||0) - new Date(a.found_at||0));
 
-  if(!filtered.length){{
-    document.getElementById('jobs-list').innerHTML='<div style="text-align:center;color:var(--dim);padding:50px;font-family:var(--mono);font-size:11px">No roles match — try relaxing filters.</div>';
-    return;
-  }}
+  document.getElementById('list-header').textContent = filtered.length + ' Roles';
+  document.getElementById('result-count').textContent = filtered.length + ' of ' + JOBS.length;
 
-  document.getElementById('jobs-list').innerHTML=filtered.map(j=>{{
-    const s=j.score||{{}}, score=s.score, col=score!=null?sc(score).border:'#9090A0';
-    const salary=s.salaryRange||estimateSalary(j.title);
-    const skills=(s.keySkillsRequired||[]);
-    const have=(s.skillsYouHave||[]);
-    const lack=(s.skillsYouLack||[]);
-    const age=daysAgo(j.found_at);
-    const ageUrgent=age&&!['today','1d ago'].includes(age)&&parseInt(age)>5;
-    const applyCol={{'Yes':'#10B981','Yes with tweaks':'#F59E0B','No':'#F43F5E'}}[s.applyRecommendation]||'#9090A0';
-    const belowTarget=isBelowTarget(j);
-    const bd=s.scoreBreakdown||{{}};
-
-    const outreachSafe=s.outreachTemplate?(s.outreachTemplate.replace(/\[Name\]/g,
-      '<mark style="background:rgba(212,128,0,.25);color:var(--gold);border-radius:3px;padding:0 3px;font-style:italic">[Name — fill in before sending]</mark>')):'';
-
-    return `
-<div class="card" style="border-color:${{col}}2a">
-  <div style="display:flex;gap:12px;align-items:flex-start">
-    ${{ring(score!=null?score:null)}}
-    <div style="flex:1;min-width:0">
-      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px">
-        ${{j.is_new?badge('NEW','var(--gold)'):''}}
-        ${{age?`<span class="badge" style="background:${{ageUrgent?'rgba(200,46,0,.1)':'rgba(160,152,144,.1)'}};border:1px solid ${{ageUrgent?'rgba(200,46,0,.3)':'var(--border2)'}};color:${{ageUrgent?'var(--red)':'var(--dim)'}}">${{ageUrgent?'⚠ ':''}}${{age}}</span>`:'&nbsp;'}}
-        ${{s.verdict?badge(s.verdict,col):''}}
-        ${{s.applyRecommendation?`<span class="badge" style="background:${{applyCol}}18;border:1px solid ${{applyCol}}44;color:${{applyCol}}">${{s.applyRecommendation==='Yes'?'✓ Apply':'⚡ '+s.applyRecommendation}}</span>`:''}}
-        ${{belowTarget?badge('Below target level','var(--red)'):'&nbsp;'}}
+  document.getElementById('cards').innerHTML = filtered.map(job => {{
+    const origIdx = JOBS.indexOf(job);
+    const s = (job.score||{{}}).score || 0;
+    const cls = sc(s);
+    const sal = ((job.score||{{}}).salaryRange||'').replace('/month estimated','').replace(' estimated','');
+    const wt = job.work_type || (job.score||{{}}).workArrangement || '';
+    const sel = origIdx === selectedIdx ? ' sel' : '';
+    return `<div class="jc${{sel}}" onclick="selectJob(${{origIdx}})">
+      <div class="sr ${{cls}}">${{s}}</div>
+      <div class="jc-info">
+        <div class="jc-co">${{esc(job.company)}}</div>
+        <div class="jc-title" title="${{esc(job.title)}}">${{esc(job.title)}}</div>
+        <div class="jc-meta">
+          <span class="jc-sal">${{esc(sal)}}</span>
+          <span class="vb ${{cls}}">${{vl(s)}}</span>
+          ${{wt ? `<span class="wt">${{esc(wt)}}</span>` : ''}}
+        </div>
       </div>
-      <div style="font-size:15px;color:var(--text);margin-bottom:3px;font-weight:500">${{j.title}}</div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">${{j.company}}${{s.seniorityLevel?` · <span style="color:var(--dim)">${{s.seniorityLevel}}</span>`:''}}</div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px">
-        <span style="font-size:11px;color:var(--green);font-family:var(--mono)">💰 ${{salary}}</span>
-        <span style="font-size:11px;color:var(--muted)">📍 ${{j.location}}</span>
-        ${{s.yearsExpRequired?`<span style="font-size:11px;color:var(--dim)">🗓 ${{s.yearsExpRequired}}</span>`:''}}
-        ${{(s.languagesRequired||[]).length?`<span style="font-size:11px;color:var(--dim)">🌐 ${{s.languagesRequired.join('+')}}` :''}}</div>
-      ${{skills.length?`<div style="margin-bottom:8px">${{skills.filter(sk=>sk&&sk.trim()).map(sk=>{{
-        const has=have.some(h=>h&&h.toLowerCase()===sk.toLowerCase());
-        const lacks=lack.some(l=>l&&l.toLowerCase()===sk.toLowerCase());
-        return pill(sk,has?'have':lacks?'lack':'');
-      }}).join('')}}</div>`:''}}
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        ${{j.url?`<a href="${{j.url}}" target="_blank" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:#FFFFFF;border:none;border-radius:8px;box-shadow:0 2px 10px rgba(99,102,241,0.30);font-size:10px;font-family:var(--mono);padding:4px 12px;text-decoration:none">View role →</a>`:''}}
-        <button onclick="tog('d${{j.id}}')" style="background:none;border:1px solid var(--border2);color:var(--dim);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-family:var(--mono)">Details ▾</button>
-        <button onclick="addPL('${{j.id}}')" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.30);color:#10B981;padding:2px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-family:var(--mono)">+ Pipeline</button>
-      </div>
-    </div>
-  </div>
-  <div class="detail" id="d${{j.id}}">
-    ${{(bd.skills!=null)?`
-    <div class="dsec">
-      <div class="dsec-title" style="color:var(--blue)">SCORE BREAKDOWN</div>
-      <div class="score-bd">
-        ${{[['skills',bd.skills,40],['seniority',bd.seniority,30],['sector',bd.sector,20],['language',bd.language,10]].map(([k,v,m])=>{{
-          const vc=v!=null?v:0;
-          const pct=Math.round(vc/m*100);
-          const fc=pct>=70?'#10B981':pct>=45?'#6366F1':pct>=25?'#F59E0B':'#F43F5E';
-          return `<div class="score-bar-item"><div class="score-bar-label"><span>${{k.toUpperCase()}}</span><span>${{vc}}/${{m}}</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:${{pct}}%;background:${{fc}}"></div></div></div>`;
-        }}).join('')}}
-      </div>
-    </div>`:''}}
-    <div class="detail-grid" style="margin-top:12px">
-      ${{s.topReasons&&s.topReasons.length?`<div><div class="dsec-title" style="color:var(--green)">WHY YOU FIT</div>${{s.topReasons.map(r=>`<div style="font-size:11px;color:var(--green);opacity:.8;margin-bottom:5px;line-height:1.5">✓ ${{r}}</div>`).join('')}}</div>`:''}}
-      ${{s.gaps&&s.gaps.length?`<div><div class="dsec-title" style="color:var(--red)">GAPS & ACTIONS</div>${{s.gaps.map((g,i)=>`<div style="font-size:11px;color:var(--red);opacity:.8;margin-bottom:3px">✗ ${{g}}</div>${{(s.gapActions||[])[i]?`<div style="font-size:10px;color:var(--muted);margin-bottom:6px;padding-left:10px">→ ${{s.gapActions[i]}}</div>`:''}}`).join('')}}</div>`:''}}
-    </div>
-    ${{s.talkingPoints&&s.talkingPoints.length?`<div class="dsec"><div class="dsec-title" style="color:var(--gold)">TALKING POINTS</div>${{s.talkingPoints.map(t=>`<div style="font-size:11px;color:var(--muted);margin-bottom:5px;line-height:1.5">→ ${{t}}</div>`).join('')}}</div>`:''}}
-    ${{outreachSafe?`<div class="dsec"><div class="dsec-title" style="color:var(--blue)">LINKEDIN OUTREACH</div><div class="outreach">${{outreachSafe}}</div></div>`:''}}
-    ${{s.suggestedContact?`<div style="margin-top:8px;font-size:10px;color:var(--blue);font-family:var(--mono)">🔍 Find: ${{s.suggestedContact}} · <a href="https://www.linkedin.com/search/results/people/?keywords=${{encodeURIComponent(s.suggestedContact+' '+j.company)}}" target="_blank" style="color:var(--blue)">Search LinkedIn →</a></div>`:''}}
-    ${{(s.atsKeywords&&(s.atsKeywords.match||s.atsKeywords.missing))?`
-    <div class="dsec">
-      <div class="dsec-title" style="color:var(--orange)">ATS KEYWORD CHECK</div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap">
-        ${{(s.atsKeywords.match||[]).map(k=>`<span style="background:var(--tint-green);border:1px solid rgba(40,168,72,.35);color:var(--green);font-size:10px;padding:2px 7px;border-radius:4px;font-family:var(--mono)">✓ ${{k}}</span>`).join('')}}
-        ${{(s.atsKeywords.missing||[]).map(k=>`<span style="background:var(--tint-red);border:1px solid rgba(200,46,0,.3);color:var(--red);font-size:10px;padding:2px 7px;border-radius:4px;font-family:var(--mono)">✗ ${{k}}</span>`).join('')}}
-      </div>
-      ${{(s.atsKeywords.missing||[]).length?`<div style="font-size:10px;color:var(--dim);margin-top:6px">Add missing keywords to CV/LinkedIn before applying.</div>`:''}}
-    </div>`:''}}
-    ${{s.cvTweaks&&s.cvTweaks.length?`
-    <div class="dsec">
-      <div class="dsec-title" style="color:var(--purple)">CV TWEAKS FOR THIS ROLE</div>
-      ${{s.cvTweaks.map(t=>`<div style="font-size:11px;color:var(--muted);margin-bottom:5px;line-height:1.5;padding-left:8px;border-left:2px solid var(--purple)">${{t}}</div>`).join('')}}
-    </div>`:''}}
-    ${{s.coverLetterPoints&&s.coverLetterPoints.length?`
-    <div class="dsec">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-        <div class="dsec-title" style="color:var(--gold);margin-bottom:0">COVER LETTER POINTS</div>
-        <button onclick="copyCL('${{j.id}}')" style="background:rgba(212,128,0,.12);border:1px solid rgba(212,128,0,.35);color:var(--gold);padding:2px 10px;border-radius:4px;cursor:pointer;font-size:9px;font-family:var(--mono)">Copy draft ↗</button>
-      </div>
-      ${{s.coverLetterPoints.map((p,i)=>`<div style="font-size:11px;color:var(--muted);margin-bottom:6px;line-height:1.5;padding-left:8px;border-left:2px solid var(--gold)"><b style="color:var(--text)">${{i+1}}.</b> ${{p}}</div>`).join('')}}
-    </div>`:''}}
-    ${{s.interviewQuestions&&s.interviewQuestions.length?`
-    <div class="dsec">
-      <div class="dsec-title" style="color:var(--green)">INTERVIEW PREP</div>
-      ${{s.interviewQuestions.map(q=>`
-        <div style="margin-bottom:10px">
-          <div style="font-size:11px;color:var(--text);font-weight:600;margin-bottom:3px">Q: ${{q.q}}</div>
-          <div style="font-size:10px;color:var(--muted);line-height:1.6;padding-left:8px;border-left:2px solid var(--green)">→ ${{q.hint}}</div>
-        </div>`).join('')}}
-    </div>`:''}}
-  </div>
-</div>`;
+    </div>`;
   }}).join('');
 }}
 
-function estimateSalary(title){{
-  const t=title.toLowerCase();
-  if(t.includes('head')||t.includes('diretor')||t.includes('director'))return'R$40,000-60,000/mo (est.)';
-  if(t.includes('senior')||t.includes('sênior'))return'R$28,000-42,000/mo (est.)';
-  return'R$22,000-35,000/mo (est.)';
-}}
-function tog(id){{const el=document.getElementById(id);el&&el.classList.toggle('open');}}
-function copyCL(jid){{
-  const j=JOBS.find(x=>x.id===jid);if(!j)return;
-  const s=j.score||{{}};
-  const pts=(s.coverLetterPoints||[]).map((p,i)=>`${{i+1}}. ${{p}}`).join('\\n\\n');
-  const text=`Dear Hiring Team,\n\nI am writing to express my interest in the ${{j.title}} position at ${{j.company}}.\n\n${{pts}}\n\nI would welcome the opportunity to discuss how my background aligns with your needs.\n\nWarm regards,\nPedro Pereira\nmpereira.pedro@gmail.com | linkedin.com/in/pedrolourencopereira`;
-  navigator.clipboard.writeText(text).then(()=>alert('Cover letter draft copied to clipboard ✓'));
-}}
-function addPL(jid){{
-  const j=JOBS.find(x=>x.id===jid);if(!j)return;
-  if(pipeline.find(p=>p.id===jid)){{alert('Already in pipeline');return;}}
-  const s=j.score||{{}};
-  pipeline.push({{id:jid,company:j.company,role:j.title,status:'Monitoring',
-    next_action:'Review job description',due_date:'',
-    contact:s.suggestedContact||'',notes:s.verdict?`Score ${{s.score}}/100 · ${{s.verdict}}`:'',
-    date:new Date().toISOString().slice(0,10),score:s.score||null,
-    salary:s.salaryRange||estimateSalary(j.title),url:j.url||''}});
-  saveP();renderPipeline();renderStats();alert('Added to pipeline ✓');
-}}
+function selectJob(origIdx) {{
+  selectedIdx = origIdx;
+  document.querySelectorAll('.jc').forEach(c => c.classList.remove('sel'));
+  const card = document.querySelector(`.jc[onclick="selectJob(${{origIdx}})"]`);
+  if (card) card.classList.add('sel');
 
-// ── Market Intel ──
-let showAllHave=false, showAllLack=false;
-function renderMarket(){{
-  const bands=[
-    ['C-Level / MD','R$60,000-90,000+','30-50%',90],
-    ['Head of / VP','R$40,000-60,000','30-50%',75],
-    ['Director','R$35,000-55,000','20-40%',65],
-    ['Senior Manager','R$28,000-42,000','15-25%',52],
-    ['Program Manager','R$22,000-35,000','10-20%',40],
-    ['Senior IC','R$18,000-30,000','10-15%',32],
-  ];
-  document.getElementById('salary-bands').innerHTML=bands.map(([t,r,b,w])=>`
-    <div style="margin-bottom:10px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:3px">
-        <span style="font-size:11px;color:var(--muted)">${{t}}</span>
-        <span style="font-size:11px;color:var(--green);font-family:var(--mono)">${{r}}</span>
-      </div>
-      <div class="mbar"><div class="mfill" style="width:${{w}}%;background:var(--green)"></div></div>
-      <div style="font-size:9px;color:var(--dim);font-family:var(--mono);margin-top:2px">Bonus: ${{b}} of base</div>
-    </div>`).join('');
+  const job = JOBS[origIdx];
+  const sc2 = job.score || {{}};
+  const score = sc2.score || 0;
+  const cls = sc(score);
+  const bd = sc2.scoreBreakdown || {{}};
 
-  const maxCount=TOP_SKILLS.length?Math.max(...TOP_SKILLS.map(([,c])=>c),1):1;
-  document.getElementById('skills-heatmap').innerHTML=TOP_SKILLS
-    .filter(([sk])=>sk&&sk.trim())
-    .map(([sk,cnt])=>{{
-      const w=Math.round(cnt/maxCount*100);
-      const iHave=MY_SKILLS.some(m=>sk.toLowerCase().includes(m)||m.includes(sk.toLowerCase()));
-      return `<div style="margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:2px">
-          <span style="font-size:11px;color:${{iHave?'var(--green)':'var(--red)'}}">${{sk}} ${{iHave?'✓':'✗'}}</span>
-          <span style="font-size:10px;color:var(--dim);font-family:var(--mono)">${{cnt}} roles</span>
-        </div>
-        <div class="mbar"><div class="mfill" style="width:${{w}}%;background:${{iHave?'var(--green)':'var(--red)'}}"></div></div>
-      </div>`;
-    }}).join('') || '<div style="color:var(--dim);font-size:11px;font-family:var(--mono)">Run the scanner to populate skill data.</div>';
+  const bars = [
+    {{k:'skills', v:bd.skills||0, max:40}},
+    {{k:'seniority', v:bd.seniority||0, max:30}},
+    {{k:'sector', v:bd.sector||0, max:20}},
+    {{k:'language', v:bd.language||0, max:10}}
+  ].map(b => {{
+    const pct = b.v / b.max;
+    const col = bc(pct);
+    return `<div class="bar-i"><div class="bar-frac">${{b.v}}/${{b.max}}</div><div class="bar-track"><div class="bar-fill" style="width:${{Math.round(pct*100)}}%;background:${{col}}"></div></div></div>`;
+  }}).join('');
 
-  const allSkills=new Set();const haveSet=new Set();const lackSet=new Set();
-  JOBS.forEach(j=>{{
-    (j.score?.keySkillsRequired||[]).filter(s=>s&&s.trim()).forEach(s=>allSkills.add(s));
-    (j.score?.skillsYouHave||[]).filter(s=>s&&s.trim()).forEach(s=>haveSet.add(s));
-    (j.score?.skillsYouLack||[]).filter(s=>s&&s.trim()).forEach(s=>lackSet.add(s));
-  }});
-  const haveArr=[...haveSet], lackArr=[...lackSet];
-  document.getElementById('skills-gap').innerHTML=`
-    <div class="g2">
-      <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-size:9px;color:var(--green);font-family:var(--mono)">YOU HAVE (${{haveSet.size}})</div>
-          ${{haveArr.length>10?`<button onclick="showAllHave=!showAllHave;renderMarket()" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:9px;font-family:var(--mono)">${{showAllHave?'show less':'show all '+haveArr.length}}</button>`:'&nbsp;'}}
-        </div>
-        <div>${{(showAllHave?haveArr:haveArr.slice(0,10)).map(s=>pill(s,'have')).join('')}}</div>
-      </div>
-      <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-size:9px;color:var(--red);font-family:var(--mono)">GAPS (${{lackSet.size}})</div>
-          ${{lackArr.length>10?`<button onclick="showAllLack=!showAllLack;renderMarket()" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:9px;font-family:var(--mono)">${{showAllLack?'show less':'show all '+lackArr.length}}</button>`:'&nbsp;'}}
-        </div>
-        <div>${{(showAllLack?lackArr:lackArr.slice(0,10)).map(s=>pill(s,'lack')).join('')}}</div>
-        ${{lackSet.size?'<div style="font-size:10px;color:var(--dim);margin-top:8px;line-height:1.6">Add missing keywords to CV/LinkedIn before applying.</div>':''}}
-      </div>
-    </div>`;
+  const reasons = (sc2.topReasons||[]).map(r => `<div class="li"><div class="dot g"></div><div>${{esc(r)}}</div></div>`).join('');
+  const gaps = (sc2.gaps||[]).map(g => `<div class="li"><div class="dot r"></div><div>${{esc(g)}}</div></div>`).join('');
+  const haveChips = (sc2.skillsYouHave||[]).map(s => `<span class="chip h">${{esc(s)}}</span>`).join('');
+  const lackChips = (sc2.skillsYouLack||[]).map(s => `<span class="chip lk">${{esc(s)}}</span>`).join('');
+  const tps = (sc2.talkingPoints||[]).map(t => `<div class="tp">${{esc(t)}}</div>`).join('');
+  const actions = (sc2.gapActions||[]).map(a => `<div class="li"><div class="dot a"></div><div>${{esc(a)}}</div></div>`).join('');
+  const tweaks = (sc2.cvTweaks||[]).map(t => `<div class="li"><div class="dot a"></div><div>${{esc(t)}}</div></div>`).join('');
+  const clPts = (sc2.coverLetterPoints||[]).map(p => `<div class="cl-point"><div class="dot a" style="margin-top:5px"></div><div>${{esc(p)}}</div></div>`).join('');
+  const iqs = (sc2.interviewQuestions||[]).map(q => `<div class="iq"><div class="iq-q">${{esc(q.q||'')}}</div><div class="iq-hint"><strong>Hint:</strong> ${{esc(q.hint||'')}}</div></div>`).join('');
+  const outreach = esc(sc2.outreachTemplate||'');
+  const sal = (sc2.salaryRange||'').replace(' estimated','');
+  const wt = job.work_type || sc2.workArrangement || '—';
+  const yrs = sc2.yearsExpRequired || '—';
+  const langs = (sc2.languagesRequired||[]).join(', ') || '—';
+  const loc = (job.location||'').split(';')[0];
+  const applyRec = sc2.applyRecommendation || 'No';
 
-  if(RUN_HISTORY.length){{
-    const recent=RUN_HISTORY.slice(-30);
-    const maxH=Math.max(...recent.map(r=>r.count),1);
-    const bars=recent.map((r,i)=>{{
-      const h=Math.round(r.count/maxH*64)+4;
-      const isFirst=(i===0),isLast=(i===recent.length-1),isMid=(i===Math.floor(recent.length/2));
-      const label=(isFirst||isLast||isMid)?`<div style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:7px;color:var(--dim);white-space:nowrap;font-family:var(--mono)">${{r.date.slice(5)}}</div>`:'';
-      return `<div style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center">
-        <div style="font-size:8px;color:var(--dim);font-family:var(--mono);margin-bottom:2px">${{r.count>0&&(isFirst||isLast)?r.count:''}}</div>
-        <div title="${{r.date}}: ${{r.count}} roles" style="width:100%;height:${{h}}px;background:var(--green);border-radius:2px 2px 0 0;opacity:0.65;cursor:default"></div>
-        ${{label}}
-      </div>`;
-    }}).join('');
-    document.getElementById('scan-history').innerHTML=`
-      <div style="display:flex;align-items:flex-end;position:relative">
-        <div style="position:absolute;top:0;left:0;font-size:8px;color:var(--dim);font-family:var(--mono)">${{maxH}}</div>
-        <div style="position:absolute;bottom:22px;left:0;font-size:8px;color:var(--dim);font-family:var(--mono)">0</div>
-        <div style="flex:1;display:flex;gap:2px;align-items:flex-end;height:90px;margin-left:16px;padding-bottom:20px">
-          ${{bars}}
-        </div>
-      </div>
-      <div style="font-size:9px;color:var(--dim);font-family:var(--mono);margin-top:8px">Last ${{recent.length}} daily scans · hover bars for details</div>`;
-  }} else {{
-    document.getElementById('scan-history').innerHTML='<div style="color:var(--dim);font-size:11px;font-family:var(--mono)">History will appear after the first few scans.</div>';
-  }}
-}}
+  const html = `
+    <div class="d-co-row"><span class="d-co">${{esc(job.company)}}</span><span class="d-snr">${{esc(sc2.seniorityLevel||'')}}</span></div>
+    <div class="d-title">${{esc(job.title)}}</div>
+    <div class="d-meta">
+      <div class="d-meta-i">💰 ${{esc(sal)}}</div>
+      <div class="d-meta-i">📍 ${{esc(loc)}}</div>
+      <div class="d-meta-i">🗓 ${{esc(yrs)}}</div>
+      <div class="d-meta-i">🌐 ${{esc(langs)}}</div>
+      <div class="d-meta-i">💼 ${{esc(wt)}}</div>
+    </div>
+    <div class="d-actions">
+      <a class="btn-p" href="${{esc(job.url||'#')}}" target="_blank" rel="noopener">View Role →</a>
+      <button class="btn-s" onclick="addPipeline(${{origIdx}})">+ Pipeline</button>
+      <button class="btn-s" onclick="copyCL(${{origIdx}})">Copy CL</button>
+    </div>
 
-// ── Pipeline ──
-function renderPipeline(){{
-  document.getElementById('ptbody').innerHTML=pipeline.map((e,i)=>`
-    <tr>
-      <td>${{e.score!=null?`<span style="color:${{sc(e.score)}};font-family:var(--mono);font-weight:700">${{e.score}}</span>`:'<span style="color:var(--dim)">—</span>'}}</td>
-      <td style="color:var(--muted);white-space:nowrap">${{e.company}}</td>
-      <td><div style="color:var(--text)">${{e.role}}</div>
-          ${{e.url?`<a href="${{e.url}}" target="_blank" style="font-size:9px;color:var(--blue);font-family:var(--mono)">View →</a>`:''}}</td>
-      <td style="color:var(--green);font-family:var(--mono);font-size:10px;white-space:nowrap">${{e.salary||'—'}}</td>
-      <td><select class="psel" onchange="upP(${{i}},'status',this.value)" style="color:${{STATUS_COL[e.status]||'var(--muted)'}}">${{STATUS_OPTS.map(s=>`<option ${{e.status===s?'selected':''}}>${{s}}</option>`).join('')}}</select></td>
-      <td><input class="pinput" value="${{e.next_action||''}}" onchange="upP(${{i}},'next_action',this.value)" placeholder="e.g. Send LinkedIn message" style="width:180px"></td>
-      <td><input class="pinput" type="date" value="${{e.due_date||''}}" onchange="upP(${{i}},'due_date',this.value)" style="width:120px"></td>
-      <td><input class="pinput" value="${{e.contact||''}}" onchange="upP(${{i}},'contact',this.value)" placeholder="Contact name/title" style="width:140px"></td>
-      <td><input class="pinput" value="${{e.notes||''}}" onchange="upP(${{i}},'notes',this.value)" placeholder="Notes..." style="width:140px"></td>
-      <td><button onclick="rmP(${{i}})" style="background:none;border:none;color:var(--red);opacity:.6;cursor:pointer;font-size:16px">×</button></td>
-    </tr>`).join('');
-
-  const counts=STATUS_OPTS.map(s=>([s,pipeline.filter(e=>e.status===s).length])).filter(([,c])=>c>0);
-  const total=pipeline.length||1;
-  document.getElementById('funnel').innerHTML=counts.map(([s,c])=>`
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-      <div style="width:120px;font-size:10px;color:var(--muted);font-family:var(--mono)">${{s}}</div>
-      <div style="flex:1;background:var(--bg4);border-radius:4px;height:22px">
-        <div style="width:${{Math.min(c/total*100,100)}}%;min-width:24px;height:22px;background:${{STATUS_COL[s]||'var(--dim)'}};border-radius:4px;display:flex;align-items:center;padding-left:8px;opacity:.85">
-          <span style="font-size:10px;color:#fff;font-weight:700">${{c}}</span>
-        </div>
-      </div>
-    </div>`).join('') || '<div style="color:var(--dim);font-size:11px">Add roles to see funnel.</div>';
-}}
-function upP(i,f,v){{pipeline[i][f]=v;saveP();renderPipeline();}}
-function rmP(i){{pipeline.splice(i,1);saveP();renderPipeline();renderStats();}}
-function addManual(){{
-  const co=prompt('Company:'),ro=prompt('Role title:');if(!co||!ro)return;
-  pipeline.push({{id:'m'+Date.now(),company:co,role:ro,status:'Monitoring',
-    next_action:'',due_date:'',contact:'',notes:'',
-    date:new Date().toISOString().slice(0,10),score:null,salary:'',url:''}});
-  saveP();renderPipeline();renderStats();
-}}
-
-// ── Companies ──
-function renderCompanies(){{
-  document.getElementById('companies-grid').innerHTML=COMPANIES.map(c=>{{
-    const cJobs=JOBS.filter(j=>j.company===c.name);
-    const top=cJobs.length?Math.max(...cJobs.map(j=>(j.score||{{}}).score||0)):null;
-    const inPL=pipeline.filter(p=>p.company===c.name).length;
-    const lastFound=cJobs.length?cJobs.reduce((a,b)=>(a.found_at>b.found_at?a:b)).found_at:null;
-    const lastAge=lastFound?daysAgo(lastFound):null;
-    return`<div class="card co-card" style="border-color:${{c.color}}33" onclick="filterByCompany('${{c.name}}')">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+    <div class="sc">
+      <div class="sc-lbl">AI Match Score</div>
+      <div class="sc-hero">
+        <div class="sc-ring ${{cls}}">${{score}}</div>
         <div>
-          <div style="font-size:14px;color:${{c.color}};font-weight:600;margin-bottom:2px">${{c.name}}</div>
-          <div style="font-size:10px;color:var(--dim);font-family:var(--mono)">${{c.sector}}</div>
+          <div class="sc-verdict">${{vl(score)}}</div>
+          <div class="sc-apply">Apply recommendation: <strong>${{applyRec}}</strong></div>
         </div>
-        ${{badge('Tier '+c.tier,c.tier===1?'var(--green)':'var(--muted)')}}
       </div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px">${{c.why}}</div>
-      <div style="font-size:10px;color:var(--muted);background:var(--bg3);border-radius:6px;padding:8px 10px;margin-bottom:10px;line-height:1.6;border:1px solid var(--border)">
-        <b style="color:var(--text)">Interview:</b> ${{c.interview}}
+      <div class="bars">${{bars}}</div>
+    </div>
+
+    <div class="two-col">
+      <div class="card gt">
+        <div class="card-title green">✓ Why You Fit</div>
+        ${{reasons || '<div class="li"><div class="dot g"></div><div>No specific fit points listed</div></div>'}}
       </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
-        <span style="font-size:10px;color:var(--dim);font-family:var(--mono)">${{cJobs.length}} role${{cJobs.length!==1?'s':''}} found</span>
-        ${{lastAge?`<span style="font-size:10px;color:var(--dim);font-family:var(--mono)">· last: ${{lastAge}}</span>`:''}}
-        ${{top?badge(top+'/100',sc(top)):''}}
-        ${{inPL?badge(inPL+' in pipeline','var(--blue)'):''}}
+      <div class="card rt">
+        <div class="card-title red">⚠ Gaps</div>
+        ${{gaps || '<div class="li"><div class="dot r"></div><div>No major gaps identified</div></div>'}}
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="${{c.careers_url}}" target="_blank" onclick="event.stopPropagation()" style="font-size:10px;color:var(--blue);font-family:var(--mono)">Careers →</a>
-        <a href="https://www.linkedin.com/search/results/people/?keywords=${{encodeURIComponent('technology director '+c.name)}}&origin=GLOBAL_SEARCH_HEADER" target="_blank" onclick="event.stopPropagation()" style="font-size:10px;color:var(--purple);font-family:var(--mono)">LinkedIn contacts →</a>
+    </div>
+
+    ${{(haveChips || lackChips) ? `
+    <div class="fs">
+      <div class="card-title muted" style="margin-bottom:10px">Skills</div>
+      ${{haveChips ? `<div style="margin-bottom:10px"><div class="sec-sub g">You Have</div><div class="chips">${{haveChips}}</div></div>` : ''}}
+      ${{lackChips ? `<div><div class="sec-sub r">You Lack</div><div class="chips">${{lackChips}}</div></div>` : ''}}
+    </div>` : ''}}
+
+    ${{tps ? `
+    <div class="fs">
+      <div class="card-title accent" style="margin-bottom:12px">Talking Points</div>
+      ${{tps}}
+    </div>` : ''}}
+
+    ${{actions ? `
+    <div class="fs">
+      <div class="card-title accent" style="margin-bottom:10px">Actions</div>
+      ${{actions}}
+    </div>` : ''}}
+
+    ${{tweaks ? `
+    <div class="fs">
+      <div class="card-title accent" style="margin-bottom:10px">CV Tweaks</div>
+      ${{tweaks}}
+    </div>` : ''}}
+
+    ${{clPts ? `
+    <div class="fs">
+      <div class="card-title accent" style="margin-bottom:10px">Cover Letter Points</div>
+      ${{clPts}}
+    </div>` : ''}}
+
+    ${{iqs ? `
+    <div class="fs">
+      <div class="card-title accent" style="margin-bottom:10px">Interview Prep</div>
+      ${{iqs}}
+    </div>` : ''}}
+
+    ${{outreach ? `
+    <div class="fs">
+      <div class="card-title accent" style="margin-bottom:10px">LinkedIn Outreach</div>
+      <div class="outreach" id="outreach-${{origIdx}}">
+        <button class="copy-btn" onclick="copyOutreach(${{origIdx}})">Copy</button>
+        ${{outreach}}
       </div>
-    </div>`;
-  }}).join('');
+    </div>` : ''}}
+  `;
+
+  document.getElementById('empty').style.display = 'none';
+  const dc = document.getElementById('detail-content');
+  dc.style.display = 'block';
+  dc.innerHTML = html;
+  document.getElementById('detail').scrollTop = 0;
 }}
 
-// ── Alerts ──
-function renderAlerts(){{
-  const liQ=[
-    'Technology Program Director São Paulo financial services',
-    'Head Technology Delivery BTG Pactual XP','Senior Program Manager Nubank Pátria fintech',
-    'Regulatory Technology Director Itaú BBA','Digital Transformation Director São Paulo banking',
-    'Technology Director capital markets Brazil','Program Management Director São Paulo investment bank',
-  ];
-  const gQ=[
-    'BTG Pactual technology director hiring 2026','XP Investimentos senior technology program manager',
-    'Nubank head technology delivery São Paulo','Pátria Investimentos technology transformation director',
-    'Vinci Partners technology senior manager',
-  ];
-  document.getElementById('li-alerts').innerHTML=liQ.map(q=>`
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)">
-      <span style="font-size:10px;color:var(--muted);font-family:var(--mono)">"${{q}}"</span>
-      <a href="https://www.linkedin.com/jobs/search/?keywords=${{encodeURIComponent(q)}}&location=S%C3%A3o+Paulo" target="_blank"
-         style="font-size:9px;color:var(--blue);font-family:var(--mono);margin-left:8px;white-space:nowrap">Search →</a>
-    </div>`).join('');
-  document.getElementById('g-alerts').innerHTML=gQ.map(q=>`
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)">
-      <span style="font-size:10px;color:var(--muted);font-family:var(--mono)">"${{q}}"</span>
-      <a href="https://www.google.com/alerts#create:${{encodeURIComponent(q)}}" target="_blank"
-         style="font-size:9px;color:var(--orange);font-family:var(--mono);margin-left:8px;white-space:nowrap">Create →</a>
-    </div>`).join('');
+function addPipeline(idx) {{
+  const job = JOBS[idx];
+  alert('Added to pipeline: ' + (job.title||'') + ' at ' + (job.company||''));
 }}
 
-// ── Remote ──
-function renderRemote(){{
-  const remoteJobs=JOBS.filter(j=>{{
-    const wt=(j.work_type||'').toLowerCase();
-    const wa=((j.score||{{}}).workArrangement||'').toLowerCase();
-    const desc=(j.description||'').toLowerCase();
-    return wt.includes('remot')||wa.includes('remot')||
-           desc.includes('remoto')||desc.includes('home office');
-  }});
-  if(!remoteJobs.length){{
-    document.getElementById('remote-list').innerHTML=
-      '<div class="card" style="text-align:center;color:var(--dim);padding:40px;font-family:var(--mono);font-size:11px">No remote roles detected yet.<br>Remote roles are identified by AI scoring — run the scanner to populate.</div>';
-    return;
+function copyCL(idx) {{
+  const job = JOBS[idx];
+  const pts = ((job.score||{{}}).coverLetterPoints||[]).join('\\n\\n');
+  if (pts) {{
+    navigator.clipboard.writeText(pts).then(() => alert('Cover letter points copied!')).catch(() => alert('Copy failed — please copy manually'));
+  }} else {{
+    alert('No cover letter points available for this role');
   }}
-  document.getElementById('remote-list').innerHTML=remoteJobs.map(j=>{{
-    const s=j.score||{{}};
-    const score=s.score;
-    const col=score!=null?sc(score):'var(--dim)';
-    const salary=s.salaryRange||estimateSalary(j.title);
-    return `<div class="card" style="margin-bottom:10px;border-color:${{col}}2a">
-      <div style="display:flex;gap:12px;align-items:flex-start">
-        ${{ring(score!=null?score:null)}}
-        <div style="flex:1;min-width:0">
-          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px">
-            ${{j.is_new?badge('NEW','var(--gold)'):''}}
-            ${{s.verdict?badge(s.verdict,col):''}}
-            ${{badge(s.workArrangement||'Remote','var(--blue)')}}
-          </div>
-          <div style="font-size:14px;color:var(--text);font-weight:600;margin-bottom:2px">${{j.title}}</div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:6px">${{j.company}} · ${{j.location}}</div>
-          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px">
-            <span style="font-size:11px;color:var(--green);font-family:var(--mono)">${{salary}}</span>
-            ${{s.seniorityLevel?`<span style="font-size:10px;color:var(--dim);font-family:var(--mono)">${{s.seniorityLevel}}</span>`:''}}
-            ${{j.url?`<a href="${{j.url}}" target="_blank" style="font-size:10px;color:var(--blue);font-family:var(--mono)">View →</a>`:''}}
-          </div>
-          ${{(s.topReasons||[]).length?`<div style="font-size:10px;color:var(--muted);line-height:1.7">${{s.topReasons.map(r=>`· ${{r}}`).join('<br>')}}</div>`:''}}
-        </div>
-      </div>
-    </div>`;
-  }}).join('');
 }}
 
-// ── Tab switch ──
-function sw(name,btn){{
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  btn.classList.add('active');
-  if(name==='market')renderMarket();
-  if(name==='remote')renderRemote();
+function copyOutreach(idx) {{
+  const job = JOBS[idx];
+  const txt = (job.score||{{}}).outreachTemplate || '';
+  if (txt) {{
+    navigator.clipboard.writeText(txt).then(() => alert('Outreach template copied!')).catch(() => alert('Copy failed'));
+  }}
 }}
 
-// ── Init ──
-renderStats();renderJobs();renderPipeline();renderCompanies();renderAlerts();
+function showTab(tab) {{
+  document.querySelectorAll('.nav-tab').forEach((t,i) => {{
+    const tabs = ['jobs','intel','pipeline','companies','remote','setup'];
+    t.classList.toggle('active', tabs[i] === tab);
+  }});
+}}
+
+// Init
+renderList();
+if (JOBS.length > 0) {{
+  setTimeout(() => selectJob(0), 50);
+}}
 </script>
 </body>
 </html>"""
+
+    return html
 
 
 def main():
