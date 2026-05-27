@@ -456,12 +456,19 @@ def prune_jobs(jobs, max_age_days=60):
 def generate_html(data):
     import json as _json
 
-    # Filter jobs below score 30
+    # Include unscored jobs; only drop jobs that were scored AND came in below 30
     jobs = [
         j for j in (data.get("jobs") or [])
-        if (j.get("score") or {}).get("score", 0) >= 30
+        if not j.get("score") or (j.get("score") or {}).get("score", 0) >= 30
     ]
     jobs_json = _json.dumps(jobs)
+    companies_data = [
+        {"name": c["name"], "sector": c["sector"], "tier": c["tier"],
+         "why": c.get("why", ""), "interview": c.get("interview", ""),
+         "careers_url": c["careers_url"]}
+        for c in COMPANIES
+    ]
+    companies_json = _json.dumps(companies_data, ensure_ascii=False)
     scan_date = data.get("scan_date", data.get("last_updated", ""))
     total = len(jobs)
     strong = sum(1 for j in jobs if (j.get("score") or {}).get("score", 0) >= 65)
@@ -593,9 +600,17 @@ html,body{{font-family:var(--font);background:var(--bg);color:var(--text);-webki
 /* SCORE BARS */
 .bars{{display:flex;flex-direction:column;gap:8px}}
 .bar-i{{display:flex;flex-direction:column;gap:3px}}
-.bar-frac{{font-size:11px;font-weight:500;color:var(--muted);text-align:right;line-height:1}}
+.bar-row{{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}}
+.bar-cat{{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em}}
+.bar-frac{{font-size:10px;font-weight:500;color:var(--muted);line-height:1}}
 .bar-track{{height:5px;border-radius:6px;background:#F0F0EC;overflow:hidden}}
 .bar-fill{{height:5px;border-radius:6px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1)}}
+/* TAB VIEWS */
+.view{{display:none;flex:1;overflow:hidden;min-height:0;flex-direction:column}}
+.view.active{{display:flex}}
+.view-scroll{{flex:1;overflow-y:auto;padding:28px 32px}}
+.view-scroll::-webkit-scrollbar{{width:4px}}
+.view-scroll::-webkit-scrollbar-thumb{{background:var(--border2);border-radius:2px}}
 
 /* TWO COL */
 .two-col{{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}}
@@ -660,7 +675,7 @@ html,body{{font-family:var(--font);background:var(--bg);color:var(--text);-webki
       <div class="kpi-div"></div>
       <div class="kpi"><div class="kpi-val">{pipeline}</div><div class="kpi-label">Pipeline</div></div>
     </div>
-    <button id="pipeline-btn">+ Pipeline</button>
+    <button id="pipeline-btn" onclick="showTab('pipeline')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-1px;margin-right:5px"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Pipeline</button>
   </div>
   <div id="scan-info">Last scanned: {scan_date} · Auto-updates daily via GitHub Actions · <a href="https://github.com/PMLPereira/job_search_agent" target="_blank">GitHub →</a></div>
   <div id="subnav">
@@ -671,6 +686,7 @@ html,body{{font-family:var(--font);background:var(--bg);color:var(--text);-webki
     <div class="nav-tab" onclick="showTab('remote')">Remote 🌍</div>
     <div class="nav-tab" onclick="showTab('setup')">Setup</div>
   </div>
+  <div id="view-jobs" class="view active">
   <div id="filterbar">
     <select class="f-select" id="f-score" onchange="renderList()">
       <option value="0">All Scores</option>
@@ -707,7 +723,65 @@ html,body{{font-family:var(--font);background:var(--bg);color:var(--text);-webki
       <div id="detail-content" style="display:none"></div>
     </div>
   </div>
-</div>
+  </div><!-- end view-jobs -->
+
+  <div id="view-pipeline" class="view">
+    <div class="view-scroll" id="pl-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div style="font-size:18px;font-weight:700;color:var(--text)">My Pipeline</div>
+        <button class="btn-s" onclick="clearPipeline()" style="font-size:11px;padding:6px 12px">Clear all</button>
+      </div>
+      <div id="pl-list"></div>
+    </div>
+  </div>
+
+  <div id="view-intel" class="view">
+    <div class="view-scroll">
+      <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:20px">Market Intel</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" id="intel-content"></div>
+    </div>
+  </div>
+
+  <div id="view-companies" class="view">
+    <div class="view-scroll">
+      <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:20px">Target Companies</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px" id="co-grid"></div>
+    </div>
+  </div>
+
+  <div id="view-remote" class="view">
+    <div class="view-scroll">
+      <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:20px">Remote Roles 🌍</div>
+      <div id="remote-list"></div>
+    </div>
+  </div>
+
+  <div id="view-setup" class="view">
+    <div class="view-scroll">
+      <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:20px">Setup & Info</div>
+      <div style="display:grid;gap:14px;max-width:700px">
+        <div class="card"><div class="card-title accent" style="margin-bottom:8px">How this works</div>
+          <div class="li"><div class="dot a"></div><div>GitHub Actions scrapes 13 companies daily at 07:00 UTC</div></div>
+          <div class="li"><div class="dot a"></div><div>Claude AI scores each role against Pedro's CV (0–100)</div></div>
+          <div class="li"><div class="dot a"></div><div>Results are committed to <code>docs/data.json</code> and published via GitHub Pages</div></div>
+          <div class="li"><div class="dot a"></div><div>Scores ≥ 65 = Strong Match · ≥ 50 = Good Match · ≥ 30 = Partial Match</div></div>
+          <div class="li" style="border:none"><div class="dot a"></div><div>Unscored jobs appear with a grey "?" — they'll be scored on the next daily run</div></div>
+        </div>
+        <div class="card"><div class="card-title accent" style="margin-bottom:8px">Score Breakdown</div>
+          <div class="li"><div class="dot g"></div><div><strong>Skills (0–40)</strong>: Technical & delivery skill match</div></div>
+          <div class="li"><div class="dot g"></div><div><strong>Seniority (0–30)</strong>: Director/Head/VP level alignment</div></div>
+          <div class="li"><div class="dot g"></div><div><strong>Sector (0–20)</strong>: IB/AM/Fintech domain match</div></div>
+          <div class="li" style="border:none"><div class="dot g"></div><div><strong>Language (0–10)</strong>: Portuguese + English fit</div></div>
+        </div>
+        <div class="card"><div class="card-title accent" style="margin-bottom:8px">GitHub Repository</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-bottom:10px">Source code, workflow config, and data all live here:</p>
+          <a class="btn-p" href="https://github.com/PMLPereira/job_search_agent" target="_blank" style="font-size:12px;padding:8px 14px">View on GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end app -->
 
 <script>
 const JOBS = {jobs_json};
@@ -767,21 +841,34 @@ function renderList() {{
   document.getElementById('list-header').textContent = filtered.length + ' Roles';
   document.getElementById('result-count').textContent = filtered.length + ' of ' + JOBS.length;
 
+  // Scored jobs first (highest score first), then unscored
+  filtered.sort((a,b) => {{
+    const sa=(a.score||{{}}).score||0, sb=(b.score||{{}}).score||0;
+    const hasA=!!(a.score&&sa>0), hasB=!!(b.score&&sb>0);
+    if(hasA&&!hasB)return -1; if(!hasA&&hasB)return 1;
+    if(sortBy==='newest')return new Date(b.found_at||0)-new Date(a.found_at||0);
+    return sb-sa;
+  }});
+
   document.getElementById('cards').innerHTML = filtered.map(job => {{
     const origIdx = JOBS.indexOf(job);
-    const s = (job.score||{{}}).score || 0;
-    const cls = sc(s);
+    const scored = job.score && (job.score||{{}}).score > 0;
+    const s = scored ? ((job.score||{{}}).score||0) : null;
+    const cls = s!=null ? sc(s) : 'u';
     const sal = ((job.score||{{}}).salaryRange||'').replace('/month estimated','').replace(' estimated','');
     const wt = job.work_type || (job.score||{{}}).workArrangement || '';
     const sel = origIdx === selectedIdx ? ' sel' : '';
+    const ringHtml = s!=null
+      ? `<div class="sr ${{cls}}">${{s}}</div>`
+      : `<div class="sr" style="border-color:#D8D8D2;background:#F4F4F1;color:#AAAAB8;font-size:11px">?</div>`;
     return `<div class="jc${{sel}}" onclick="selectJob(${{origIdx}})">
-      <div class="sr ${{cls}}">${{s}}</div>
+      ${{ringHtml}}
       <div class="jc-info">
         <div class="jc-co">${{esc(job.company)}}</div>
         <div class="jc-title" title="${{esc(job.title)}}">${{esc(job.title)}}</div>
         <div class="jc-meta">
-          <span class="jc-sal">${{esc(sal)}}</span>
-          <span class="vb ${{cls}}">${{vl(s)}}</span>
+          ${{sal ? `<span class="jc-sal">${{esc(sal)}}</span>` : ''}}
+          ${{s!=null ? `<span class="vb ${{cls}}">${{vl(s)}}</span>` : '<span class="vb" style="background:#F4F4F1;color:#AAAAB8;border:1px solid #E8E8E4">Unscored</span>'}}
           ${{wt ? `<span class="wt">${{esc(wt)}}</span>` : ''}}
         </div>
       </div>
@@ -802,14 +889,14 @@ function selectJob(origIdx) {{
   const bd = sc2.scoreBreakdown || {{}};
 
   const bars = [
-    {{k:'skills', v:bd.skills||0, max:40}},
-    {{k:'seniority', v:bd.seniority||0, max:30}},
-    {{k:'sector', v:bd.sector||0, max:20}},
-    {{k:'language', v:bd.language||0, max:10}}
+    {{k:'Skills', v:bd.skills||0, max:40}},
+    {{k:'Seniority', v:bd.seniority||0, max:30}},
+    {{k:'Sector', v:bd.sector||0, max:20}},
+    {{k:'Language', v:bd.language||0, max:10}}
   ].map(b => {{
     const pct = b.v / b.max;
     const col = bc(pct);
-    return `<div class="bar-i"><div class="bar-frac">${{b.v}}/${{b.max}}</div><div class="bar-track"><div class="bar-fill" style="width:${{Math.round(pct*100)}}%;background:${{col}}"></div></div></div>`;
+    return `<div class="bar-i"><div class="bar-row"><span class="bar-cat">${{b.k}}</span><span class="bar-frac">${{b.v}}/${{b.max}}</span></div><div class="bar-track"><div class="bar-fill" style="width:${{Math.round(pct*100)}}%;background:${{col}}"></div></div></div>`;
   }}).join('');
 
   const reasons = (sc2.topReasons||[]).map(r => `<div class="li"><div class="dot g"></div><div>${{esc(r)}}</div></div>`).join('');
@@ -841,7 +928,7 @@ function selectJob(origIdx) {{
     </div>
     <div class="d-actions">
       <a class="btn-p" href="${{esc(job.url||'#')}}" target="_blank" rel="noopener">View Role →</a>
-      <button class="btn-s" onclick="addPipeline(${{origIdx}})">+ Pipeline</button>
+      <button class="btn-s" onclick="addPipeline(${{origIdx}})" title="Save to pipeline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-2px;margin-right:5px"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Pipeline</button>
       <button class="btn-s" onclick="copyCL(${{origIdx}})">Copy CL</button>
     </div>
 
@@ -922,9 +1009,60 @@ function selectJob(origIdx) {{
   document.getElementById('detail').scrollTop = 0;
 }}
 
+// ── Pipeline (localStorage) ──────────────────────────────────────────
+let PL = JSON.parse(localStorage.getItem('riq_pl') || '[]');
+function savePL(){{ localStorage.setItem('riq_pl', JSON.stringify(PL)); }}
+
 function addPipeline(idx) {{
   const job = JOBS[idx];
-  alert('Added to pipeline: ' + (job.title||'') + ' at ' + (job.company||''));
+  if (PL.find(p => p.id === job.id)) {{ alert('Already in pipeline!'); return; }}
+  PL.unshift({{id:job.id, company:job.company, title:job.title, url:job.url||'',
+    status:'Monitoring', notes:'', added:new Date().toISOString().slice(0,10)}});
+  savePL();
+  showTab('pipeline');
+}}
+
+function removePL(id) {{
+  PL = PL.filter(p => p.id !== id); savePL(); renderPipeline();
+}}
+function clearPipeline() {{
+  if (confirm('Clear all pipeline entries?')) {{ PL = []; savePL(); renderPipeline(); }}
+}}
+function updatePLField(id, field, val) {{
+  const e = PL.find(p => p.id === id); if (e) {{ e[field] = val; savePL(); }}
+}}
+
+const STATUS_COLORS = {{
+  'Monitoring':'#6366F1','Applied':'#F59E0B','Interviewing':'#10B981','Offer':'#059669','Rejected':'#F43F5E'
+}};
+
+function renderPipeline() {{
+  const el = document.getElementById('pl-list');
+  if (!PL.length) {{
+    el.innerHTML = `<div style="text-align:center;padding:60px 0;color:var(--muted);font-size:14px">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 12px"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      No roles saved yet — click the bookmark button on any role to add it.</div>`;
+    return;
+  }}
+  el.innerHTML = PL.map(p => {{
+    const sc = STATUS_COLORS[p.status] || 'var(--muted)';
+    return `<div class="card" style="margin-bottom:12px;display:flex;gap:16px;align-items:flex-start">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px">${{esc(p.company)}}</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">${{esc(p.title)}}</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <select onchange="updatePLField('${{p.id}}','status',this.value)" style="background:${{sc}}18;border:1px solid ${{sc}}55;color:${{sc}};border-radius:6px;padding:4px 8px;font-size:12px;font-family:var(--font);cursor:pointer">
+            ${{['Monitoring','Applied','Interviewing','Offer','Rejected'].map(s=>`<option ${{p.status===s?'selected':''}}>${{s}}</option>`).join('')}}
+          </select>
+          <input value="${{esc(p.notes)}}" placeholder="Notes…" oninput="updatePLField('${{p.id}}','notes',this.value)"
+            style="flex:1;min-width:160px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:12px;font-family:var(--font);color:var(--text);outline:none">
+          ${{p.url ? `<a href="${{esc(p.url)}}" target="_blank" class="btn-p" style="font-size:11px;padding:5px 12px">View →</a>` : ''}}
+          <button onclick="removePL('${{p.id}}')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:2px 4px" title="Remove">×</button>
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);white-space:nowrap;margin-top:2px">${{p.added}}</div>
+    </div>`;
+  }}).join('');
 }}
 
 function copyCL(idx) {{
@@ -946,10 +1084,91 @@ function copyOutreach(idx) {{
 }}
 
 function showTab(tab) {{
+  const TAB_NAMES = ['jobs','intel','pipeline','companies','remote','setup'];
   document.querySelectorAll('.nav-tab').forEach((t,i) => {{
-    const tabs = ['jobs','intel','pipeline','companies','remote','setup'];
-    t.classList.toggle('active', tabs[i] === tab);
+    t.classList.toggle('active', TAB_NAMES[i] === tab);
   }});
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const views = {{jobs:'view-jobs',intel:'view-intel',pipeline:'view-pipeline',
+    companies:'view-companies',remote:'view-remote',setup:'view-setup'}};
+  const el = document.getElementById(views[tab]);
+  if (el) el.classList.add('active');
+  if (tab === 'pipeline') renderPipeline();
+  if (tab === 'intel') renderIntel();
+  if (tab === 'companies') renderCompanies();
+  if (tab === 'remote') renderRemote();
+}}
+
+function renderIntel() {{
+  const scored = JOBS.filter(j => (j.score||{{}}).score > 0);
+  const byScore = s => scored.filter(j => (j.score||{{}}).score >= s).length;
+  const byCo = {{}};
+  JOBS.forEach(j => {{ byCo[j.company] = (byCo[j.company]||0) + 1; }});
+  const coRows = Object.entries(byCo).sort((a,b)=>b[1]-a[1])
+    .map(([c,n]) => `<div class="li"><div class="dot a"></div><div><strong>${{esc(c)}}</strong> — ${{n}} roles</div></div>`).join('');
+  const skillCount = {{}};
+  scored.forEach(j => ((j.score||{{}}).keySkillsRequired||[]).forEach(s=>{{skillCount[s]=(skillCount[s]||0)+1}}));
+  const topSkills = Object.entries(skillCount).sort((a,b)=>b[1]-a[1]).slice(0,12)
+    .map(([s,n]) => `<span class="chip h" style="margin-bottom:4px">${{esc(s)}} (${{n}})</span>`).join('');
+  document.getElementById('intel-content').innerHTML = `
+    <div class="card">
+      <div class="card-title accent" style="margin-bottom:10px">Roles by Company</div>
+      ${{coRows}}
+    </div>
+    <div class="card">
+      <div class="card-title accent" style="margin-bottom:10px">Score Distribution</div>
+      <div class="li"><div class="dot g"></div><div>Strong Match (65+): <strong>${{byScore(65)}}</strong></div></div>
+      <div class="li"><div class="dot a"></div><div>Good Match (50–64): <strong>${{byScore(50)-byScore(65)}}</strong></div></div>
+      <div class="li"><div class="dot r"></div><div>Partial (30–49): <strong>${{byScore(30)-byScore(50)}}</strong></div></div>
+      <div class="li" style="border:none"><div class="dot" style="background:#AAAAB8"></div><div>Unscored: <strong>${{JOBS.length - scored.length}}</strong></div></div>
+    </div>
+    <div class="card" style="grid-column:1/-1">
+      <div class="card-title accent" style="margin-bottom:10px">Top Skills Demanded</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${{topSkills||'Run scan to populate'}}</div>
+    </div>`;
+}}
+
+function renderCompanies() {{
+  const COMPANIES = {companies_json};
+  const byCo = {{}};
+  JOBS.forEach(j => {{ byCo[j.company] = (byCo[j.company]||0)+1; }});
+  document.getElementById('co-grid').innerHTML = COMPANIES.map(c => `
+    <div class="card co-card" style="cursor:default">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px">${{esc(c.name)}}</div>
+          <div style="font-size:11px;color:var(--muted)">${{esc(c.sector)}} · Tier ${{c.tier}}</div>
+        </div>
+        <span style="font-size:11px;background:var(--accent-soft);color:var(--accent);padding:3px 9px;border-radius:99px;font-weight:600;white-space:nowrap">${{byCo[c.name]||0}} roles</span>
+      </div>
+      ${{c.why ? `<div style="font-size:12px;color:var(--text-secondary);line-height:1.5;margin-bottom:8px">${{esc(c.why)}}</div>` : ''}}
+      ${{c.interview ? `<div style="font-size:11px;color:var(--muted);font-style:italic;margin-bottom:10px">${{esc(c.interview)}}</div>` : ''}}
+      <a href="${{esc(c.careers_url)}}" target="_blank" class="btn-p" style="font-size:11px;padding:6px 12px">Careers page →</a>
+    </div>`).join('');
+}}
+
+function renderRemote() {{
+  const remote = JOBS.filter(j => {{
+    const wt = (j.work_type||(j.score||{{}}).workArrangement||'').toLowerCase();
+    return wt.includes('remote');
+  }}).sort((a,b)=>((b.score||{{}}).score||0)-((a.score||{{}}).score||0));
+  if(!remote.length) {{
+    document.getElementById('remote-list').innerHTML = `<div style="text-align:center;padding:60px 0;color:var(--muted);font-size:14px">No remote roles found in current data</div>`;
+    return;
+  }}
+  document.getElementById('remote-list').innerHTML = remote.map(job => {{
+    const s = (job.score||{{}}).score || 0;
+    const cls = s ? sc(s) : 'u';
+    return `<div class="card" style="margin-bottom:10px;display:flex;gap:12px;align-items:center">
+      ${{s ? `<div class="sr ${{cls}}" style="width:38px;height:38px;font-size:13px">${{s}}</div>`
+           : `<div class="sr" style="width:38px;height:38px;font-size:11px;border-color:#D8D8D2;background:#F4F4F1;color:#AAAAB8">?</div>`}}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em">${{esc(job.company)}}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${{esc(job.title)}}</div>
+      </div>
+      ${{job.url ? `<a href="${{esc(job.url)}}" target="_blank" class="btn-p" style="font-size:11px;padding:6px 12px">View →</a>` : ''}}
+    </div>`;
+  }}).join('');
 }}
 
 // Init
